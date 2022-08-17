@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
 
@@ -8,8 +9,13 @@ type TechnologyCardProps = {
     documentation: string;
 };
 
-const Signin: NextPage = () => {
+const Home: NextPage = () => {
     const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
+    const { data: session, status } = useSession();
+
+    // if (status === "authenticated") {
+    //     return <p>Signed in as {session.user?.email}</p>;
+    // }
 
     return (
         <>
@@ -21,8 +27,13 @@ const Signin: NextPage = () => {
 
             <main className='container mx-auto flex flex-col items-center justify-center min-h-screen p-4'>
                 <h1 className='text-5xl md:text-[5rem] leading-normal font-extrabold text-gray-700'>
-                    Sign In
+                    home page
                 </h1>
+                {status === "authenticated" ? (
+                    <p>Signed in as {session.user?.email}</p>
+                ) : (
+                    <p>NOT SIGNED IN</p>
+                )}
                 <p className='text-2xl text-gray-700'>This stack uses:</p>
                 <div className='grid gap-3 pt-3 mt-3 text-center md:grid-cols-2 lg:w-2/3'>
                     <TechnologyCard
@@ -46,6 +57,8 @@ const Signin: NextPage = () => {
                         documentation='https://trpc.io/'
                     />
                 </div>
+                <button onClick={() => signIn()}>LOGIN</button>
+                <button onClick={() => signOut()}>SINGOUT</button>
                 <div className='pt-6 text-2xl text-blue-500 flex justify-center items-center w-full'>
                     {hello.data ? (
                         <p>{hello.data.greeting}</p>
@@ -79,4 +92,4 @@ const TechnologyCard = ({
     );
 };
 
-export default Signin;
+export default Home;

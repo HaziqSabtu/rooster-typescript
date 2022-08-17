@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.secondary-color {
+    background-color: #395b64;
+}
+
+.primary-color {
+    background-color: #2c3333;
+}
+
+.tertiary-color {
+    background-color: #2c3639;
+}
+
+.border-color-p {
+    color: #a5c9ca;
+}
+
+.text-color-p {
+    color: #a5c9ca;
+}
+
+.disabled-color {
+    color: #e7f6f2;
+}
+
+#commentForm {
+    background-color: 2c3333;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}

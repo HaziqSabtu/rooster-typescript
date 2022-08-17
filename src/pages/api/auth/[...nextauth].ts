@@ -16,6 +16,18 @@ export const authOptions: NextAuthOptions = {
             }
             return session;
         },
+        async signIn({ user, account, profile, email, credentials }) {
+            console.log("signing IN");
+            const isAllowedToSignIn = true;
+            if (isAllowedToSignIn) {
+                return true;
+            } else {
+                // Return false to display a default error message
+                return false;
+                // Or you can return a URL to redirect to:
+                // return '/unauthorized'
+            }
+        },
     },
     // Configure one or more authentication providers
     adapter: PrismaAdapter(prisma),
