@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Main from "../components/Main/Main";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading/Loading";
@@ -27,19 +28,11 @@ const Home: NextPage = () => {
             {isLoading ? (
                 <Loading />
             ) : (
-                <button onClick={() => signOut()}>SignOut</button>
+                <Main />
+                // <h1>hoime</h1>
             )}
         </div>
     );
-    // return (
-    //     <div>
-    //         <Navbar />
-    //         <h1>I AM HOME</h1>
-    //         <button onClick={() => signOut()}>SignOut</button>
-    //         {/* {isLoading ? "Loading..." : "not loading"}
-    //         {data ? data.greeting : "not data"} */}
-    //     </div>
-    // );
 };
 
 export default Home;
