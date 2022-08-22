@@ -1,74 +1,57 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import NavLogo from "./NavLogo";
 import NavLink from "./NavLink";
 import { FunctionComponent } from "react";
-// import { useNavigate } from "react-router-dom";
-
-import { AuthApi } from "../../../../roo4/src/api/AuthApi";
-
-import logo from "../assets/logo.png";
 import NavButton from "./NavButton";
+import { getSession } from "next-auth/react";
+import { User } from "next-auth";
 
 const Navbar: FunctionComponent = () => {
     const [isHidden, setIsHidden] = useState(true);
-    // const { auth } = useContext(AuthApi);
-    // const navigate = useNavigate();
-
+    const [user, setUser] = useState<User | undefined>();
     // toggle navbar
     const handleToggle = () => {
         setIsHidden((state) => !state);
     };
 
-    // const handleTitle = () => {
-    //     navigate("/", { replace: true });
-    // };
+    useEffect(() => {
+        (async () => {
+            await getSession().then((session) => {
+                setUser(session?.user);
+            });
+        })();
+    }, []);
 
     return (
-        <div>
-            <nav
-                className='secondary-color flex items-center justify-between flex-wrap p-6 cursor-pointer'
-                id='navbar'
+        <nav
+            className="secondary-color flex items-center justify-between flex-wrap p-6 cursor-pointer"
+            id="navbar"
+        >
+            <NavLogo />
+            <NavButton handleToggle={handleToggle} />
+
+            <div
+                className={
+                    isHidden
+                        ? "hidden w-full flex-grow lg:flex lg:items-center lg:w-auto"
+                        : "block w-full flex-grow lg:flex lg:items-center lg:w-auto"
+                }
             >
-                <NavLogo />
-                <NavButton handleToggle={handleToggle} />
-
-                <div
-                    className={
-                        isHidden
-                            ? "hidden w-full flex-grow lg:flex lg:items-center lg:w-auto"
-                            : "block w-full flex-grow lg:flex lg:items-center lg:w-auto"
-                    }
-                >
-                    {/* render component only if authenticated */}
-                    {/* {auth && (
-                        <div>
-                            <a
-                                href='/setting'
-                                id='setting'
-                                className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'
-                            >
-                                Setting
-                            </a>
-                            <a
-                                href='/logout'
-                                id='logout'
-                                className='block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'
-                            >
-                                Logout
-                            </a>
-                        </div>
-                    )} */}
-
-                    {/* render component only if NOT authenticated */}
-
+                {/* render component only if authenticated */}
+                {user ? (
                     <div>
-                        <NavLink href='/register' id='register' />
-                        <NavLink href='/login' id='login' />
+                        <NavLink href="/setting" id="setting" />
+                        <NavLink href="/logout" id="logout" />
                     </div>
-                </div>
-            </nav>
-        </div>
+                ) : (
+                    <div>
+                        <NavLink href="/register" id="register" />
+                        <NavLink href="/login" id="login" />
+                    </div>
+                )}
+            </div>
+        </nav>
     );
 };
 

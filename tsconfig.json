@@ -15,14 +15,14 @@
         "jsx": "preserve",
         "incremental": true,
         "noUncheckedIndexedAccess": true,
-        "paths": { "@/*": ["./src/*"] }
     },
     "include": [
         "next-env.d.ts",
         "next-auth.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "**/*.js"
+        "**/*.js",
+        "src"
     ],
     "exclude": ["node_modules"]
 }

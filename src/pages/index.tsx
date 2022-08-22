@@ -24,7 +24,6 @@ const Home: NextPage = () => {
     return (
         <div>
             <Navbar />
-            <h1>I AM HOME</h1>
             {isLoading ? (
                 <Loading />
             ) : (

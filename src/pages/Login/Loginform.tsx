@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import Button from "../../components/Button/Button";
-import Inputtext from "../../components/InputText/Inputtext";
+import Inputtext from "@/components/InputText/Inputtext";
 import { createSessionConfig } from "../../services/configApi";
 import axios from "axios";
 import { createHealthConfig } from "../../services/healthApi";
@@ -9,10 +9,15 @@ import Signinin from "../../components/Button/singinin";
 
 interface Props {}
 
+interface userInput {
+    email: string;
+    password: string;
+}
+
 const LoginForm: FunctionComponent<Props> = () => {
     const isMounted = useRef(false);
     const [count, setCount] = useState<number>(0);
-    const [userInput, setUserInput] = useState({
+    const [userInput, setUserInput] = useState<userInput>({
         email: "",
         password: "",
     });
@@ -60,8 +65,8 @@ const LoginForm: FunctionComponent<Props> = () => {
         <>
             {" "}
             <form onSubmit={(e) => e.preventDefault()}>
-                <Inputtext value='email' handleChange={handleChange} />
-                <Inputtext value='password' handleChange={handleChange} />
+                <Inputtext value="email" handleChange={handleChange} />
+                <Inputtext value="password" handleChange={handleChange} />
                 <Button handleSubmit={handleSubmit} />
             </form>
             <Signinin />
