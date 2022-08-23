@@ -59,6 +59,7 @@ model User {
     followingIDs  String[]  @db.ObjectId
     followedBy    User[]    @relation("UserFollows", fields:[followedByIDs], references:[id])
     following     User[]    @relation("UserFollows", fields:[followingIDs], references:[id])
+    posts         Post[]
 }
 
 model VerificationToken {
@@ -87,6 +88,8 @@ model Post {
     comments      Comment[]
     createdAt     DateTime           @default(now())
     updatedAt     DateTime           @updatedAt
+    userIDs       String             @db.ObjectId
+    user          User               @relation(fields: [userIDs], references: [id], onDelete: Cascade)
 }
 
 

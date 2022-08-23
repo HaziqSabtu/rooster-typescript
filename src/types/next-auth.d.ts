@@ -17,3 +17,9 @@ declare module "next-auth" {
         name?: string | undefined | null;
     }
 }
+
+declare module "prisma-types" {
+    interface Post {
+        user: User & Post;
+    }
+}
