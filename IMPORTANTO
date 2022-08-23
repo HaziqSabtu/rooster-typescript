@@ -1,5 +1,5 @@
 setup prisma w/ mongodb
-npx prisma push
+npx prisma db push
 -dont copy paste url from mongo !!
 -DATABASE_URL=mongodb+srv://ayamdara:ayamdara@wroosterprisma.xhrkg15.mongodb.net/wroosterprisma?authSource=admin&retryWrites=true&w=majority --> CORRECT!
 add db name after /

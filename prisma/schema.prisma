@@ -53,6 +53,12 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    createdAt     DateTime           @default(now())
+    updatedAt     DateTime           @updatedAt
+    followedByIDs String[]  @db.ObjectId
+    followingIDs  String[]  @db.ObjectId
+    followedBy    User[]    @relation("UserFollows", fields:[followedByIDs], references:[id])
+    following     User[]    @relation("UserFollows", fields:[followingIDs], references:[id])
 }
 
 model VerificationToken {
@@ -63,3 +69,24 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Comment {
+    id            String             @id @default(auto()) @map("_id") @db.ObjectId
+    content       String
+    createdAt     DateTime           @default(now())
+    updatedAt     DateTime           @updatedAt
+    postIDs       String             @db.ObjectId
+    post          Post               @relation(fields: [postIDs], references: [id], onDelete: Cascade)
+
+}
+
+model Post {
+    id            String             @id @default(auto()) @map("_id") @db.ObjectId
+    content       String?
+    image         String?
+    comments      Comment[]
+    createdAt     DateTime           @default(now())
+    updatedAt     DateTime           @updatedAt
+}
+
+

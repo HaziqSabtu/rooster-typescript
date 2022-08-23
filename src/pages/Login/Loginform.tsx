@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import Button from "../../components/Button/Button";
-import Inputtext from "@/components/InputText/Inputtext";
+import Inputtext from "../../components/InputText/Inputtext";
 import { createSessionConfig } from "../../services/configApi";
 import axios from "axios";
 import { createHealthConfig } from "../../services/healthApi";
