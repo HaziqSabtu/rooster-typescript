@@ -14,16 +14,18 @@ import {
 import { NewPost, WarningNewPost } from "../../InputText/Inputtext.newpost";
 import { trpc } from "../../../utils/trpc";
 import { useSession } from "next-auth/react";
+import { User } from "next-auth";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
+    user: User;
 }
 
 interface UserText {
     text: string;
 }
 
-const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
+const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     const { data: session, status } = useSession();
     const [userText, setUserText] = useState<UserText>({ text: "" });
     const [assetData, setAssetData] = useState<string | null>(null);
@@ -40,6 +42,8 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
             userIDs: session?.user?.id as string,
         };
     };
+
+    console.log(user);
 
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -71,12 +75,25 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     // submit new post
     const handleSubmit = useCallback(async () => {
         await mutateAsync(processData());
+        setCount((c) => c + 1);
+        setUserText({ text: "" });
     }, [mutateAsync, processData]);
 
     return (
         <div>
-            <div className='primary-color w-full shadow rounded-lg p-3 border-2 flex flex-col'>
-                <h2 className='text-color-p mb-3 text-2xl'>New Post...</h2>
+            <div className='primary-color w-full shadow p-5 border-b-2 flex flex-col'>
+                <div className='flex flex-row mb-3 items-center'>
+                    {user ? (
+                        <img
+                            className='rounded-full border w-11 mr-2'
+                            src={user.image as string}
+                            alt='userimg'
+                        ></img>
+                    ) : (
+                        ""
+                    )}
+                    <h2 className='text-color-p text-2xl'>New Post...</h2>
+                </div>
                 {!warning ? (
                     <NewPost
                         handleChange={handleChange}

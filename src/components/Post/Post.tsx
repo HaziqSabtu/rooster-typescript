@@ -9,12 +9,12 @@ interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Post: FunctionComponent<Props> = ({
+const PostList: FunctionComponent<Props> = ({
     post: { image, content, user, id, comments },
     setCount,
 }) => {
     return (
-        <div className='bg-white mt-3 rounded-2xl'>
+        <div className='bg-white mt-3'>
             {image ? (
                 <img
                     className='object fill w-full border rounded-t-2xl shadow-lg '
@@ -32,4 +32,4 @@ const Post: FunctionComponent<Props> = ({
     );
 };
 
-export default Post;
+export default PostList;

@@ -69,7 +69,7 @@ const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
                             type='commentForm'
                             autoComplete='off'
                             id='commentForm'
-                            className='block p-4 pl-4 w-full text-sm text-white border border-gray-300 focus:ring-blue-500 focus:border-blue-500 primary-color rounded-b-2xl'
+                            className='block p-4 pl-4 w-full text-sm text-white border-y border-gray-300 focus:ring-blue-500 focus:border-blue-500 primary-color'
                             placeholder='Comment'
                             // required=''
                             onChange={handleChange}
@@ -80,7 +80,7 @@ const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
                             type='commentForm'
                             autoComplete='off'
                             id='commentForm'
-                            className='block p-4 pl-4 w-full text-sm text-white border focus:ring-blue-500 focus:border-blue-500 primary-color rounded-b-2xl border-rose-500 placeholder-red-500'
+                            className='block p-4 pl-4 w-full text-sm text-white border focus:ring-blue-500 focus:border-blue-500 primary-color border-rose-500 placeholder-red-500'
                             placeholder='Comment'
                             // required=''
                             onChange={handleChange}

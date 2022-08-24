@@ -11,7 +11,7 @@ const Contentsection: FunctionComponent<Props> = ({
     content,
 }) => {
     return (
-        <div className='primary-color border rounded-t-2xl shadow p-5 text-xl text-color-p font-semibold'>
+        <div className='primary-color shadow p-5 text-xl text-color-p font-semibold'>
             <div className='flex'>
                 {image ? (
                     <img

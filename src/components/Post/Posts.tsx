@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { getAllPosts } from "../../services/postApi";
 import { trpc } from "../../utils/trpc";
-import Post from "./Post";
-
+import PostList from "./Post";
+import { Post, User } from "@prisma/client";
 interface Props {
     count: number;
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -27,7 +27,7 @@ const Posts: FunctionComponent<Props> = ({ count, setCount }) => {
     console.log(list);
 
     const generatePost = list?.map((post) => {
-        return <Post key={post.id} post={post} setCount={setCount} />;
+        return <PostList key={post.id} post={post} setCount={setCount} />;
     });
 
     return (
