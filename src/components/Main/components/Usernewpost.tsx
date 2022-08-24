@@ -23,9 +23,6 @@ interface UserText {
     text: string;
 }
 
-// "baseUrl": "src",
-// "paths": { "@/*": ["./src/*"] }
-
 const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const { data: session, status } = useSession();
     const [userText, setUserText] = useState<UserText>({ text: "" });
@@ -43,7 +40,6 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
             userIDs: session?.user?.id as string,
         };
     };
-
 
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -72,32 +68,15 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
         setWarning(true);
     };
 
-    // // process request for new post
-    // const processInput = () => {
-    //     return {
-    //         content: userText,
-    //         image: assetData ? assetData.url : "",
-    //     };
-    // };
+    // submit new post
     const handleSubmit = useCallback(async () => {
         await mutateAsync(processData());
     }, [mutateAsync, processData]);
-    // // submit post to database
-    // const handleSubmit = async () => {
-    //     await axios(createNewPost(processInput()))
-    //         .then((response) => {
-    //             navigate("/", { replace: true });
-    //             setUserText("");
-    //             setCount((c) => c + 1);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // };
 
     return (
         <div>
-            <div className='primary-color w-full shadow rounded-lg p-5 border-2 flex flex-col'>
+            <div className='primary-color w-full shadow rounded-lg p-3 border-2 flex flex-col'>
+                <h2 className='text-color-p mb-3 text-2xl'>New Post...</h2>
                 {!warning ? (
                     <NewPost
                         handleChange={handleChange}
@@ -110,7 +89,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
                     />
                 )}
 
-                <div className='w-full flex flex-row flex-wrap justify-between flex-end items-stretch pt-2'>
+                <div className='w-full flex flex-row flex-wrap justify-between flex-end items-stretch pt-3'>
                     <UploadImageButton setAssetData={setAssetData} />
                     {isEmpty ? (
                         <DisableButton />

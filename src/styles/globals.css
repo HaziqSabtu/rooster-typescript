@@ -2,8 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "FiraCode";
+    src: url("../assets/fonts/FiraCode-Bold.ttf");
+    src: url("../assets/fonts/FiraCode-Light.ttf");
+    src: url("../assets/fonts/FiraCode-Medium.ttf");
+    src: url("../assets/fonts/FiraCode-Regular.ttf");
+    src: url("../assets/fonts/FiraCode-SemiBold.ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+
 body {
-    font-family: "Lato", sans-serif;
+    font-family: "FiraCode", sans-serif;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
