@@ -5,7 +5,7 @@ export const PostRouter = createProtectedRouter()
     .query("findAll", {
         resolve: async ({ ctx }) => {
             return await ctx.prisma.post.findMany({
-                include: { user: true, comments: true },
+                include: { user: true, comments: { include: { user: true } } },
                 orderBy: { createdAt: "desc" },
             });
         },

@@ -4,7 +4,7 @@ import CommentForm from "./CommentForm";
 import { Comment, User } from "@prisma/client";
 
 interface Props {
-    comments: [Comment & { user: User }];
+    comments: (Comment & { user: User })[];
     postId: string;
     setCount: React.Dispatch<React.SetStateAction<number>>;
 }
