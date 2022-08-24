@@ -1,15 +1,16 @@
 import React, { FunctionComponent } from "react";
-import { Post, User } from "@prisma/client";
+import { Comment, Post, User } from "@prisma/client";
 import Contentsection from "./Contentsection";
+import CommentSection from "./CommentSection";
 // import { Post } from "prisma_types";
 interface Props {
     key: string;
-    post: Post & { user: User };
+    post: Post & { user: User } & { comments: [Comment & { user: User }] };
     setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Post: FunctionComponent<Props> = ({
-    post: { image, content, user },
+    post: { image, content, user, id, comments },
     setCount,
 }) => {
     return (
@@ -22,11 +23,11 @@ const Post: FunctionComponent<Props> = ({
                 />
             ) : null}
             <Contentsection postedBy={user} content={content} />
-            {/* <CommentSection
+            <CommentSection
                 comments={comments}
-                postId={_id}
+                postId={id}
                 setCount={setCount}
-            /> */}
+            />
         </div>
     );
 };

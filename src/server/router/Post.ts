@@ -4,7 +4,9 @@ import { z } from "zod";
 export const PostRouter = createProtectedRouter()
     .query("findAll", {
         resolve: async ({ ctx }) => {
-            return await ctx.prisma.post.findMany({ include: { user: true } });
+            return await ctx.prisma.post.findMany({
+                include: { user: true, comments: true },
+            });
         },
     })
     .mutation("create", {

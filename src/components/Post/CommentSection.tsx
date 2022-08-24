@@ -1,10 +1,21 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
+import { Comment, User } from "@prisma/client";
 
-const CommentSection = ({ comments, postId, setCount }) => {
+interface Props {
+    comments: [Comment & { user: User }];
+    postId: string;
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const CommentSection: FunctionComponent<Props> = ({
+    comments,
+    postId,
+    setCount,
+}) => {
     const generateComment = comments?.map((comment) => {
-        return <CommentList key={comment._id} comment={comment} />;
+        return <CommentList key={comment.id} comment={comment} />;
     });
 
     return (

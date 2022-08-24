@@ -60,6 +60,7 @@ model User {
     followedBy    User[]    @relation("UserFollows", fields:[followedByIDs], references:[id])
     following     User[]    @relation("UserFollows", fields:[followingIDs], references:[id])
     posts         Post[]
+    comments      Comment[]
 }
 
 model VerificationToken {
@@ -78,7 +79,8 @@ model Comment {
     updatedAt     DateTime           @updatedAt
     postIDs       String             @db.ObjectId
     post          Post               @relation(fields: [postIDs], references: [id], onDelete: Cascade)
-
+    userIDs       String             @db.ObjectId
+    user          User               @relation(fields: [userIDs], references: [id], onDelete: Cascade)
 }
 
 model Post {

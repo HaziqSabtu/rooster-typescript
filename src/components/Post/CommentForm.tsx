@@ -1,27 +1,24 @@
-import React from "react";
-import { useState, useContext } from "react";
-
-import { client } from "../../client/client";
-import { UserApi } from "../../api/UserApi";
+import React, { FunctionComponent } from "react";
+import { useState } from "react";
 
 import axios from "axios";
 
-import { v4 as uuidv4 } from "uuid";
-import { createCommentConfig } from "../../services/commentApi";
-
-const CommentForm = ({ postId, setCount }) => {
-    const current = useContext(UserApi);
+interface Props {
+    postId: string;
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+}
+const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
     const [isCommented, setIsCommented] = useState(false);
     const [userInput, setUserInput] = useState({ comment: "" });
     const [isEmpty, setIsEmpty] = useState(true);
     const [warning, setWarning] = useState(false);
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
 
     // logging every input from user
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput((oldInput) => {
             return {
                 ...oldInput,
@@ -46,22 +43,21 @@ const CommentForm = ({ postId, setCount }) => {
     };
 
     const handleClick = () => {
-        if (userInput.comment !== "") {
-            setIsCommented(true);
-
-            console.log(processInput());
-            axios(createCommentConfig(processInput()))
-                .then(function (response) {
-                    console.log(JSON.stringify(response.data));
-                    setCount((c) => c + 1);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            setUserInput((oldVal) => {
-                return { ...oldVal, comment: "" };
-            });
-        }
+        // if (userInput.comment !== "") {
+        //     setIsCommented(true);
+        //     console.log(processInput());
+        //     axios(createCommentConfig(processInput()))
+        //         .then(function (response) {
+        //             console.log(JSON.stringify(response.data));
+        //             setCount((c) => c + 1);
+        //         })
+        //         .catch(function (error) {
+        //             console.log(error);
+        //         });
+        //     setUserInput((oldVal) => {
+        //         return { ...oldVal, comment: "" };
+        //     });
+        // }
     };
     return (
         <div className=' rounded-xl'>
@@ -75,7 +71,7 @@ const CommentForm = ({ postId, setCount }) => {
                             id='commentForm'
                             className='block p-4 pl-4 w-full text-sm text-white border border-gray-300 focus:ring-blue-500 focus:border-blue-500 primary-color rounded-b-2xl'
                             placeholder='Comment'
-                            required=''
+                            // required=''
                             onChange={handleChange}
                             value={userInput.comment}
                         />
@@ -86,7 +82,7 @@ const CommentForm = ({ postId, setCount }) => {
                             id='commentForm'
                             className='block p-4 pl-4 w-full text-sm text-white border focus:ring-blue-500 focus:border-blue-500 primary-color rounded-b-2xl border-rose-500 placeholder-red-500'
                             placeholder='Comment'
-                            required=''
+                            // required=''
                             onChange={handleChange}
                             value={userInput.comment}
                         />
