@@ -23,6 +23,17 @@ export const PostRouter = createProtectedRouter()
         // return {'httpStatus': 201,
         //     'message': 'Post created',
         // }
+    })
+    .mutation("delete", {
+        input: z.object({
+            postIDs: z.string(),
+        }),
+
+        resolve: async ({ ctx, input }) => {
+            return await ctx.prisma.post.delete({
+                where: { id: input.postIDs },
+            });
+        },
     });
 
 export type PostRouter = typeof PostRouter;
