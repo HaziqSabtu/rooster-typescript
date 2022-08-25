@@ -2,6 +2,8 @@ import React, {
     FunctionComponent,
     MouseEventHandler,
     useCallback,
+    useEffect,
+    useRef,
 } from "react";
 import { useState } from "react";
 
@@ -13,7 +15,6 @@ import {
 } from "../../Button/ButtonSubmit";
 import { NewPost, WarningNewPost } from "../../InputText/Inputtext.newpost";
 import { trpc } from "../../../utils/trpc";
-import { useSession } from "next-auth/react";
 import { User } from "next-auth";
 
 interface Props {
@@ -32,6 +33,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isEmpty, setIsEmpty] = useState<boolean>(true);
     const [warning, setWarning] = useState<boolean>(false);
+    const inputRef = useRef<HTMLTextAreaElement>(null);
 
     const { mutateAsync } = trpc.useMutation(["post.create"]);
 
@@ -55,13 +57,26 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
             };
         });
 
-        if (userText.text.length <= 1) {
-            setIsEmpty(true);
-        } else {
-            setIsEmpty(false);
-            setWarning(false);
-        }
+        // if (userText.text.length <= 1) {
+        //     setIsEmpty(true);
+        // } else {
+        //     setIsEmpty(false);
+        //     setWarning(false);
+        // }
     };
+
+    useEffect(() => {
+        if (inputRef.current?.value) {
+            if (inputRef.current?.value.length === 0) {
+                setIsEmpty(true);
+            } else {
+                setIsEmpty(false);
+                setWarning(false);
+            }
+        } else {
+            setIsEmpty(true);
+        }
+    }, [inputRef.current?.value]);
 
     const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
         setIsLoading((state) => !state);
@@ -99,11 +114,13 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                     <NewPost
                         handleChange={handleChange}
                         value={userText.text}
+                        inputRef={inputRef}
                     />
                 ) : (
                     <WarningNewPost
                         handleChange={handleChange}
                         value={userText.text}
+                        inputRef={inputRef}
                     />
                 )}
 

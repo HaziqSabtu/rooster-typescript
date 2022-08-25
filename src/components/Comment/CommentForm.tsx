@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useCallback } from "react";
+import React, {
+    FunctionComponent,
+    useCallback,
+    useEffect,
+    useRef,
+} from "react";
 import { useState } from "react";
 import { User } from "next-auth";
 import { trpc } from "../../utils/trpc";
@@ -16,8 +21,10 @@ const CommentForm: FunctionComponent<Props> = ({
     const [isCommented, setIsCommented] = useState(false);
     const [userInput, setUserInput] = useState({ comment: "" });
     const [isEmpty, setIsEmpty] = useState(true);
+    // const isEmpty = useRef<boolean>(true);
     const [warning, setWarning] = useState(false);
     const { mutateAsync } = trpc.useMutation(["comment.create"]);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,14 +38,32 @@ const CommentForm: FunctionComponent<Props> = ({
                 comment: e.target.value,
             };
         });
-        if (userInput.comment.length <= 1) {
-            setIsEmpty(true);
-        } else {
-            setIsEmpty(false);
-            setWarning(false);
-            setIsCommented(false);
-        }
+
+        // console.log(isEmpty.current);
     };
+
+    useEffect(() => {
+        console.log("change");
+        console.log(inputRef.current?.value.length);
+        if (inputRef.current?.value) {
+            console.log("read");
+            if (inputRef.current?.value.length === 0) {
+                // isEmpty.current = true;
+                console.log("empty");
+                setIsEmpty(true);
+            } else {
+                console.log("not");
+
+                setIsEmpty(false);
+                // isEmpty.current = false;
+                setWarning(false);
+                setIsCommented(false);
+            }
+        } else {
+            setIsEmpty(true);
+        }
+        console.log(isEmpty);
+    }, [inputRef.current?.value]);
 
     const handleEmpty = () => {
         setWarning(true);
@@ -61,16 +86,6 @@ const CommentForm: FunctionComponent<Props> = ({
         });
     }, [mutateAsync, processData]);
 
-    // const handleClick = () => {
-    //     if (userInput.comment !== "") {
-    //         setIsCommented(true);
-    //         console.log(processInput());
-
-    //         setUserInput((oldVal) => {
-    //             return { ...oldVal, comment: "" };
-    //         });
-    //     }
-    // };
     return (
         <div className=' rounded-xl'>
             <form onSubmit={onSubmit}>
@@ -81,11 +96,12 @@ const CommentForm: FunctionComponent<Props> = ({
                             type='commentForm'
                             autoComplete='off'
                             id='commentForm'
-                            className='block p-4 pl-4 w-full text-sm text-white border-b border-gray-300  primary-color'
+                            className='block p-4 pl-4 w-full text-sm text-white border-b border-gray-300  primary-color outline-none'
                             placeholder='Comment'
                             // required=''
                             onChange={handleChange}
                             value={userInput.comment}
+                            ref={inputRef}
                         />
                     ) : (
                         <input
@@ -97,6 +113,7 @@ const CommentForm: FunctionComponent<Props> = ({
                             // required=''
                             onChange={handleChange}
                             value={userInput.comment}
+                            ref={inputRef}
                         />
                     )}
                     {isEmpty ? (
