@@ -20,9 +20,6 @@ const PostList: FunctionComponent<Props> = ({
     currentUser,
     timeAgo,
 }) => {
-    console.log(currentUser);
-    console.log(createdAt);
-
     return (
         <div className='bg-white border-y'>
             {image ? (
@@ -37,6 +34,8 @@ const PostList: FunctionComponent<Props> = ({
                 content={content}
                 timeago={timeAgo}
                 createdAt={createdAt}
+                setCount={setCount}
+                postId={id}
             />
             <CommentSection
                 comments={comments}

@@ -38,31 +38,20 @@ const CommentForm: FunctionComponent<Props> = ({
                 comment: e.target.value,
             };
         });
-
-        // console.log(isEmpty.current);
     };
 
     useEffect(() => {
-        console.log("change");
-        console.log(inputRef.current?.value.length);
         if (inputRef.current?.value) {
-            console.log("read");
             if (inputRef.current?.value.length === 0) {
-                // isEmpty.current = true;
-                console.log("empty");
                 setIsEmpty(true);
             } else {
-                console.log("not");
-
                 setIsEmpty(false);
-                // isEmpty.current = false;
                 setWarning(false);
                 setIsCommented(false);
             }
         } else {
             setIsEmpty(true);
         }
-        console.log(isEmpty);
     }, [inputRef.current?.value]);
 
     const handleEmpty = () => {

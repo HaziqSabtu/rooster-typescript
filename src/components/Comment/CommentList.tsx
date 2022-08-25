@@ -20,7 +20,7 @@ const CommentList: FunctionComponent<Props> = ({
                 <div className='flex items-center'>
                     {image && (
                         <img
-                            className='rounded-full border w-5 mr-2'
+                            className='rounded-full w-5 mr-2'
                             src={image}
                             alt='postedBy'
                         />

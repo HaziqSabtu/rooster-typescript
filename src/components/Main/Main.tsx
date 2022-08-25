@@ -10,7 +10,6 @@ interface Props {
 
 const Main: FunctionComponent<Props> = ({ user }) => {
     const [count, setCount] = React.useState<number>(0);
-    console.log(user);
     return (
         <div className='w-full flex flex-row flex-wrap'>
             <div className='w-full primary-color h-screen flex flex-row flex-wrap justify-center '>

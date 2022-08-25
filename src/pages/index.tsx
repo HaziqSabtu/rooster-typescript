@@ -15,8 +15,6 @@ const Home: NextPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(session?.user ? session.user : undefined);
 
-    console.log(session);
-
     useEffect(() => {
         status === "loading"
             ? setIsLoading(true)

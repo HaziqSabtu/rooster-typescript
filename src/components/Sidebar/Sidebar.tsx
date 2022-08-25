@@ -19,7 +19,6 @@ const Sidebar = () => {
         })();
     }, []);
 
-    console.log(user);
     return user ? (
         <div className='flex flex-col border-x items-center primary-color w-0 md:w-1/4 lg:w-1/5 h-0 md:h-screen overflow-y-hidden bg-white shadow-lg'>
             {

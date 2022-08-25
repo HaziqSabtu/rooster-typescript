@@ -20,7 +20,6 @@ const CommentSection: FunctionComponent<Props> = ({
     const generateComment = comments?.map((comment) => {
         return <CommentList key={comment.id} comment={comment} />;
     });
-    console.log(currentUser);
 
     return (
         <div>

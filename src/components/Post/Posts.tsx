@@ -29,9 +29,6 @@ const Posts: FunctionComponent<Props> = ({ count, setCount, user }) => {
         })();
     }, [count]);
 
-    console.log(list);
-    console.log(user);
-
     const generatePost = list?.map((post) => {
         return (
             <PostList

@@ -42,11 +42,8 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
             content: userText.text,
             image: null,
             userIDs: user.id,
-            // userIDs: session?.user?.id as string,
         };
     };
-
-    console.log(user);
 
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -56,13 +53,6 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                 [event.target.name]: event.target.value,
             };
         });
-
-        // if (userText.text.length <= 1) {
-        //     setIsEmpty(true);
-        // } else {
-        //     setIsEmpty(false);
-        //     setWarning(false);
-        // }
     };
 
     useEffect(() => {
@@ -101,7 +91,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                 <div className='flex flex-row mb-3 items-center'>
                     {user ? (
                         <img
-                            className='rounded-full border w-11 mr-2'
+                            className='rounded-full w-11 mr-2'
                             src={user.image as string}
                             alt='userimg'
                         ></img>
