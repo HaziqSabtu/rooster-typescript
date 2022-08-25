@@ -10,8 +10,17 @@ const Time: FunctionComponent<Props> = ({ createdAt }) => {
     const processTime = () => {
         return Date.now() - (Date.now() - createdAt.getTime());
     };
+
+    const style = {
+        fontSize: "0.7rem",
+    };
     return (
-        <ReactTimeAgo date={processTime()} locale='en-US' timeStyle='twitter' />
+        <ReactTimeAgo
+            date={processTime()}
+            locale='en-US'
+            timeStyle='twitter-minute-now'
+            style={style}
+        />
     );
 };
 

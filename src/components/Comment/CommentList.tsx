@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Comment, User } from "@prisma/client";
+import Time from "../Time/Time";
 
 interface Props {
     comment: Comment & { user: User };
@@ -9,6 +10,7 @@ const CommentList: FunctionComponent<Props> = ({
     comment: {
         content,
         user: { image, name },
+        createdAt,
     },
 }) => {
     return (
@@ -21,9 +23,10 @@ const CommentList: FunctionComponent<Props> = ({
                         alt='postedBy'
                     />
                 )}
-                <h3 className='text-xs'>@{name}</h3>
+                <h3 className='text-xs mr-5'>@{name}</h3>
+                <Time createdAt={createdAt} />
             </div>
-            {content}
+            <h1 className='text-sm'> {content}</h1>
         </div>
     );
 };

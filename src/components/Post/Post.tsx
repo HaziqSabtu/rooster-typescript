@@ -24,7 +24,7 @@ const PostList: FunctionComponent<Props> = ({
     console.log(createdAt);
 
     return (
-        <div className='bg-white mt-3'>
+        <div className='bg-white border-y'>
             {image ? (
                 <img
                     className='object fill w-full border rounded-t-2xl shadow-lg '

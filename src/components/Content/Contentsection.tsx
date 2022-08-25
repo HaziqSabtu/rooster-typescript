@@ -28,9 +28,10 @@ const Contentsection: FunctionComponent<Props> = ({
                         alt='postedBy'
                     />
                 ) : null}
+                <h3 className='mr-5'>@{postedBy.name}</h3>
                 <Time createdAt={createdAt} />
-                <h3>@{postedBy.name}</h3>
             </div>
+
             {content}
         </div>
     );

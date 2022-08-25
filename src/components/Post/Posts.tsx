@@ -18,7 +18,6 @@ const Posts: FunctionComponent<Props> = ({ count, setCount, user }) => {
     const { data: list, refetch } = trpc.useQuery(["post.findAll"]);
 
     TimeAgo.setDefaultLocale(de.locale);
-
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo("en-US");
 
@@ -46,7 +45,7 @@ const Posts: FunctionComponent<Props> = ({ count, setCount, user }) => {
     });
 
     return (
-        <div className='mt-3 flex flex-col'>
+        <div className=' flex flex-col'>
             {loading ? "Loading" : <>{generatePost}</>}
         </div>
     );
