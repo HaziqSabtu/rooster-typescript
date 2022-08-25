@@ -13,6 +13,7 @@ const Home: NextPage = () => {
     const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
     const { data: session, status } = useSession();
     const [isLoading, setIsLoading] = useState(false);
+    const [user, setUser] = useState(session?.user ? session.user : undefined);
 
     console.log(session);
 
@@ -20,13 +21,19 @@ const Home: NextPage = () => {
         status === "loading"
             ? setIsLoading(true)
             : status === "authenticated"
-            ? setIsLoading(false)
+            ? processAuth()
             : router.push("/login");
     });
+
+    const processAuth = () => {
+        setUser(session?.user);
+        setIsLoading(false);
+    };
+
     return (
         <div>
             <Navbar />
-            {isLoading ? <Loading /> : <Main user={session?.user as User} />}
+            {isLoading ? <Loading /> : <Main user={user as User} />}
         </div>
     );
 };

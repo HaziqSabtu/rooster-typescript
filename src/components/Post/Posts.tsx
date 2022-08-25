@@ -1,19 +1,17 @@
 import React, { FunctionComponent } from "react";
 import { useState, useEffect } from "react";
-
-import axios from "axios";
-import { getAllPosts } from "../../services/postApi";
 import { trpc } from "../../utils/trpc";
 import PostList from "./Post";
-import { Post, User } from "@prisma/client";
+import { User } from "next-auth";
+
 interface Props {
     count: number;
     setCount: React.Dispatch<React.SetStateAction<number>>;
+    user: User;
 }
 
-const Posts: FunctionComponent<Props> = ({ count, setCount }) => {
+const Posts: FunctionComponent<Props> = ({ count, setCount, user }) => {
     const [loading, setLoading] = useState(false);
-    const [query, setQuery] = useState([]);
     const { data: list, refetch } = trpc.useQuery(["post.findAll"]);
 
     useEffect(() => {
@@ -25,9 +23,17 @@ const Posts: FunctionComponent<Props> = ({ count, setCount }) => {
     }, [count]);
 
     console.log(list);
+    console.log(user);
 
     const generatePost = list?.map((post) => {
-        return <PostList key={post.id} post={post} setCount={setCount} />;
+        return (
+            <PostList
+                key={post.id}
+                post={post}
+                setCount={setCount}
+                currentUser={user}
+            />
+        );
     });
 
     return (

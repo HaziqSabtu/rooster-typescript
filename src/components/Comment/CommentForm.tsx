@@ -1,17 +1,23 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useCallback } from "react";
 import { useState } from "react";
-
-import axios from "axios";
+import { User } from "next-auth";
+import { trpc } from "../../utils/trpc";
 
 interface Props {
     postId: string;
     setCount: React.Dispatch<React.SetStateAction<number>>;
+    currentUser: User;
 }
-const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
+const CommentForm: FunctionComponent<Props> = ({
+    postId,
+    setCount,
+    currentUser,
+}) => {
     const [isCommented, setIsCommented] = useState(false);
     const [userInput, setUserInput] = useState({ comment: "" });
     const [isEmpty, setIsEmpty] = useState(true);
     const [warning, setWarning] = useState(false);
+    const { mutateAsync } = trpc.useMutation(["comment.create"]);
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -38,27 +44,33 @@ const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
         setWarning(true);
     };
 
-    const processInput = () => {
-        return { comment: userInput.comment, postId: postId };
+    const processData = () => {
+        return {
+            content: userInput.comment,
+            postIDs: postId,
+            userIDs: currentUser.id,
+        };
     };
 
-    const handleClick = () => {
-        // if (userInput.comment !== "") {
-        //     setIsCommented(true);
-        //     console.log(processInput());
-        //     axios(createCommentConfig(processInput()))
-        //         .then(function (response) {
-        //             console.log(JSON.stringify(response.data));
-        //             setCount((c) => c + 1);
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //         });
-        //     setUserInput((oldVal) => {
-        //         return { ...oldVal, comment: "" };
-        //     });
-        // }
-    };
+    // submit new post
+    const handleSubmit = useCallback(async () => {
+        await mutateAsync(processData());
+        setCount((c) => c + 1);
+        setUserInput((oldVal) => {
+            return { ...oldVal, comment: "" };
+        });
+    }, [mutateAsync, processData]);
+
+    // const handleClick = () => {
+    //     if (userInput.comment !== "") {
+    //         setIsCommented(true);
+    //         console.log(processInput());
+
+    //         setUserInput((oldVal) => {
+    //             return { ...oldVal, comment: "" };
+    //         });
+    //     }
+    // };
     return (
         <div className=' rounded-xl'>
             <form onSubmit={onSubmit}>
@@ -69,7 +81,7 @@ const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
                             type='commentForm'
                             autoComplete='off'
                             id='commentForm'
-                            className='block p-4 pl-4 w-full text-sm text-white border-y border-gray-300 focus:ring-blue-500 focus:border-blue-500 primary-color'
+                            className='block p-4 pl-4 w-full text-sm text-white border-b border-gray-300 focus:ring-blue-500 focus:border-blue-500 primary-color'
                             placeholder='Comment'
                             // required=''
                             onChange={handleChange}
@@ -80,7 +92,7 @@ const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
                             type='commentForm'
                             autoComplete='off'
                             id='commentForm'
-                            className='block p-4 pl-4 w-full text-sm text-white border focus:ring-blue-500 focus:border-blue-500 primary-color border-rose-500 placeholder-red-500'
+                            className='block p-4 pl-4 w-full text-sm text-white border-b focus:ring-blue-500 focus:border-blue-500 primary-color border-rose-500 placeholder-red-500'
                             placeholder='Comment'
                             // required=''
                             onChange={handleChange}
@@ -98,7 +110,7 @@ const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
                     ) : (
                         <button
                             type='submit'
-                            onClick={handleClick}
+                            onClick={handleSubmit}
                             className='text-white absolute right-2.5 bottom-2.5 secondary-color focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2'
                         >
                             {!isCommented ? "Comment" : "Commented"}

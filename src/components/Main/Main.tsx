@@ -24,7 +24,7 @@ const Main: FunctionComponent<Props> = ({ user }) => {
                 <Sidebar />
                 <div className='xl:w-2/5 md:w-3/4 lg:w-4/5 py-5 md:px-12 lg:24 h-full w-full overflow-y-intial antialiased overflow-x-hidden'>
                     <Usernewpost setCount={setCount} user={user} />
-                    <Posts count={count} setCount={setCount} />
+                    <Posts count={count} setCount={setCount} user={user} />
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Post, User } from "@prisma/client";
+import { User as UserNext } from "next-auth";
 
 interface Props {
     postedBy: User;

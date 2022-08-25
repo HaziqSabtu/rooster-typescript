@@ -12,7 +12,7 @@ const CommentList: FunctionComponent<Props> = ({
     },
 }) => {
     return (
-        <div className='primary-color border-x border-t shadow p-4 text-lg text-color-p font-semibold'>
+        <div className='primary-color  shadow p-4 text-lg text-color-p font-semibold'>
             <div className='flex items-center'>
                 {image && (
                     <img

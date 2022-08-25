@@ -26,7 +26,7 @@ interface UserText {
 }
 
 const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
-    const { data: session, status } = useSession();
+    // const { data: session, status } = useSession();
     const [userText, setUserText] = useState<UserText>({ text: "" });
     const [assetData, setAssetData] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,7 +39,8 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
         return {
             content: userText.text,
             image: null,
-            userIDs: session?.user?.id as string,
+            userIDs: user.id,
+            // userIDs: session?.user?.id as string,
         };
     };
 
