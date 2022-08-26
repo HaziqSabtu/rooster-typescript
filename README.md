@@ -4,9 +4,11 @@
 
 SIGNINpage
 SIGNup page
-MODAL delete
 Follow fx
 search
+fix delete modal function
+image
+card props
 
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
 

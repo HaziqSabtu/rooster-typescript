@@ -6,6 +6,7 @@ import DeletePost from "../Post/DeletePost";
 import { TripleDots } from "../../assets/icons";
 import Dropdown from "../Dropdown/Dropdown";
 import DeleteModal from "../Modal/DeleteModal";
+import { trpc } from "../../utils/trpc";
 
 interface Props {
     postedBy: User;
@@ -24,8 +25,9 @@ const Contentsection: FunctionComponent<Props> = ({
     postId,
 }) => {
     const htmlFor = "deletepost";
+
     return (
-        <div className='primary-color shadow p-5 text-xl text-color-p font-semibold'>
+        <div className='primary-color p-5 text-xl text-color-p font-semibold'>
             <div className='flex flex-row justify-between items-center'>
                 <div className='flex'>
                     {image ? (
@@ -43,7 +45,11 @@ const Contentsection: FunctionComponent<Props> = ({
                     postId={postId}
                     htmlFor={htmlFor}
                 />
-                <DeleteModal htmlFor={htmlFor} />
+                <DeleteModal
+                    htmlFor={htmlFor}
+                    postId={postId}
+                    setCount={setCount}
+                />
             </div>
             {content}
         </div>

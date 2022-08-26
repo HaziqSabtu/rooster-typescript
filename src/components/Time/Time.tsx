@@ -14,6 +14,7 @@ const Time: FunctionComponent<Props> = ({ createdAt }) => {
     const style = {
         fontSize: "0.7rem",
     };
+
     return (
         <ReactTimeAgo
             date={processTime()}

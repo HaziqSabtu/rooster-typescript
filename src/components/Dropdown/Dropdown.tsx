@@ -13,7 +13,7 @@ interface Props {
 const Dropdown: FunctionComponent<Props> = ({ setCount, postId, htmlFor }) => {
     return (
         <div className='dropdown dropdown-end'>
-            <label tabIndex={0} className='m-1'>
+            <label tabIndex={0} className='m-1 cursor-pointer'>
                 <TripleDots size={20} />
             </label>
             <ul

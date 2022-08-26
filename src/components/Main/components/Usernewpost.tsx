@@ -17,6 +17,9 @@ import {
 import { NewPost, WarningNewPost } from "../../InputText/Inputtext.newpost";
 import { trpc } from "../../../utils/trpc";
 import { User } from "next-auth";
+import { getPostCreateInput } from "../../../services/post";
+import Userinput from "../home/Userinput";
+import { sleep } from "../../../services/utils";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -35,20 +38,13 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     const [isEmpty, setIsEmpty] = useState<boolean>(true);
     const [warning, setWarning] = useState<boolean>(false);
     const inputRef = useRef<HTMLTextAreaElement>(null);
+    const image: string = "";
 
     const styleButton = {
         width: "176px",
     };
 
     const { mutateAsync } = trpc.useMutation(["post.create"]);
-
-    const processData = () => {
-        return {
-            content: userText.text,
-            image: null,
-            userIDs: user.id,
-        };
-    };
 
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -74,26 +70,27 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
         }
     }, [inputRef.current?.value]);
 
-    function sleep(ms: number) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
     // submit new post
     // useCallback with processData as Dependancy
     // https://dmitripavlutin.com/dont-overuse-react-usecallback/
     const handleSubmit = useCallback(async () => {
         setIsLoading((state) => !state);
         await sleep(5000);
-        await mutateAsync(processData());
-        setCount((c) => c + 1);
-        setIsLoading((state) => !state);
-        setIsPosted(true);
-        setUserText({ text: "" });
-    }, [mutateAsync, processData]);
+        await mutateAsync(getPostCreateInput(userText.text, image, user.id))
+            .then(() => {
+                setCount((c) => c + 1);
+                setIsLoading((state) => !state);
+                setIsPosted(true);
+                setUserText({ text: "" });
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }, [mutateAsync, userText, user, image]);
 
     return (
         <div>
-            <div className='primary-color w-full shadow p-5 border-b-2 flex flex-col'>
+            <div className='primary-color w-full p-5 border-b-2 flex flex-col'>
                 <div className='flex flex-row mb-3 items-center'>
                     {user ? (
                         <img

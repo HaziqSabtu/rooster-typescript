@@ -1,16 +1,28 @@
-import React, {
-    DetailedHTMLProps,
-    FunctionComponent,
-    LabelHTMLAttributes,
-} from "react";
+import { Post } from "@prisma/client";
+import React, { FunctionComponent, useCallback } from "react";
 import { RedAlert } from "../../assets/icons";
+import { getPostDeleteInput } from "../../services/post";
+import { trpc } from "../../utils/trpc";
+import { ButtonApproveRed, ButtonCancel } from "../Button/ButtonModal";
 
 interface Props {
-    handleClick?: () => void;
-    htmlFor?: string;
+    htmlFor: string;
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+    postId: Post["id"];
 }
 
-const DeleteModal: FunctionComponent<Props> = ({ handleClick, htmlFor }) => {
+const DeleteModal: FunctionComponent<Props> = ({
+    htmlFor,
+    setCount,
+    postId,
+}) => {
+    const { mutateAsync } = trpc.useMutation(["post.delete"]);
+
+    const handleClick = useCallback(async () => {
+        await mutateAsync(getPostDeleteInput(postId));
+        setCount((c) => c + 1);
+    }, [mutateAsync]);
+
     return (
         <>
             <input type='checkbox' id={htmlFor} className='modal-toggle' />
@@ -21,23 +33,15 @@ const DeleteModal: FunctionComponent<Props> = ({ handleClick, htmlFor }) => {
                         <div className='ml-3 mt-2'>
                             <h3 className='font-bold text-2xl'>Delete Post</h3>
                             <p className='py-4 text-sm'>
-                                Are you sure you want to delete this Post? This
+                                Are you sure you want to delete this Item? This
                                 action cannot be undone.
                             </p>
                             <div className='modal-action'>
-                                <label
+                                <ButtonCancel htmlFor={htmlFor} />
+                                <ButtonApproveRed
                                     htmlFor={htmlFor}
-                                    className='btn btn-xs text-black bg-white border-none sm:btn-sm md:btn-md lg:btn-lg hover:bg-white'
-                                >
-                                    Cancel
-                                </label>
-                                <label
-                                    htmlFor={htmlFor}
-                                    // onClick={handleClick}
-                                    className='btn btn-xs text-white bg-red-700 border-none sm:btn-sm md:btn-md lg:btn-lg hover:bg-red-700'
-                                >
-                                    Yes, I'm sure
-                                </label>
+                                    handleClick={handleClick}
+                                />
                             </div>
                         </div>
                     </div>

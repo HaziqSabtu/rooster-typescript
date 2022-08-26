@@ -15,7 +15,7 @@ const CommentList: FunctionComponent<Props> = ({
     },
 }) => {
     return (
-        <div className='primary-color  shadow p-4 text-lg text-color-p font-semibold'>
+        <div className='primary-color  p-4 text-lg text-color-p font-semibold'>
             <div className='flex flex-row justify-between items-center'>
                 <div className='flex items-center'>
                     {image && (

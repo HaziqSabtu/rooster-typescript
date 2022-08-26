@@ -17,19 +17,6 @@ const DeletePost: FunctionComponent<Props> = ({
     postId,
     htmlFor,
 }) => {
-    const { mutateAsync } = trpc.useMutation(["post.delete"]);
-
-    const handleClick = useCallback(async () => {
-        await mutateAsync(processData());
-        setCount((c) => c + 1);
-    }, [mutateAsync]);
-
-    const processData = () => {
-        return {
-            postIDs: postId,
-        };
-    };
-
     return (
         <>
             <div>
