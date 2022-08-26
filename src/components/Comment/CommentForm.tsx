@@ -34,7 +34,7 @@ const CommentForm: FunctionComponent<Props> = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const styleButton = {
-        width: "140px",
+        width: "80px",
         right: "10px",
         bottom: "10px",
         position: "absolute" as "absolute",
@@ -129,7 +129,7 @@ const CommentForm: FunctionComponent<Props> = ({
                             style={styleButton}
                         />
                     ) : isEmpty ? (
-                        <DisableButton text={"Comment"} style={styleButton} />
+                        "" // <DisableButton text={"Comment"} style={styleButton} />
                     ) : isLoading ? (
                         <LoadingButton
                             // text={"Commentting"}

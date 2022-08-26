@@ -3,6 +3,9 @@ import { Post, User } from "@prisma/client";
 import TimeAgo from "javascript-time-ago";
 import Time from "../Time/Time";
 import DeletePost from "../Post/DeletePost";
+import { TripleDots } from "../../assets/icons";
+import Dropdown from "../Dropdown/Dropdown";
+import DeleteModal from "../Modal/DeleteModal";
 
 interface Props {
     postedBy: User;
@@ -20,6 +23,7 @@ const Contentsection: FunctionComponent<Props> = ({
     setCount,
     postId,
 }) => {
+    const htmlFor = "deletepost";
     return (
         <div className='primary-color shadow p-5 text-xl text-color-p font-semibold'>
             <div className='flex flex-row justify-between items-center'>
@@ -34,9 +38,13 @@ const Contentsection: FunctionComponent<Props> = ({
                     <h3 className='mr-5'>@{postedBy.name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
-                <DeletePost setCount={setCount} size={15} postId={postId} />
+                <Dropdown
+                    setCount={setCount}
+                    postId={postId}
+                    htmlFor={htmlFor}
+                />
+                <DeleteModal htmlFor={htmlFor} />
             </div>
-
             {content}
         </div>
     );

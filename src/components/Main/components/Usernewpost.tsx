@@ -130,7 +130,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                             style={styleButton}
                         />
                     ) : isEmpty ? (
-                        <DisableButton text={"Submit"} style={styleButton} />
+                        "" // <DisableButton text={"Submit"} style={styleButton} />
                     ) : isLoading ? (
                         <LoadingButton
                             text={"Submiting ..."}
