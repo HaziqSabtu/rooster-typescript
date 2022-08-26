@@ -11,7 +11,8 @@ import UploadImageButton from "../../Button/ButtonUploadImage";
 import {
     DisableButton,
     LoadingButton,
-    SubmitButton,
+    NormalButton,
+    SubmittedButton,
 } from "../../Button/ButtonSubmit";
 import { NewPost, WarningNewPost } from "../../InputText/Inputtext.newpost";
 import { trpc } from "../../../utils/trpc";
@@ -27,17 +28,22 @@ interface UserText {
 }
 
 const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
-    // const { data: session, status } = useSession();
     const [userText, setUserText] = useState<UserText>({ text: "" });
     const [assetData, setAssetData] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isPosted, setIsPosted] = useState<boolean>(false);
     const [isEmpty, setIsEmpty] = useState<boolean>(true);
     const [warning, setWarning] = useState<boolean>(false);
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
+    const styleButton = {
+        width: "176px",
+    };
+
     const { mutateAsync } = trpc.useMutation(["post.create"]);
 
     const processData = () => {
+        console.log(userText);
         return {
             content: userText.text,
             image: null,
@@ -50,9 +56,10 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
         setUserText((oldVal) => {
             return {
                 ...oldVal,
-                [event.target.name]: event.target.value,
+                text: event.target.value,
             };
         });
+        console.log(userText);
     };
 
     useEffect(() => {
@@ -62,27 +69,28 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
             } else {
                 setIsEmpty(false);
                 setWarning(false);
+                setIsPosted(false);
             }
         } else {
             setIsEmpty(true);
         }
     }, [inputRef.current?.value]);
 
-    const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
-        setIsLoading((state) => !state);
-        console.log(isLoading);
-    };
-
-    // check if text field are empty
-    const handleEmpty = () => {
-        setWarning(true);
-    };
+    function sleep(ms: number) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
 
     // submit new post
+    // useCallback with processData as Dependancy
+    // https://dmitripavlutin.com/dont-overuse-react-usecallback/
     const handleSubmit = useCallback(async () => {
+        setIsLoading((state) => !state);
+        await sleep(5000);
         await mutateAsync(processData());
         setCount((c) => c + 1);
-        setUserText({ text: "" });
+        setIsLoading((state) => !state);
+        setIsPosted(true);
+        await setUserText({ text: "" });
     }, [mutateAsync, processData]);
 
     return (
@@ -91,7 +99,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                 <div className='flex flex-row mb-3 items-center'>
                     {user ? (
                         <img
-                            className='rounded-full w-11 mr-2'
+                            className='rounded-full w-11 mr-2 animate-[bounce_3s_ease-in-out_infinite]'
                             src={user.image as string}
                             alt='userimg'
                         ></img>
@@ -116,12 +124,24 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
 
                 <div className='w-full flex flex-row flex-wrap justify-between flex-end items-stretch pt-3'>
                     <UploadImageButton setAssetData={setAssetData} />
-                    {isEmpty ? (
-                        <DisableButton />
+                    {isPosted ? (
+                        <SubmittedButton
+                            text={"Submitted"}
+                            style={styleButton}
+                        />
+                    ) : isEmpty ? (
+                        <DisableButton text={"Submit"} style={styleButton} />
                     ) : isLoading ? (
-                        <LoadingButton handleSubmit={handleClick} />
+                        <LoadingButton
+                            text={"Submiting ..."}
+                            style={styleButton}
+                        />
                     ) : (
-                        <SubmitButton handleSubmit={handleSubmit} />
+                        <NormalButton
+                            handleSubmit={handleSubmit}
+                            text={"Submit"}
+                            style={styleButton}
+                        />
                     )}
                 </div>
             </div>

@@ -7,6 +7,12 @@ import React, {
 import { useState } from "react";
 import { User } from "next-auth";
 import { trpc } from "../../utils/trpc";
+import {
+    DisableButton,
+    LoadingButton,
+    NormalButton,
+    SubmittedButton,
+} from "../Button/ButtonSubmit";
 
 interface Props {
     postId: string;
@@ -25,6 +31,14 @@ const CommentForm: FunctionComponent<Props> = ({
     const [warning, setWarning] = useState(false);
     const { mutateAsync } = trpc.useMutation(["comment.create"]);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const styleButton = {
+        width: "140px",
+        right: "10px",
+        bottom: "10px",
+        position: "absolute" as "absolute",
+    };
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -54,10 +68,6 @@ const CommentForm: FunctionComponent<Props> = ({
         }
     }, [inputRef.current?.value]);
 
-    const handleEmpty = () => {
-        setWarning(true);
-    };
-
     const processData = () => {
         return {
             content: userInput.comment,
@@ -66,10 +76,18 @@ const CommentForm: FunctionComponent<Props> = ({
         };
     };
 
+    function sleep(ms: number) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
     // submit new post
     const handleSubmit = useCallback(async () => {
+        setIsLoading((state) => !state);
+        await sleep(5000);
         await mutateAsync(processData());
         setCount((c) => c + 1);
+        setIsLoading((state) => !state);
+        setIsCommented(true);
         setUserInput((oldVal) => {
             return { ...oldVal, comment: "" };
         });
@@ -105,22 +123,24 @@ const CommentForm: FunctionComponent<Props> = ({
                             ref={inputRef}
                         />
                     )}
-                    {isEmpty ? (
-                        <button
-                            type='submit'
-                            onClick={handleEmpty}
-                            className='text-white absolute right-2.5 bottom-2.5 disabled-color focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2'
-                        >
-                            Comment
-                        </button>
+                    {isCommented ? (
+                        <SubmittedButton
+                            text={"Commented"}
+                            style={styleButton}
+                        />
+                    ) : isEmpty ? (
+                        <DisableButton text={"Comment"} style={styleButton} />
+                    ) : isLoading ? (
+                        <LoadingButton
+                            // text={"Commentting"}
+                            style={styleButton}
+                        />
                     ) : (
-                        <button
-                            type='submit'
-                            onClick={handleSubmit}
-                            className='text-white absolute right-2.5 bottom-2.5 secondary-color focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2'
-                        >
-                            {!isCommented ? "Comment" : "Commented"}
-                        </button>
+                        <NormalButton
+                            handleSubmit={handleSubmit}
+                            text={"Comment"}
+                            style={styleButton}
+                        />
                     )}
                 </div>
             </form>
