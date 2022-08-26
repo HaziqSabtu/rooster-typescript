@@ -2,9 +2,12 @@ import React, { FunctionComponent } from "react";
 import { Comment, User } from "@prisma/client";
 import Time from "../Time/Time";
 import { Trash } from "../../assets/icons";
+import { DropdownComment, DropdownPost } from "../Dropdown/Dropdown";
+import { ModalCommentDelete } from "../Modal/DeleteModal";
 
 interface Props {
     comment: Comment & { user: User };
+    setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const CommentList: FunctionComponent<Props> = ({
@@ -12,8 +15,11 @@ const CommentList: FunctionComponent<Props> = ({
         content,
         user: { image, name },
         createdAt,
+        id,
     },
+    setCount,
 }) => {
+    const htmlFor = "deletecomment";
     return (
         <div className='primary-color  p-4 text-lg text-color-p font-semibold'>
             <div className='flex flex-row justify-between items-center'>
@@ -28,7 +34,16 @@ const CommentList: FunctionComponent<Props> = ({
                     <h3 className='text-xs mr-5'>@{name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
-                <Trash size={10} />
+                <DropdownComment
+                    setCount={setCount}
+                    commentId={id}
+                    htmlFor={htmlFor}
+                />
+                <ModalCommentDelete
+                    htmlFor={htmlFor}
+                    commentId={id}
+                    setCount={setCount}
+                />
             </div>
             <h1 className='text-sm'> {content}</h1>
         </div>

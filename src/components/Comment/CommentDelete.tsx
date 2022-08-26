@@ -1,14 +1,21 @@
-import { Post } from "@prisma/client";
+import { Comment, Post } from "@prisma/client";
 import React, { FunctionComponent, useCallback } from "react";
 import { RedAlert, Trash } from "../../assets/icons";
 import { trpc } from "../../utils/trpc";
 import DeleteModal from "../Modal/DeleteModal";
 
 interface Props {
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+    size: number;
+    commentId: Comment["id"];
     htmlFor: string;
 }
 
-const DeletePost: FunctionComponent<Props> = ({ htmlFor }) => {
+const CommentDelete: FunctionComponent<Props> = ({
+    size,
+    commentId,
+    htmlFor,
+}) => {
     return (
         <>
             <div>
@@ -18,8 +25,8 @@ const DeletePost: FunctionComponent<Props> = ({ htmlFor }) => {
                         data-modal-toggle='popup-modal'
                     >
                         <div className='flex flex-row items-center'>
-                            <Trash size={15} />
-                            <span className='ml-2'>Delete Post</span>
+                            <Trash size={size} />
+                            <span className='ml-2'>Delete Comment</span>
                         </div>
                     </a>
                 </label>
@@ -28,4 +35,4 @@ const DeletePost: FunctionComponent<Props> = ({ htmlFor }) => {
     );
 };
 
-export default DeletePost;
+export default CommentDelete;

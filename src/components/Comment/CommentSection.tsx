@@ -18,7 +18,13 @@ const CommentSection: FunctionComponent<Props> = ({
     currentUser,
 }) => {
     const generateComment = comments?.map((comment) => {
-        return <CommentList key={comment.id} comment={comment} />;
+        return (
+            <CommentList
+                key={comment.id}
+                comment={comment}
+                setCount={setCount}
+            />
+        );
     });
 
     return (

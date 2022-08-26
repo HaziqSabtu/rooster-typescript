@@ -4,8 +4,8 @@ import TimeAgo from "javascript-time-ago";
 import Time from "../Time/Time";
 import DeletePost from "../Post/DeletePost";
 import { TripleDots } from "../../assets/icons";
-import Dropdown from "../Dropdown/Dropdown";
-import DeleteModal from "../Modal/DeleteModal";
+import { DropdownPost } from "../Dropdown/Dropdown";
+import { ModalPostDelete } from "../Modal/DeleteModal";
 import { trpc } from "../../utils/trpc";
 
 interface Props {
@@ -40,18 +40,18 @@ const Contentsection: FunctionComponent<Props> = ({
                     <h3 className='mr-5'>@{postedBy.name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
-                <Dropdown
+                <DropdownPost
                     setCount={setCount}
                     postId={postId}
                     htmlFor={htmlFor}
                 />
-                <DeleteModal
+                <ModalPostDelete
                     htmlFor={htmlFor}
                     postId={postId}
                     setCount={setCount}
                 />
             </div>
-            {content}
+            <h1 className='text-xl break-all'> {content}</h1>
         </div>
     );
 };

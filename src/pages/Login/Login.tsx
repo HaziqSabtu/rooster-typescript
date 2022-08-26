@@ -1,18 +1,13 @@
 import React, { ComponentFactory, FunctionComponent } from "react";
 import { useState, useEffect, useRef, useContext } from "react";
 
-import { client } from "../../../../roo4/src/client/client";
-import { getUserByUserName } from "../../../../roo4/src/client/query";
 import { AuthApi } from "../../../../roo4/src/api/AuthApi.js";
 import { UserApi } from "../../../../roo4/src/api/UserApi";
 
 // import Cookies from "js-cookie";
-import axios from "axios";
 
 import RedBanner from "./RedBanner";
-import { setToken } from "../../services/token";
 
-import { createSessionConfig } from "../../services/configApi";
 import LoginForm from "./Loginform";
 import Logo from "../../assets/logo/Logo";
 
@@ -75,10 +70,10 @@ const Login: FunctionComponent = () => {
 
     return (
         <div>
-            <section className="h-screen primary-color">
-                <div className="px-6 h-full text-gray-800">
-                    <div className="flex xl:justify-center w-1000 lg:justify-center justify-center items-center flex-wrap h-full g-6">
-                        <div className="flex flex-col justify-center items-center">
+            <section className='h-screen primary-color'>
+                <div className='px-6 h-full text-gray-800'>
+                    <div className='flex xl:justify-center w-1000 lg:justify-center justify-center items-center flex-wrap h-full g-6'>
+                        <div className='flex flex-col justify-center items-center'>
                             {wrong && <RedBanner />}
                             <Logo width={200} />
                             <LoginForm />
