@@ -14,6 +14,8 @@ import {
     SubmittedButton,
 } from "../Button/ButtonSubmit";
 import { InputComment } from "../InputText/Inputtext";
+import { sleep } from "../../services/utils";
+import { getCommentCreateInput } from "../../services/comment";
 
 interface Props {
     postId: string;
@@ -25,13 +27,11 @@ const CommentForm: FunctionComponent<Props> = ({
     setCount,
     currentUser,
 }) => {
-    const [isCommented, setIsCommented] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
     const [userInput, setUserInput] = useState({ comment: "" });
     const [isEmpty, setIsEmpty] = useState(true);
-    // const isEmpty = useRef<boolean>(true);
     const [warning, setWarning] = useState(false);
-    const { mutateAsync } = trpc.useMutation(["comment.create"]);
-    const inputRef = useRef<HTMLInputElement>(null);
+    const [isCommented, setIsCommented] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const styleButton = {
@@ -40,6 +40,8 @@ const CommentForm: FunctionComponent<Props> = ({
         bottom: "10px",
         position: "absolute" as "absolute",
     };
+
+    const { mutateAsync } = trpc.useMutation(["comment.create"]);
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -69,30 +71,20 @@ const CommentForm: FunctionComponent<Props> = ({
         }
     }, [inputRef.current?.value]);
 
-    const processData = () => {
-        return {
-            content: userInput.comment,
-            postIDs: postId,
-            userIDs: currentUser.id,
-        };
-    };
-
-    function sleep(ms: number) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
     // submit new post
     const handleSubmit = useCallback(async () => {
         setIsLoading((state) => !state);
         await sleep(5000);
-        await mutateAsync(processData());
+        await mutateAsync(
+            getCommentCreateInput(userInput.comment, postId, currentUser.id)
+        );
         setCount((c) => c + 1);
         setIsLoading((state) => !state);
         setIsCommented(true);
         setUserInput((oldVal) => {
             return { ...oldVal, comment: "" };
         });
-    }, [mutateAsync, processData]);
+    }, [mutateAsync, getCommentCreateInput, userInput, postId, currentUser]);
 
     return (
         <div className=' rounded-xl'>
