@@ -13,6 +13,7 @@ import {
     NormalButton,
     SubmittedButton,
 } from "../Button/ButtonSubmit";
+import { InputComment } from "../InputText/Inputtext";
 
 interface Props {
     postId: string;
@@ -97,44 +98,20 @@ const CommentForm: FunctionComponent<Props> = ({
         <div className=' rounded-xl'>
             <form onSubmit={onSubmit}>
                 <div className='relative'>
-                    <div className='flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none'></div>
-                    {!warning ? (
-                        <input
-                            type='commentForm'
-                            autoComplete='off'
-                            id='commentForm'
-                            className='block p-4 pl-4 w-full text-sm text-white border-b border-gray-300  primary-color outline-none'
-                            placeholder='Comment'
-                            // required=''
-                            onChange={handleChange}
-                            value={userInput.comment}
-                            ref={inputRef}
-                        />
-                    ) : (
-                        <input
-                            type='commentForm'
-                            autoComplete='off'
-                            id='commentForm'
-                            className='block p-4 pl-4 w-full text-sm text-white border-b focus:ring-blue-500 focus:border-blue-500 primary-color border-rose-500 placeholder-red-500'
-                            placeholder='Comment'
-                            // required=''
-                            onChange={handleChange}
-                            value={userInput.comment}
-                            ref={inputRef}
-                        />
-                    )}
+                    <InputComment
+                        handleChange={handleChange}
+                        value={userInput.comment}
+                        inputRef={inputRef}
+                    />
                     {isCommented ? (
                         <SubmittedButton
                             text={"Commented"}
                             style={styleButton}
                         />
                     ) : isEmpty ? (
-                        "" // <DisableButton text={"Comment"} style={styleButton} />
+                        ""
                     ) : isLoading ? (
-                        <LoadingButton
-                            // text={"Commentting"}
-                            style={styleButton}
-                        />
+                        <LoadingButton style={styleButton} />
                     ) : (
                         <NormalButton
                             handleSubmit={handleSubmit}

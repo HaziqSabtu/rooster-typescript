@@ -43,7 +43,6 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     const { mutateAsync } = trpc.useMutation(["post.create"]);
 
     const processData = () => {
-        console.log(userText);
         return {
             content: userText.text,
             image: null,
@@ -59,7 +58,6 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                 text: event.target.value,
             };
         });
-        console.log(userText);
     };
 
     useEffect(() => {
@@ -90,7 +88,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
         setCount((c) => c + 1);
         setIsLoading((state) => !state);
         setIsPosted(true);
-        await setUserText({ text: "" });
+        setUserText({ text: "" });
     }, [mutateAsync, processData]);
 
     return (
