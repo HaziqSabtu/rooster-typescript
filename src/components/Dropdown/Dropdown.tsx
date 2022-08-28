@@ -4,6 +4,7 @@ import DeletePost from "../Post/DeletePost";
 import DropdownDelete from "./DropdownDelete";
 import tripleDots from "../../assets/icons/components/triple-dots.png";
 import { TripleDots } from "../../assets/icons";
+import DropdownFollow from "./DropdownFollow";
 
 interface DropdownPostProps {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -32,7 +33,14 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                     <DropdownDelete
                         htmlFor={htmlFor}
                         size={15}
-                        text={"delete Post"}
+                        text={"Delete Post"}
+                    />
+                </li>
+                <li>
+                    <DropdownFollow
+                        htmlFor={htmlFor}
+                        size={12}
+                        text={"Follow User"}
                     />
                 </li>
             </ul>
@@ -64,7 +72,14 @@ export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
                     <DropdownDelete
                         htmlFor={htmlFor}
                         size={12}
-                        text={"delete Comment"}
+                        text={"Delete Comment"}
+                    />
+                </li>
+                <li>
+                    <DropdownFollow
+                        htmlFor={htmlFor}
+                        size={12}
+                        text={"Follow User"}
                     />
                 </li>
             </ul>

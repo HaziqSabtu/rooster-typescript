@@ -6,7 +6,6 @@ SIGNINpage
 SIGNup page
 Follow fx
 search
-fix delete modal function
 image
 card props
 
