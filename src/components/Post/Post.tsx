@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Comment, Post, User } from "@prisma/client";
 import Contentsection from "../Content/Contentsection";
 import CommentSection from "../Comment/CommentSection";
-import { User as UserNext } from "next-auth";
+import { User as currentUser } from "next-auth";
 import TimeAgo from "javascript-time-ago";
 
 // import { Post } from "prisma_types";
@@ -10,7 +10,7 @@ interface Props {
     key: string;
     post: Post & { user: User; comments: (Comment & { user: User })[] };
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    currentUser: UserNext;
+    currentUser: currentUser;
     timeAgo: TimeAgo;
 }
 
@@ -36,6 +36,7 @@ const PostList: FunctionComponent<Props> = ({
                 createdAt={createdAt}
                 setCount={setCount}
                 postId={id}
+                currentUser={currentUser.id}
             />
             <CommentSection
                 comments={comments}

@@ -7,6 +7,7 @@ import { TripleDots } from "../../assets/icons";
 import { DropdownPost } from "../Dropdown/Dropdown";
 import { ModalPostDelete } from "../Modal/DeleteModal";
 import { trpc } from "../../utils/trpc";
+import { User as currentUser } from "next-auth";
 
 interface Props {
     postedBy: User;
@@ -15,14 +16,16 @@ interface Props {
     createdAt: Post["createdAt"];
     setCount: React.Dispatch<React.SetStateAction<number>>;
     postId: Post["id"];
+    currentUser: currentUser["id"];
 }
 
 const Contentsection: FunctionComponent<Props> = ({
-    postedBy: { image, ...postedBy },
+    postedBy: { image, id, ...postedBy },
     content,
     createdAt,
     setCount,
     postId,
+    currentUser,
 }) => {
     const htmlFor = "deletepost";
 
@@ -41,9 +44,9 @@ const Contentsection: FunctionComponent<Props> = ({
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownPost
-                    setCount={setCount}
-                    postId={postId}
                     htmlFor={htmlFor}
+                    postedById={id}
+                    currentUser={currentUser}
                 />
                 <ModalPostDelete
                     htmlFor={htmlFor}

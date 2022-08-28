@@ -12,28 +12,13 @@ interface Props {
     currentUser: currentUser["id"];
 }
 
-const DropdownFollow: FunctionComponent<Props> = ({
+const DropdownUnFollow: FunctionComponent<Props> = ({
     size,
     text,
     postedById,
     currentUser,
 }) => {
-    const { data: list, refetch } = trpc.useQuery([
-        "user.getUser",
-        { id: currentUser },
-    ]);
-    console.log(list);
-    // const handleClick = useCallback(async () => {
-    //     console.log("handleClick");
-    //     await mutateAsync(getAddFollowerInput(postedById, currentUser))
-    //         .then((res) => {
-    //             console.log(res);
-    //         })
-    //         .catch((e) => {
-    //             console.log(e);
-    //         });
-    // }, [mutateAsync, getAddFollowerInput]);
-    const { mutateAsync } = trpc.useMutation(["user.addFollower"]);
+    const { mutateAsync } = trpc.useMutation(["user.removeFollower"]);
 
     const handleClick = useCallback(async () => {
         console.log("handleClick");
@@ -65,4 +50,4 @@ const DropdownFollow: FunctionComponent<Props> = ({
     );
 };
 
-export default DropdownFollow;
+export default DropdownUnFollow;
