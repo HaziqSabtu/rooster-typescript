@@ -12,7 +12,7 @@ const LoginGoogle: FunctionComponent<Props> = ({}) => {
                 onClick={() => signIn("google", { callbackUrl: "/" })}
             >
                 <GoogleIcon size={23} />
-                <span className='ml-1'>Login with Google</span>
+                <span className='ml-1 text-white'>Login with Google</span>
             </button>
         </div>
     );

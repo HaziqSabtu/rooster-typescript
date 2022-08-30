@@ -10,7 +10,6 @@ import { User } from "next-auth";
 
 const Home: NextPage = () => {
     const router = useRouter();
-    const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
     const { data: session, status } = useSession();
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(session?.user ? session.user : undefined);

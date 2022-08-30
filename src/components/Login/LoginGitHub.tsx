@@ -12,7 +12,7 @@ const LoginGitHub: FunctionComponent<Props> = ({}) => {
                 onClick={() => signIn("github", { callbackUrl: "/" })}
             >
                 <GitHubIcon size={30} />
-                <span>Login with GitHub</span>
+                <span className='text-white'>Login with GitHub</span>
             </button>
         </div>
     );
