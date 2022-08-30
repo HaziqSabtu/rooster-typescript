@@ -30,7 +30,7 @@ export const ButtonApproveRed: FunctionComponent<ApproveProps> = ({
             onClick={handleClick}
             className='btn btn-sm text-white bg-red-700 border-none sm:btn-sm md:btn-md lg:btn-lg hover:bg-red-700'
         >
-            Yes, I'm sure
+            Yes, I&apos;m sure
         </label>
     );
 };

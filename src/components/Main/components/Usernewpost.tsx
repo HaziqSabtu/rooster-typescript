@@ -39,7 +39,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     const [isEmpty, setIsEmpty] = useState<boolean>(true);
     const [warning, setWarning] = useState<boolean>(false);
     const inputRef = useRef<HTMLTextAreaElement>(null);
-    const image: string = "";
+    const image = "";
 
     const styleButton = {
         width: "176px",
