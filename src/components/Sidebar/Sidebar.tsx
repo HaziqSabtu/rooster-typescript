@@ -20,7 +20,7 @@ const Sidebar = () => {
     }, []);
 
     return user ? (
-        <div className='flex flex-col border-x items-center primary-color w-0 md:w-1/4 lg:w-1/5 h-0 md:h-screen overflow-y-hidden bg-white shadow-lg'>
+        <div className='flex flex-col border-x items-center primary-color w-0 md:w-1/4 lg:w-1/5 h-0 md:h-screen overflow-y-hidden bg-white shadow-lg sticky top-0 z-50'>
             {
                 <div className='p-5 primary-color sticky top-0'>
                     <img

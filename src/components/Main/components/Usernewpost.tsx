@@ -93,19 +93,23 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
         <div>
             <div className='primary-color w-full p-5 border-b-2 flex flex-col'>
                 <div className='flex flex-row mb-3 items-center '>
-                    {image ? (
-                        <img
-                            className='rounded-full w-11 animate-[bounce_3s_ease-in-out_infinite]'
-                            src={user.image as string}
-                            alt='userimg'
-                        ></img>
+                    {user ? (
+                        user.image ? (
+                            <img
+                                className='rounded-full w-11 animate-[bounce_3s_ease-in-out_infinite]'
+                                src={user.image as string}
+                                alt='userimg'
+                            ></img>
+                        ) : (
+                            <PImagePropfile
+                                size={44}
+                                letter={user?.name?.charAt(0) as string}
+                            />
+                        )
                     ) : (
-                        <PImagePropfile
-                            size={44}
-                            letter={user?.name?.charAt(0) as string}
-                        />
+                        ""
                     )}
-                    <h2 className='text-color-p text-2xl ml-2'>New Post...</h2>
+                    <h2 className='text-color-s text-2xl ml-2'>New Post...</h2>
                 </div>
                 {!warning ? (
                     <NewPost
@@ -121,7 +125,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                     />
                 )}
 
-                <div className='w-full flex flex-row flex-wrap justify-between flex-end items-stretch pt-3'>
+                <div className='w-full flex flex-row justify-between flex-end items-stretch pt-3'>
                     <UploadImageButton setAssetData={setAssetData} />
                     {isPosted ? (
                         <SubmittedButton

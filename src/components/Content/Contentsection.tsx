@@ -59,7 +59,7 @@ const Contentsection: FunctionComponent<Props> = ({
                             letter={currentUserName?.charAt(0) as string}
                         />
                     )}
-                    <h3 className='mr-5'>@{postedBy.name}</h3>
+                    <h3 className='mr-5 text-color-s'>@{postedBy.name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownPost
@@ -74,13 +74,8 @@ const Contentsection: FunctionComponent<Props> = ({
                     setCount={setCount}
                     handleClick={handleClick}
                 />
-                <button onClick={handleClick}>aaaa</button>
             </div>
-            <h1 className='text-xl break-all'>
-                {" "}
-                {content}
-                {pp}
-            </h1>
+            <h1 className='text-xl break-all text-color-s'>{content}</h1>
         </div>
     );
 };

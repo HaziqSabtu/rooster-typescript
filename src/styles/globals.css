@@ -38,7 +38,10 @@ body {
 }
 
 .text-color-p {
-    color: #a5c9ca;
+    color: #656399;
+}
+.text-color-s {
+    color: white;
 }
 
 .disabled-color {

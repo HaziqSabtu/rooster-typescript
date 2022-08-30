@@ -40,7 +40,7 @@ const CommentList: FunctionComponent<Props> = ({
                             letter={currentUserName?.charAt(0) as string}
                         />
                     )}
-                    <h3 className='text-xs mr-5'>@{name}</h3>
+                    <h3 className='text-xs mr-5 text-color-s'>@{name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownComment
@@ -54,7 +54,7 @@ const CommentList: FunctionComponent<Props> = ({
                     setCount={setCount}
                 />
             </div>
-            <h1 className='text-sm'> {content}</h1>
+            <h1 className='text-sm text-color-s'> {content}</h1>
         </div>
     );
 };
