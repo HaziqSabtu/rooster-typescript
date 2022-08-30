@@ -3,6 +3,8 @@ import trashIcon from "./components/trash-can.png";
 import redAlert from "./components/red-alert.png";
 import tripleDots from "./components/triple-dots.png";
 import follow from "./components/follow.png";
+import github from "./components/github.png";
+import google from "./components/google.png";
 
 interface Props {
     size: number;
@@ -21,4 +23,12 @@ export const TripleDots: FunctionComponent<Props> = ({ size }) => {
 
 export const FollowIcon: FunctionComponent<Props> = ({ size }) => {
     return <img src={follow.src} width={size} height={size} />;
+};
+
+export const GitHubIcon: FunctionComponent<Props> = ({ size }) => {
+    return <img src={github.src} width={size} height={size} />;
+};
+
+export const GoogleIcon: FunctionComponent<Props> = ({ size }) => {
+    return <img src={google.src} width={size} height={size} />;
 };
