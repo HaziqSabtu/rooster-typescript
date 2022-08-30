@@ -27,12 +27,7 @@ const Home: NextPage = () => {
         setIsLoading(false);
     };
 
-    return (
-        <div>
-            <Navbar />
-            {isLoading ? <Loading /> : <Main user={user as User} />}
-        </div>
-    );
+    return <div>{isLoading ? <Loading /> : <Main user={user as User} />}</div>;
 };
 
 export default Home;

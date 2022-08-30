@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { boolean } from "zod";
@@ -37,15 +37,17 @@ const Sidebar = () => {
             }
             <div className='w-full h-screen antialiased flex flex-col hover:cursor-pointer'>
                 <a
-                    className='hover:bg-gray-300 tertiary-color border-y p-3 w-full text-xl text-left text-color-p font-semibold'
+                    className='hover:bg-gray-300 primary-color border-y p-3 w-full text-xl text-left text-color-p font-semibold'
                     href='setting'
                 >
                     <i className='fa fa-cog text-color-p text-2xl pr-1 pt-1 float-right'></i>
                     Settings
                 </a>
                 <a
-                    className='hover:bg-gray-300 tertiary-color border-b p-3 w-full text-xl text-left text-color-p font-semibold'
-                    href='/logout'
+                    className='hover:bg-gray-300 primary-color border-b p-3 w-full text-xl text-left text-color-p font-semibold'
+                    onClick={() => {
+                        signOut();
+                    }}
                 >
                     <i className='fa fa-cog text-color-p text-2xl pr-1 pt-1 float-right'></i>
                     Log out

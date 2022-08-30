@@ -39,17 +39,19 @@ const Navbar: FunctionComponent = () => {
                 }
             >
                 {/* render component only if authenticated */}
-                {user ? (
-                    <div>
-                        <NavLink href='/setting' id='setting' />
-                        <SignOut href='/signout' id='logout' />
-                    </div>
-                ) : (
-                    <div>
-                        <NavLink href='/register' id='register' />
-                        <NavLink href='/login' id='login' />
-                    </div>
-                )}
+                <div className='ml-auto'>
+                    {user ? (
+                        <div>
+                            <NavLink href='/setting' id='setting' />
+                            <SignOut href='/signout' id='logout' />
+                        </div>
+                    ) : (
+                        <div>
+                            <NavLink href='/register' id='register' />
+                            <NavLink href='/login' id='login' />
+                        </div>
+                    )}
+                </div>
             </div>
         </nav>
     );

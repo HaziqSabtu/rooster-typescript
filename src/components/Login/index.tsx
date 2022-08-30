@@ -11,8 +11,9 @@ const Login: FunctionComponent<Props> = ({}) => {
             <section className='h-screen'>
                 <div className='container px-6 py-12 h-full'>
                     <div className='flex justify-center items-center flex-wrap h-full g-6 text-gray-800'>
-                        <div className='md:w-8/12 lg:w-6/12 mb-12 md:mb-0'>
-                            <LogoLarge width={700} />
+                        <div className='md:w-8/12 lg:w-6/12 lg:items-start mb-12 md:mb-0 flex flex-col items-center'>
+                            <LogoLarge width={650} />
+                            {/* <Logo width={650} /> */}
 
                             <div className='flex flex-col space-y-8 items-start justify-start'>
                                 <h1 className='font-mono text-7xl font-bold text-color-p tracking-wide'>
