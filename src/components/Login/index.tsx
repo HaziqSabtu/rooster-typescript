@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import React, { FunctionComponent } from "react";
 import Logo, { LogoLarge } from "../../assets/logo/Logo";
 import LoginGitHub from "./LoginGitHub";
@@ -32,6 +33,7 @@ const Login: FunctionComponent = ({}) => {
                         <div className='md:w-8/12 lg:w-5/12 lg:ml-20'>
                             <LoginGitHub />
                             <LoginGoogle />
+                            <button onClick={() => signIn()}>log</button>
                         </div>
                     </div>
                 </div>
