@@ -5,9 +5,10 @@ import Time from "../Time/Time";
 import DeletePost from "../Post/DeletePost";
 import { TripleDots } from "../../assets/icons";
 import { DropdownPost } from "../Dropdown/Dropdown";
-import { ModalPostDelete } from "../Modal/DeleteModal";
+import { ModalPostDelete } from "../Modal/DeleteModal2";
 import { trpc } from "../../utils/trpc";
 import { User as currentUser } from "next-auth";
+import { PImagePosts } from "../../assets/placeholder";
 
 interface Props {
     postedBy: User;
@@ -16,7 +17,7 @@ interface Props {
     createdAt: Post["createdAt"];
     setCount: React.Dispatch<React.SetStateAction<number>>;
     postId: Post["id"];
-    currentUser: currentUser["id"];
+    currentUser: currentUser;
 }
 
 const Contentsection: FunctionComponent<Props> = ({
@@ -24,10 +25,22 @@ const Contentsection: FunctionComponent<Props> = ({
     content,
     createdAt,
     setCount,
-    postId,
-    currentUser,
+    postId: pp,
+    currentUser: { id: currentUserId, name: currentUserName },
 }) => {
-    const htmlFor = "deletepost";
+    const htmlFor = id;
+    console.log(htmlFor);
+    const { mutateAsync } = trpc.useMutation(["post.delete"]);
+    // console.log(pp);
+
+    const handleClick = async () => {
+        console.log(pp);
+        console.log(`deleting post ${pp}`);
+        // await mutateAsync({
+        //     postIDs: pp,
+        // });
+        // setCount((c) => c + 1);
+    };
 
     return (
         <div className='primary-color p-5 text-xl text-color-p font-semibold'>
@@ -38,23 +51,36 @@ const Contentsection: FunctionComponent<Props> = ({
                             className='rounded-full w-8 mr-2'
                             src={image}
                             alt='postedBy'
+                            placeholder='https://via.placeholder.com/150'
                         />
-                    ) : null}
+                    ) : (
+                        <PImagePosts
+                            size={32}
+                            letter={currentUserName?.charAt(0) as string}
+                        />
+                    )}
                     <h3 className='mr-5'>@{postedBy.name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownPost
                     htmlFor={htmlFor}
                     postedById={id}
-                    currentUser={currentUser}
+                    currentUser={currentUserId}
+                    postId={pp}
                 />
                 <ModalPostDelete
                     htmlFor={htmlFor}
-                    postId={postId}
+                    postId={pp}
                     setCount={setCount}
+                    handleClick={handleClick}
                 />
+                <button onClick={handleClick}>aaaa</button>
             </div>
-            <h1 className='text-xl break-all'> {content}</h1>
+            <h1 className='text-xl break-all'>
+                {" "}
+                {content}
+                {pp}
+            </h1>
         </div>
     );
 };

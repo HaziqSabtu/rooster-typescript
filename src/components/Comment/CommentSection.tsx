@@ -23,6 +23,7 @@ const CommentSection: FunctionComponent<Props> = ({
                 key={comment.id}
                 comment={comment}
                 setCount={setCount}
+                currentUser={currentUser}
             />
         );
     });

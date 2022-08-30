@@ -2,7 +2,6 @@ import { Post } from "@prisma/client";
 import React, { FunctionComponent, useCallback } from "react";
 import { RedAlert, Trash } from "../../assets/icons";
 import { trpc } from "../../utils/trpc";
-import DeleteModal from "../Modal/DeleteModal";
 
 interface Props {
     htmlFor: string;

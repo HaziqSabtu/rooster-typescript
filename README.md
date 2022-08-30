@@ -5,6 +5,7 @@
 SIGNINpage
 SIGNup page
 Follow fx
+FIX DELETE
 search
 image
 card props

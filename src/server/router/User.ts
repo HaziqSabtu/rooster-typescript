@@ -57,7 +57,6 @@ export const UserRouter = createProtectedRouter()
                     },
                 })) || {};
 
-            // console.log(user?.followedByIDs);
             return followedByIDs
                 ? await ctx.prisma.user.update({
                       where: { id: ctx.session.user.id },

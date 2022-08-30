@@ -12,16 +12,22 @@ interface DropdownPostProps {
     htmlFor: string;
     postedById: User["id"];
     currentUser: currentUser["id"];
+    postId: Post["id"];
 }
 
 export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
     htmlFor,
     postedById,
     currentUser,
+    postId,
 }) => {
     return (
         <div className='dropdown dropdown-end h-10'>
-            <label tabIndex={0} className='m-1 cursor-pointer'>
+            <label
+                tabIndex={0}
+                className='m-1 cursor-pointer'
+                onClick={() => console.log(postId)}
+            >
                 <div className=''>
                     <TripleDots size={20} />
                     {/* <img src={tripleDots.src} width={20} height={20} /> */}
@@ -60,16 +66,12 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
 };
 
 interface DropdownCommentProps {
-    setCount: React.Dispatch<React.SetStateAction<number>>;
-    commentId: Comment["id"];
     htmlFor: string;
     postedById: User["id"];
     currentUser: currentUser["id"];
 }
 
 export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
-    setCount,
-    commentId,
     htmlFor,
     postedById,
     currentUser,

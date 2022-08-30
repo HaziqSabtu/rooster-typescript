@@ -23,8 +23,7 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
 
     return (
         <>
-            <input type='checkbox' id={htmlFor} className='modal-toggle' />
-            <div className='modal'>
+            <div className='modal' id={htmlFor}>
                 <div className='modal-box'>
                     <div className='flex flex-row items-start'>
                         <RedAlert size={45} />

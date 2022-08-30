@@ -1,6 +1,7 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -40,11 +41,22 @@ export const authOptions: NextAuthOptions = {
             clientId: env.GITHUB_ID,
             clientSecret: env.GITHUB_SECRET,
         }),
+        GoogleProvider({
+            clientId: env.GOOGLE_ID,
+            clientSecret: env.GOOGLE_SECRET,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
+                },
+            },
+        }),
         // ...add more providers here
     ],
-    // pages: {
-    //     signIn: "/auth/signin",
-    // },
+    pages: {
+        signIn: "/auth/signin",
+    },
 };
 
 export default NextAuth(authOptions);

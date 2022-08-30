@@ -7,7 +7,7 @@ import TimeAgo from "javascript-time-ago";
 
 // import { Post } from "prisma_types";
 interface Props {
-    key: string;
+    key: Post["id"];
     post: Post & { user: User; comments: (Comment & { user: User })[] };
     setCount: React.Dispatch<React.SetStateAction<number>>;
     currentUser: currentUser;
@@ -15,11 +15,12 @@ interface Props {
 }
 
 const PostList: FunctionComponent<Props> = ({
-    post: { image, content, user, id, comments, createdAt },
+    post: { image, content, id, user, comments, createdAt },
     setCount,
     currentUser,
     timeAgo,
 }) => {
+    // console.log(id);
     return (
         <div className='bg-white border-y'>
             {image ? (
@@ -36,7 +37,7 @@ const PostList: FunctionComponent<Props> = ({
                 createdAt={createdAt}
                 setCount={setCount}
                 postId={id}
-                currentUser={currentUser.id}
+                currentUser={currentUser}
             />
             <CommentSection
                 comments={comments}

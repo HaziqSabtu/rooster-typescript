@@ -8,16 +8,17 @@ interface Props {
 }
 
 const DropdownDelete: FunctionComponent<Props> = ({ htmlFor, size, text }) => {
+    const href = `#${htmlFor}`;
     return (
         <>
-            <label htmlFor={htmlFor} className='modal-button p-2'>
-                <a className='cursor-pointer' data-modal-toggle='popup-modal'>
-                    <div className='flex flex-row items-center'>
-                        <Trash size={size} />
-                        <span className='ml-2 text-sm'>{text}</span>
-                    </div>
-                </a>
-            </label>
+            <a href={href} className='btn'>
+                {/* <a className='cursor-pointer' data-modal-toggle='popup-modal'> */}
+                <div className='flex flex-row items-center'>
+                    <Trash size={size} />
+                    <span className='ml-2 text-sm'>{text}</span>
+                </div>
+                {/* </a> */}
+            </a>
         </>
     );
 };

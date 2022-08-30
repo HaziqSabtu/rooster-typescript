@@ -20,6 +20,7 @@ import { User } from "next-auth";
 import { getPostCreateInput } from "../../../services/post";
 import Userinput from "../home/Userinput";
 import { sleep } from "../../../services/utils";
+import { PImagePropfile } from "../../../assets/placeholder";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -91,17 +92,20 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     return (
         <div>
             <div className='primary-color w-full p-5 border-b-2 flex flex-col'>
-                <div className='flex flex-row mb-3 items-center'>
-                    {user ? (
+                <div className='flex flex-row mb-3 items-center '>
+                    {image ? (
                         <img
-                            className='rounded-full w-11 mr-2 animate-[bounce_3s_ease-in-out_infinite]'
+                            className='rounded-full w-11 animate-[bounce_3s_ease-in-out_infinite]'
                             src={user.image as string}
                             alt='userimg'
                         ></img>
                     ) : (
-                        ""
+                        <PImagePropfile
+                            size={44}
+                            letter={user?.name?.charAt(0) as string}
+                        />
                     )}
-                    <h2 className='text-color-p text-2xl'>New Post...</h2>
+                    <h2 className='text-color-p text-2xl ml-2'>New Post...</h2>
                 </div>
                 {!warning ? (
                     <NewPost
