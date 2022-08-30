@@ -33,7 +33,6 @@ const Login: FunctionComponent = ({}) => {
                         <div className='md:w-8/12 lg:w-5/12 lg:ml-20'>
                             <LoginGitHub />
                             <LoginGoogle />
-                            <button onClick={() => signIn()}>log</button>
                         </div>
                     </div>
                 </div>
