@@ -1,8 +1,20 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
-  "plugins": ["@typescript-eslint"],
-  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"]
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "next/core-web-vitals",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "react-hooks/exhaustive-deps": "off",
+        "@next/next/no-img-element": "off",
+        "@next/next/no-html-link-for-pages": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/prefer-as-const": "off",
+        "jsx-a11y/alt-text": "off"
+    }
 }

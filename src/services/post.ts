@@ -1,9 +1,5 @@
 import { Post } from "@prisma/client";
 import { User } from "next-auth";
-import React, { FunctionComponent } from "react";
-import { trpc } from "../utils/trpc";
-
-interface Props {}
 
 export const getPostDeleteInput = (postId: Post["id"]) => {
     return {

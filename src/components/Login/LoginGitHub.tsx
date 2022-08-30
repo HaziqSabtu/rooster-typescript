@@ -2,9 +2,7 @@ import { signIn } from "next-auth/react";
 import React, { FunctionComponent } from "react";
 import { GitHubIcon } from "../../assets/icons";
 
-interface Props {}
-
-const LoginGitHub: FunctionComponent<Props> = ({}) => {
+const LoginGitHub: FunctionComponent = ({}) => {
     return (
         <div className='flex flex-row items-center'>
             <button

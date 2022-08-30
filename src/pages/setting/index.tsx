@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-interface Props {}
-
-const setting: FunctionComponent<Props> = ({}) => {
+const setting: FunctionComponent = ({}) => {
     return <div>still WIP</div>;
 };
 

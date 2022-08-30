@@ -18,7 +18,6 @@ import { NewPost, WarningNewPost } from "../../InputText/Inputtext.newpost";
 import { trpc } from "../../../utils/trpc";
 import { User } from "next-auth";
 import { getPostCreateInput } from "../../../services/post";
-import Userinput from "../home/Userinput";
 import { sleep } from "../../../services/utils";
 import { PImagePropfile } from "../../../assets/placeholder";
 

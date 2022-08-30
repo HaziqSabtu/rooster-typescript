@@ -3,9 +3,7 @@ import Logo, { LogoLarge } from "../../assets/logo/Logo";
 import LoginGitHub from "./LoginGitHub";
 import LoginGoogle from "./LoginGoogle";
 
-interface Props {}
-
-const Login: FunctionComponent<Props> = ({}) => {
+const Login: FunctionComponent = ({}) => {
     const style = { backgroundColor: "#656399" };
     return (
         <div>
