@@ -44,9 +44,9 @@ const CommentList: FunctionComponent<Props> = ({
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownComment
-                    setCount={setCount}
-                    commentId={id}
                     htmlFor={htmlFor}
+                    postedById={id}
+                    currentUser={currentUserId}
                 />
                 <ModalCommentDelete
                     htmlFor={htmlFor}
