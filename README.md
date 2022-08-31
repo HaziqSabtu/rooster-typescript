@@ -1,4 +1,4 @@
-# Rooster :chicken
+# Rooster :rooster:
 
 ![Alt text](/screenshots/Rooster%20Header.jpg)
 
@@ -19,7 +19,7 @@ One Platform for All. To share your Ideas, Speak your mind and make new Friends!
 
 ## Demo
 
-![Alt text](https://ibb.co/jf0JHMh)
+![Alt text](/screenshots/device.jpg)
 
 The website is now Live ! (but still Work in Progress): [Rooster-t3](https://rooster-wheat.vercel.app/)
 
