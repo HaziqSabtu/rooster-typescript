@@ -13,7 +13,7 @@ One Platform for All. To share your Ideas, Speak your mind and make new Friends!
 | NextAuth    | Server Side Rendering (SSR)  |
 | Nextjs      | Server Side Rendering (SSR)  |
 | Prisma      | Type-safe query builder      |
-| Prisma      | Rapid Styling                |
+| Tailwind CSS      | Rapid Styling                |
 | Mongo Atlas | Enabling Cloud Database      |
 | tRPC        | End-to-end typesafe APIs     |
 
