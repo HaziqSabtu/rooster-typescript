@@ -6,11 +6,11 @@ const LoginGoogle: FunctionComponent = ({}) => {
     return (
         <div className='flex flex-row items-center mt-3'>
             <button
-                className='btn btn-wide'
+                className='btn btn-wide bg-white border-none hover:bg-white'
                 onClick={() => signIn("google", { callbackUrl: "/" })}
             >
                 <GoogleIcon size={23} />
-                <span className='ml-1 text-white'>Login with Google</span>
+                <span className='ml-1 text-black'>Login with Google</span>
             </button>
         </div>
     );

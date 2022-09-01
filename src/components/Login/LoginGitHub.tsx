@@ -4,7 +4,7 @@ import { GitHubIcon } from "../../assets/icons";
 
 const LoginGitHub: FunctionComponent = ({}) => {
     return (
-        <div className='flex flex-row items-center'>
+        <div className='flex flex-row items-center mt-3'>
             <button
                 className='btn btn-wide'
                 onClick={() => signIn("github", { callbackUrl: "/" })}
