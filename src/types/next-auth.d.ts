@@ -18,6 +18,7 @@ declare module "next-auth" {
         email?: string | undefined | null;
         image?: string | undefined | null;
         name?: string | undefined | null;
+        followedByIDs: Post["followedByIDs"];
     }
 }
 
