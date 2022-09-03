@@ -15,11 +15,12 @@ export const authOptions: NextAuthOptions = {
         session({ session, user }) {
             if (session.user) {
                 session.user.id = user.id;
+                session.user.followedByIDs = user.followedByIDs;
+                session.user.followerIDs = user.followerIDs;
             }
             return session;
         },
         async signIn({ user, account, profile, email, credentials }) {
-            console.log("signing IN");
             const isAllowedToSignIn = true;
             if (isAllowedToSignIn) {
                 return true;

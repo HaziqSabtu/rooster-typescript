@@ -7,12 +7,14 @@ import { TripleDots } from "../../assets/icons";
 import DropdownFollow from "./DropdownFollow";
 import { User as currentUser } from "next-auth";
 import DropdownUnFollow from "./DropdownUnFollow";
+import { userAgent } from "next/server";
 
 interface DropdownPostProps {
     htmlFor: string;
     postedById: User["id"];
     currentUser: currentUser["id"];
     postId: Post["id"];
+    cu: currentUser;
 }
 
 export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
@@ -37,13 +39,14 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                 tabIndex={0}
                 className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
             >
-                <li>
+                {/* <li>
                     <DropdownDelete
                         htmlFor={htmlFor}
                         size={15}
                         text={"Delete Post"}
                     />
-                </li>
+                </li> */}
+                {user.followedByIDs.includes(postedById) ? }
                 <li>
                     <DropdownFollow
                         size={12}

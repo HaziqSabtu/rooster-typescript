@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Main: FunctionComponent<Props> = ({ user }) => {
+    console.log(user);
     const [count, setCount] = React.useState<number>(0);
     return (
         <div>

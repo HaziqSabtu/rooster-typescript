@@ -1,3 +1,4 @@
+import { Post } from "@prisma/client";
 import { DefaultSession } from "next-auth";
 
 declare module "next-auth" {
@@ -7,6 +8,8 @@ declare module "next-auth" {
     interface Session {
         user?: {
             id: string;
+            followedByIDs: Post["followedByIDs"];
+            followerIDs: Post["followerIDs"];
         } & DefaultSession["user"];
     }
 

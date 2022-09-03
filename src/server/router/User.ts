@@ -1,6 +1,7 @@
 import { createProtectedRouter } from "./protected-router";
 import { z } from "zod";
 import { trpc } from "../../utils/trpc";
+import { User } from "@prisma/client";
 // Example router with queries that can only be hit if the user requesting is signed in
 export const UserRouter = createProtectedRouter()
     .query("getUser", {
@@ -26,21 +27,24 @@ export const UserRouter = createProtectedRouter()
             userIDs: z.string(),
         }),
         resolve: async ({ ctx, input }) => {
-            const user = await ctx.prisma.user
-                .findFirst({
-                    where: {
-                        id: ctx.session.user.id,
-                        followedByIDs: { has: input.followerIDs },
-                    },
-                })
-                .then((res) => {
-                    console.log(res);
-                });
-
-            return await ctx.prisma.user.update({
-                where: { id: input.userIDs },
-                data: { followedByIDs: { set: input.followerIDs } },
+            const user = await ctx.prisma.user.findUniqueOrThrow({
+                where: {
+                    id: ctx.session.user.id,
+                },
+                select: {
+                    followedByIDs: true,
+                },
             });
+            return !user.followedByIDs.includes(input.followerIDs)
+                ? await ctx.prisma.user.update({
+                      where: { id: input.userIDs },
+                      data: {
+                          followedByIDs: {
+                              set: [...user.followedByIDs, input.followerIDs],
+                          },
+                      },
+                  })
+                : null;
         },
     })
     .mutation("removeFollower", {
