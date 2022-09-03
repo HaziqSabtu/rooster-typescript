@@ -23,7 +23,7 @@ const PostList: FunctionComponent<Props> = ({
 }) => {
     console.log(currentUser);
     return (
-        <Link href={`/post/${id}`}>
+        // <Link href={`/post/${id}`}>
             <div className='bg-white border-y'>
                 {image ? (
                     <img
@@ -48,7 +48,7 @@ const PostList: FunctionComponent<Props> = ({
                     currentUser={currentUser}
                 />
             </div>
-        </Link>
+        {/* </Link> */}
     );
 };
 
