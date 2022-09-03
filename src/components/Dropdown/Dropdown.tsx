@@ -14,7 +14,7 @@ interface DropdownPostProps {
     postedById: User["id"];
     currentUser: currentUser["id"];
     postId: Post["id"];
-    cu: User;
+    followedByIDs: User["followedByIDs"];
 }
 
 export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
@@ -22,7 +22,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
     postedById,
     currentUser,
     postId,
-    cu,
+    followedByIDs,
 }) => {
     return (
         <div className='dropdown dropdown-end h-10'>
@@ -47,7 +47,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                         text={"Delete Post"}
                     />
                 </li> */}
-                {!cu.followedByIDs.includes(postedById) ? (
+                {!followedByIDs.includes(postedById) ? (
                     <li>
                         <DropdownFollow
                             size={12}
