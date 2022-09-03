@@ -10,6 +10,18 @@ export const PostRouter = createProtectedRouter()
             });
         },
     })
+    .query("findPostById", {
+        input: z.object({
+            postId: z.string(),
+        }),
+        resolve: async ({ ctx, input }) => {
+            console.log("input", input);
+            return await ctx.prisma.post.findFirstOrThrow({
+                where: { id: input.postId },
+                include: { user: true, comments: { include: { user: true } } },
+            });
+        },
+    })
     .mutation("create", {
         input: z.object({
             content: z.string().nullish(),

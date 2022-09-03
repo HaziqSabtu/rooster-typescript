@@ -4,6 +4,8 @@
 
 One Platform for All. To share your Ideas, Speak your mind and make new Friends!
 
+Try now: [Rooster-t3](https://rooster-wheat.vercel.app/)
+
 ## Tech Stack
 
 | Technology  | Description                  |

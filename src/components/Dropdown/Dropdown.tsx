@@ -7,12 +7,14 @@ import { TripleDots } from "../../assets/icons";
 import DropdownFollow from "./DropdownFollow";
 import { User as currentUser } from "next-auth";
 import DropdownUnFollow from "./DropdownUnFollow";
+import { userAgent } from "next/server";
 
 interface DropdownPostProps {
     htmlFor: string;
     postedById: User["id"];
     currentUser: currentUser["id"];
     postId: Post["id"];
+    cu: User;
 }
 
 export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
@@ -20,6 +22,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
     postedById,
     currentUser,
     postId,
+    cu,
 }) => {
     return (
         <div className='dropdown dropdown-end h-10'>
@@ -37,29 +40,32 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                 tabIndex={0}
                 className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
             >
-                <li>
+                {/* <li>
                     <DropdownDelete
                         htmlFor={htmlFor}
                         size={15}
                         text={"Delete Post"}
                     />
-                </li>
-                <li>
-                    <DropdownFollow
-                        size={12}
-                        text={"Follow User"}
-                        postedById={postedById}
-                        currentUser={currentUser}
-                    />
-                </li>
-                <li>
-                    <DropdownUnFollow
-                        size={12}
-                        text={"Remove User"}
-                        postedById={postedById}
-                        currentUser={currentUser}
-                    />
-                </li>
+                </li> */}
+                {!cu.followedByIDs.includes(postedById) ? (
+                    <li>
+                        <DropdownFollow
+                            size={12}
+                            text={"Follow User"}
+                            postedById={postedById}
+                            currentUser={currentUser}
+                        />
+                    </li>
+                ) : (
+                    <li>
+                        <DropdownUnFollow
+                            size={12}
+                            text={"Remove User"}
+                            postedById={postedById}
+                            currentUser={currentUser}
+                        />
+                    </li>
+                )}
             </ul>
         </div>
     );

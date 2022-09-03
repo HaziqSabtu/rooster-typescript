@@ -26,12 +26,12 @@ const Contentsection: FunctionComponent<Props> = ({
     createdAt,
     setCount,
     postId: pp,
-    currentUser: { id: currentUserId, name: currentUserName },
+    currentUser: { id: currentUserId, name: currentUserName, ...currentUser },
 }) => {
     const htmlFor = id;
     console.log(htmlFor);
     const { mutateAsync } = trpc.useMutation(["post.delete"]);
-    // console.log(pp);
+    console.log(currentUser);
 
     const handleClick = async () => {
         console.log(pp);
@@ -66,6 +66,7 @@ const Contentsection: FunctionComponent<Props> = ({
                     htmlFor={htmlFor}
                     postedById={id}
                     currentUser={currentUserId}
+                    cu={currentUser}
                     postId={pp}
                 />
                 <ModalPostDelete
