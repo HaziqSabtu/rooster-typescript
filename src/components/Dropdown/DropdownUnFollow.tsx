@@ -34,7 +34,7 @@ const DropdownUnFollow: FunctionComponent<Props> = ({
 
     return (
         <>
-            <label className='modal-button p-2'>
+            <label className='modal-button p-2 hover:bg-red-500 hover:text-black'>
                 <a
                     className='cursor-pointer'
                     data-modal-toggle='popup-modal'

@@ -14,7 +14,7 @@ interface DropdownPostProps {
     postedById: User["id"];
     currentUser: currentUser["id"];
     postId: Post["id"];
-    cu: currentUser;
+    cu: User;
 }
 
 export const DropdownPost: FunctionComponent<DropdownPostProps> = ({

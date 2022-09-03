@@ -4,6 +4,7 @@ import Contentsection from "../Content/Contentsection";
 import CommentSection from "../Comment/CommentSection";
 import { User as currentUser } from "next-auth";
 import TimeAgo from "javascript-time-ago";
+import Link from "next/link";
 
 // import { Post } from "prisma_types";
 interface Props {
@@ -22,30 +23,32 @@ const PostList: FunctionComponent<Props> = ({
 }) => {
     console.log(currentUser);
     return (
-        <div className='bg-white border-y'>
-            {image ? (
-                <img
-                    className='object fill w-full border rounded-t-2xl '
-                    src={image}
-                    alt='imgpost'
+        <Link href={`/post/${id}`}>
+            <div className='bg-white border-y'>
+                {image ? (
+                    <img
+                        className='object fill w-full border rounded-t-2xl '
+                        src={image}
+                        alt='imgpost'
+                    />
+                ) : null}
+                <Contentsection
+                    postedBy={user}
+                    content={content}
+                    timeago={timeAgo}
+                    createdAt={createdAt}
+                    setCount={setCount}
+                    postId={id}
+                    currentUser={currentUser}
                 />
-            ) : null}
-            <Contentsection
-                postedBy={user}
-                content={content}
-                timeago={timeAgo}
-                createdAt={createdAt}
-                setCount={setCount}
-                postId={id}
-                currentUser={currentUser}
-            />
-            <CommentSection
-                comments={comments}
-                postId={id}
-                setCount={setCount}
-                currentUser={currentUser}
-            />
-        </div>
+                <CommentSection
+                    comments={comments}
+                    postId={id}
+                    setCount={setCount}
+                    currentUser={currentUser}
+                />
+            </div>
+        </Link>
     );
 };
 
