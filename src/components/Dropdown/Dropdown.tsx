@@ -22,6 +22,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
     postedById,
     currentUser,
     postId,
+    cu,
 }) => {
     return (
         <div className='dropdown dropdown-end h-10'>
@@ -46,23 +47,25 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                         text={"Delete Post"}
                     />
                 </li> */}
-                {user.followedByIDs.includes(postedById) ? }
-                <li>
-                    <DropdownFollow
-                        size={12}
-                        text={"Follow User"}
-                        postedById={postedById}
-                        currentUser={currentUser}
-                    />
-                </li>
-                <li>
-                    <DropdownUnFollow
-                        size={12}
-                        text={"Remove User"}
-                        postedById={postedById}
-                        currentUser={currentUser}
-                    />
-                </li>
+                {!cu.followedByIDs.includes(postedById) ? (
+                    <li>
+                        <DropdownFollow
+                            size={12}
+                            text={"Follow User"}
+                            postedById={postedById}
+                            currentUser={currentUser}
+                        />
+                    </li>
+                ) : (
+                    <li>
+                        <DropdownUnFollow
+                            size={12}
+                            text={"Remove User"}
+                            postedById={postedById}
+                            currentUser={currentUser}
+                        />
+                    </li>
+                )}
             </ul>
         </div>
     );

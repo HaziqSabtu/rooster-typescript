@@ -31,7 +31,7 @@ const Contentsection: FunctionComponent<Props> = ({
     const htmlFor = id;
     console.log(htmlFor);
     const { mutateAsync } = trpc.useMutation(["post.delete"]);
-    // console.log(pp);
+    console.log(currentUser);
 
     const handleClick = async () => {
         console.log(pp);

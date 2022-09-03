@@ -20,7 +20,7 @@ const PostList: FunctionComponent<Props> = ({
     currentUser,
     timeAgo,
 }) => {
-    // console.log(id);
+    console.log(currentUser);
     return (
         <div className='bg-white border-y'>
             {image ? (
