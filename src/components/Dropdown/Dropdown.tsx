@@ -40,13 +40,14 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                 tabIndex={0}
                 className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
             >
-                {/* <li>
+                <li>
                     <DropdownDelete
                         htmlFor={htmlFor}
                         size={15}
                         text={"Delete Post"}
                     />
-                </li> */}
+                </li>
+
                 {!followedByIDs.includes(postedById) ? (
                     <li>
                         <DropdownFollow

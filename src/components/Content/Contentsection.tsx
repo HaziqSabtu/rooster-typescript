@@ -5,7 +5,7 @@ import Time from "../Time/Time";
 import DeletePost from "../Post/DeletePost";
 import { TripleDots } from "../../assets/icons";
 import { DropdownPost } from "../Dropdown/Dropdown";
-import { ModalPostDelete } from "../Modal/DeleteModal2";
+import { ModalPostDelete } from "../Modal/DeleteModal";
 import { trpc } from "../../utils/trpc";
 import { User as currentUser } from "next-auth";
 import { PImagePosts } from "../../assets/placeholder";
@@ -36,10 +36,10 @@ const Contentsection: FunctionComponent<Props> = ({
     const handleClick = async () => {
         console.log(pp);
         console.log(`deleting post ${pp}`);
-        // await mutateAsync({
-        //     postIDs: pp,
-        // });
-        // setCount((c) => c + 1);
+        await mutateAsync({
+            postIDs: pp,
+        });
+        setCount((c) => c + 1);
     };
 
     return (
@@ -69,6 +69,7 @@ const Contentsection: FunctionComponent<Props> = ({
                     followedByIDs={followedByIDs}
                     postId={pp}
                 />
+
                 <ModalPostDelete
                     htmlFor={htmlFor}
                     postId={pp}

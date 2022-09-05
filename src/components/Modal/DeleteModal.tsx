@@ -1,8 +1,10 @@
 import { Comment, Post } from "@prisma/client";
 import React, { FunctionComponent, useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RedAlert } from "../../assets/icons";
 import { getCommentDeleteInput } from "../../services/comment";
 import { getPostDeleteInput } from "../../services/post";
+import { selectDeleteModal } from "../../slices/SliceModalDelete";
 import { trpc } from "../../utils/trpc";
 import { ButtonApproveRed, ButtonCancel } from "../Button/ButtonModal";
 
@@ -20,10 +22,12 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
     handleClick,
 }) => {
     // console.log(postId);
+    const deleteModalState = useSelector(selectDeleteModal);
+    const dispatch = useDispatch();
 
     return (
         <>
-            <input type='checkbox' id={htmlFor} className='modal-toggle' />
+            <input type='checkbox' id='my-modal' className='modal-toggle' />
             <div className='modal'>
                 <div className='modal-box'>
                     <div className='flex flex-row items-start'>
@@ -35,7 +39,7 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
                                 action cannot be undone.
                             </p>
                             <div className='modal-action'>
-                                <ButtonCancel htmlFor={htmlFor} />
+                                <ButtonCancel htmlFor='my-modal' />
                                 <ButtonApproveRed
                                     htmlFor={htmlFor}
                                     handleClick={handleClick}
