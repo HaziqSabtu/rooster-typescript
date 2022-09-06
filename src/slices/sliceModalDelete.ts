@@ -29,6 +29,6 @@ export const DeleteModalSlice = createSlice({
 export const { toggleOn, toggleOff } = DeleteModalSlice.actions;
 
 // // Other code such as selectors can use the imported `RootState` type
-export const selectDeleteModal = (state: RootState) => state.counter.value;
+export const selectDeleteModal = (state: RootState) => state.deleteModal.value;
 
 export default DeleteModalSlice.reducer;

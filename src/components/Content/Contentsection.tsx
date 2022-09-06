@@ -9,6 +9,9 @@ import { ModalPostDelete } from "../Modal/DeleteModal";
 import { trpc } from "../../utils/trpc";
 import { User as currentUser } from "next-auth";
 import { PImagePosts } from "../../assets/placeholder";
+import { useDispatch, useSelector } from "react-redux";
+import { increment, selectCount } from "../../slices/counterSlice";
+import { selectDeleteModal } from "../../slices/sliceModalDelete";
 
 interface Props {
     postedBy: User;
@@ -28,20 +31,6 @@ const Contentsection: FunctionComponent<Props> = ({
     postId: pp,
     currentUser: { id: currentUserId, name: currentUserName, followedByIDs },
 }) => {
-    const htmlFor = id;
-    console.log(htmlFor);
-    const { mutateAsync } = trpc.useMutation(["post.delete"]);
-    // console.log(currentUser);
-
-    const handleClick = async () => {
-        console.log(pp);
-        console.log(`deleting post ${pp}`);
-        await mutateAsync({
-            postIDs: pp,
-        });
-        setCount((c) => c + 1);
-    };
-
     return (
         <div className='primary-color p-5 text-xl text-color-p font-semibold'>
             <div className='flex flex-row justify-between items-center'>
@@ -63,19 +52,13 @@ const Contentsection: FunctionComponent<Props> = ({
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownPost
-                    htmlFor={htmlFor}
                     postedById={id}
                     currentUser={currentUserId}
                     followedByIDs={followedByIDs}
                     postId={pp}
                 />
 
-                <ModalPostDelete
-                    htmlFor={htmlFor}
-                    postId={pp}
-                    setCount={setCount}
-                    handleClick={handleClick}
-                />
+                <ModalPostDelete setCount={setCount} />
             </div>
             <h1 className='text-xl break-all text-color-s'>{content}</h1>
         </div>

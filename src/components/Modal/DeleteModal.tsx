@@ -1,33 +1,39 @@
-import { Comment, Post } from "@prisma/client";
+import { Comment } from "@prisma/client";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RedAlert } from "../../assets/icons";
-import { getCommentDeleteInput } from "../../services/comment";
-import { getPostDeleteInput } from "../../services/post";
-import { selectDeleteModal } from "../../slices/SliceModalDelete";
+import { selectCommentId, setCommentId } from "../../slices/sliceDeleteComment";
+import { selectPostId, setPostId } from "../../slices/sliceDeletePost";
 import { trpc } from "../../utils/trpc";
 import { ButtonApproveRed, ButtonCancel } from "../Button/ButtonModal";
 
 interface ModalPostDeleteProps {
-    htmlFor: string;
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    postId: Post["id"];
-    handleClick: () => void;
 }
 
 export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
-    htmlFor,
     setCount,
-    postId,
-    handleClick,
 }) => {
-    // console.log(postId);
-    const deleteModalState = useSelector(selectDeleteModal);
+    const postId = useSelector(selectPostId);
     const dispatch = useDispatch();
+    const { mutateAsync } = trpc.useMutation(["post.delete"]);
+
+    const handleClick = async () => {
+        await mutateAsync({
+            postIDs: postId,
+        }).then(() => {
+            dispatch(setPostId(""));
+            setCount((c) => c + 1);
+        });
+    };
 
     return (
         <>
-            <input type='checkbox' id='my-modal' className='modal-toggle' />
+            <input
+                type='checkbox'
+                id='modal-delete-post'
+                className='modal-toggle'
+            />
             <div className='modal'>
                 <div className='modal-box'>
                     <div className='flex flex-row items-start'>
@@ -39,9 +45,9 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
                                 action cannot be undone.
                             </p>
                             <div className='modal-action'>
-                                <ButtonCancel htmlFor='my-modal' />
+                                <ButtonCancel htmlFor='modal-delete-post' />
                                 <ButtonApproveRed
-                                    htmlFor={htmlFor}
+                                    htmlFor='modal-delete-post'
                                     handleClick={handleClick}
                                 />
                             </div>
@@ -54,26 +60,34 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
 };
 
 interface ModalCommentDeleteProps {
-    htmlFor: string;
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    commentId: Comment["id"];
 }
 
 export const ModalCommentDelete: FunctionComponent<ModalCommentDeleteProps> = ({
-    htmlFor,
     setCount,
-    commentId,
 }) => {
     const { mutateAsync } = trpc.useMutation(["comment.delete"]);
+    const commentId = useSelector(selectCommentId);
 
-    const handleClick = useCallback(async () => {
-        await mutateAsync(getCommentDeleteInput(commentId));
-        setCount((c) => c + 1);
-    }, [mutateAsync]);
+    const dispatch = useDispatch();
+
+    const handleClick = async () => {
+        await mutateAsync({
+            commentIDs: commentId,
+        }).then(() => {
+            dispatch(setCommentId(""));
+            setCount((c) => c + 1);
+        });
+    };
 
     return (
         <>
-            <input type='checkbox' id={htmlFor} className='modal-toggle' />
+            <input
+                type='checkbox'
+                id='modal-delete-comment'
+                className='modal-toggle'
+            />
+
             <div className='modal'>
                 <div className='modal-box'>
                     <div className='flex flex-row items-start'>
@@ -85,9 +99,9 @@ export const ModalCommentDelete: FunctionComponent<ModalCommentDeleteProps> = ({
                                 This action cannot be undone.
                             </p>
                             <div className='modal-action'>
-                                <ButtonCancel htmlFor={htmlFor} />
+                                <ButtonCancel htmlFor='modal-delete-comment' />
                                 <ButtonApproveRed
-                                    htmlFor={htmlFor}
+                                    htmlFor='modal-delete-comment'
                                     handleClick={handleClick}
                                 />
                             </div>

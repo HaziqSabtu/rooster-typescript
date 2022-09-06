@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slices/counterSlice";
-import { DeleteModalSlice } from "./slices/SliceModalDelete";
+import { DeleteCommentSlice } from "./slices/sliceDeleteComment";
+import { DeletePostSlice } from "./slices/sliceDeletePost";
+import { DeleteModalSlice } from "./slices/sliceModalDelete";
+
 // ...
 
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
         deleteModal: DeleteModalSlice.reducer,
+        deletePost: DeletePostSlice.reducer,
+        deleteComment: DeleteCommentSlice.reducer,
     },
 });
 
