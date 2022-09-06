@@ -24,6 +24,7 @@ const CommentSection: FunctionComponent<Props> = ({
                 comment={comment}
                 setCount={setCount}
                 currentUser={currentUser}
+                postId={postId}
             />
         );
     });

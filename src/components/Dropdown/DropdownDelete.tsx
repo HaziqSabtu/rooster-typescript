@@ -1,26 +1,70 @@
+import { Post } from "@prisma/client";
 import React, { FunctionComponent } from "react";
+import { useDispatch } from "react-redux";
 import { Trash } from "../../assets/icons";
+import { setCommentId } from "../../slices/sliceDeleteComment";
+import { setPostId } from "../../slices/sliceDeletePost";
 
-interface Props {
-    htmlFor: string;
+interface DeletePostProps {
     size: number;
-    text: string;
+    postId: Post["id"];
 }
 
-const DropdownDelete: FunctionComponent<Props> = ({ htmlFor, size, text }) => {
-    const href = `#${htmlFor}`;
+export const DropdownDeletePost: FunctionComponent<DeletePostProps> = ({
+    size,
+    postId,
+}) => {
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(setPostId(postId));
+    };
     return (
-        <>
-            <a href={href} className='btn'>
-                {/* <a className='cursor-pointer' data-modal-toggle='popup-modal'> */}
+        <label
+            htmlFor='modal-delete-post'
+            className='modal-button'
+            onClick={handleClick}
+        >
+            <a className='cursor-pointer'>
                 <div className='flex flex-row items-center'>
                     <Trash size={size} />
-                    <span className='ml-2 text-sm'>{text}</span>
+                    <span className='ml-2 text-sm'>
+                        <span>Delete Post</span>
+                    </span>
                 </div>
-                {/* </a> */}
             </a>
-        </>
+        </label>
     );
 };
 
-export default DropdownDelete;
+interface DeleteCommentProps {
+    size: number;
+    commentId: string;
+}
+
+export const DropdownDeleteComment: FunctionComponent<DeleteCommentProps> = ({
+    size,
+    commentId,
+}) => {
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(setCommentId(commentId));
+    };
+    return (
+        <label
+            htmlFor='modal-delete-comment'
+            className='modal-button'
+            onClick={handleClick}
+        >
+            <a className='cursor-pointer'>
+                <div className='flex flex-row items-center'>
+                    <Trash size={size} />
+                    <span className='ml-2 text-sm'>
+                        <span>Delete Comment</span>
+                    </span>
+                </div>
+            </a>
+        </label>
+    );
+};

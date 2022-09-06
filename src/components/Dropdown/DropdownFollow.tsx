@@ -18,21 +18,6 @@ const DropdownFollow: FunctionComponent<Props> = ({
     postedById,
     currentUser,
 }) => {
-    // const { data: list, refetch } = trpc.useQuery([
-    //     "user.getUser",
-    //     { id: currentUser },
-    // ]);
-    // console.log(list);
-    // const handleClick = useCallback(async () => {
-    //     console.log("handleClick");
-    //     await mutateAsync(getAddFollowerInput(postedById, currentUser))
-    //         .then((res) => {
-    //             console.log(res);
-    //         })
-    //         .catch((e) => {
-    //             console.log(e);
-    //         });
-    // }, [mutateAsync, getAddFollowerInput]);
     const { mutateAsync } = trpc.useMutation(["user.addFollower"]);
 
     const handleClick = useCallback(async () => {
