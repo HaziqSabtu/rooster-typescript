@@ -1,5 +1,6 @@
 import { createProtectedRouter } from "./protected-router";
 import { z } from "zod";
+import * as trpc from "@trpc/server";
 // Example router with queries that can only be hit if the user requesting is signed in
 export const PostRouter = createProtectedRouter()
     .query("findAll", {
@@ -40,11 +41,12 @@ export const PostRouter = createProtectedRouter()
         input: z.object({
             postIDs: z.string(),
         }),
-
         resolve: async ({ ctx, input }) => {
-            return await ctx.prisma.post.delete({
-                where: { id: input.postIDs },
-            });
+            throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
+
+            // return await ctx.prisma.post.delete({
+            //     where: { id: input.postIDs },
+            // });
         },
     });
 

@@ -23,7 +23,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
         <div className='dropdown dropdown-end h-10'>
             <label
                 tabIndex={0}
-                className='m-1 cursor-pointer'
+                className='m-1 cursor-pointer btn btn-sm btn-ghost'
                 onClick={() => console.log(postId)}
             >
                 <div className=''>
@@ -79,8 +79,11 @@ export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
 }) => {
     return (
         <div className='dropdown dropdown-end h-10'>
-            <label tabIndex={0} className='m-1 cursor-pointer'>
-                <TripleDots size={20} />
+            <label
+                tabIndex={0}
+                className='m-1 cursor-pointer btn btn-sm btn-ghost'
+            >
+                <TripleDots size={15} />
             </label>
             <ul
                 tabIndex={0}

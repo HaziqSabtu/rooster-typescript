@@ -5,6 +5,7 @@ import { DropdownComment } from "../Dropdown/Dropdown";
 import { ModalCommentDelete } from "../Modal/DeleteModal";
 import { PImagePosts } from "../../assets/placeholder";
 import { User as currentUser } from "next-auth";
+import Link from "next/link";
 
 interface Props {
     comment: Comment & { user: User };
@@ -51,7 +52,12 @@ const CommentList: FunctionComponent<Props> = ({
                 />
                 <ModalCommentDelete setCount={setCount} />
             </div>
-            <h1 className='text-sm text-color-s'> {content}</h1>
+            <Link href={`/post/${postId}`}>
+                <h1 className='text-sm text-color-s cursor-pointer'>
+                    {" "}
+                    {content}
+                </h1>
+            </Link>
         </div>
     );
 };

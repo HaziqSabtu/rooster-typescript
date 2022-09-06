@@ -6,6 +6,7 @@ import { DropdownPost } from "../Dropdown/Dropdown";
 import { ModalPostDelete } from "../Modal/DeleteModal";
 import { User as currentUser } from "next-auth";
 import { PImagePosts } from "../../assets/placeholder";
+import Link from "next/link";
 
 interface Props {
     postedBy: User;
@@ -22,7 +23,7 @@ const Contentsection: FunctionComponent<Props> = ({
     content,
     createdAt,
     setCount,
-    postId: pp,
+    postId,
     currentUser: { id: currentUserId, name: currentUserName, followedByIDs },
 }) => {
     return (
@@ -49,12 +50,15 @@ const Contentsection: FunctionComponent<Props> = ({
                     postedById={id}
                     currentUser={currentUserId}
                     followedByIDs={followedByIDs}
-                    postId={pp}
+                    postId={postId}
                 />
-
                 <ModalPostDelete setCount={setCount} />
             </div>
-            <h1 className='text-xl break-all text-color-s'>{content}</h1>
+            <Link href={`/post/${postId}`}>
+                <h1 className='text-xl break-all text-color-s cursor-pointer'>
+                    {content}
+                </h1>
+            </Link>
         </div>
     );
 };
