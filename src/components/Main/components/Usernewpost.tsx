@@ -19,6 +19,7 @@ import { User } from "next-auth";
 import { getPostCreateInput } from "../../../services/post";
 import { sleep } from "../../../services/utils";
 import { PImagePropfile } from "../../../assets/placeholder";
+import Image from "next/image";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -96,8 +97,11 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                             <img
                                 className='rounded-full w-11 animate-[bounce_3s_ease-in-out_infinite]'
                                 src={user.image as string}
-                                alt='userimg'
-                            ></img>
+                                alt='userImage'
+                                width={44}
+                                height={44}
+                                // layout='fill'
+                            />
                         ) : (
                             <PImagePropfile
                                 size={44}

@@ -6,6 +6,7 @@ import { ModalCommentDelete } from "../Modal/DeleteModal";
 import { PImagePosts } from "../../assets/placeholder";
 import { User as currentUser } from "next-auth";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
     comment: Comment & { user: User };
@@ -30,9 +31,11 @@ const CommentList: FunctionComponent<Props> = ({
             <div className='flex flex-row justify-between items-center'>
                 <div className='flex items-center'>
                     {image ? (
-                        <img
-                            className='rounded-full w-5 mr-2'
+                        <Image
+                            className='rounded-full'
                             src={image}
+                            width={20}
+                            height={20}
                             alt='postedBy'
                         />
                     ) : (
@@ -41,7 +44,7 @@ const CommentList: FunctionComponent<Props> = ({
                             letter={currentUserName?.charAt(0) as string}
                         />
                     )}
-                    <h3 className='text-xs mr-5 text-color-s'>@{name}</h3>
+                    <h3 className='text-xs ml-2 mr-5 text-color-s'>@{name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownComment

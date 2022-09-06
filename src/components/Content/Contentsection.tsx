@@ -7,6 +7,7 @@ import { ModalPostDelete } from "../Modal/DeleteModal";
 import { User as currentUser } from "next-auth";
 import { PImagePosts } from "../../assets/placeholder";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
     postedBy: User;
@@ -31,11 +32,12 @@ const Contentsection: FunctionComponent<Props> = ({
             <div className='flex flex-row justify-between items-center'>
                 <div className='flex'>
                     {image ? (
-                        <img
-                            className='rounded-full w-8 mr-2'
+                        <Image
+                            className='rounded-full'
                             src={image}
                             alt='postedBy'
-                            placeholder='https://via.placeholder.com/150'
+                            width={32}
+                            height={32}
                         />
                     ) : (
                         <PImagePosts
@@ -43,7 +45,7 @@ const Contentsection: FunctionComponent<Props> = ({
                             letter={currentUserName?.charAt(0) as string}
                         />
                     )}
-                    <h3 className='mr-5 text-color-s'>@{postedBy.name}</h3>
+                    <h3 className='ml-2 mr-5 text-color-s'>@{postedBy.name}</h3>
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownPost

@@ -34,7 +34,11 @@ body {
 }
 
 .border-color-p {
-    color: #a5c9ca;
+    border-color: #a5c9ca;
+}
+
+.border-color-s {
+    border-color: #656399;
 }
 
 .text-color-p {

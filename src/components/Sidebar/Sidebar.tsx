@@ -1,6 +1,7 @@
 import { getSession, signOut } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { User } from "next-auth";
+import Image from "next/image";
 
 const Sidebar = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -21,7 +22,7 @@ const Sidebar = () => {
         <div className='flex flex-col border-x items-center primary-color w-0 md:w-1/4 lg:w-1/5 h-0 md:h-screen overflow-y-hidden bg-white shadow-lg sticky top-0 z-50'>
             {
                 <div className='p-5 primary-color sticky top-0'>
-                    <img
+                    <Image
                         className='rounded-lg place-content-center border border-color-p shadow-lg round'
                         src={image as string}
                         width={250}

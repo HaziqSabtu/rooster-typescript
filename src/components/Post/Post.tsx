@@ -4,7 +4,7 @@ import Contentsection from "../Content/Contentsection";
 import CommentSection from "../Comment/CommentSection";
 import { User as currentUser } from "next-auth";
 import TimeAgo from "javascript-time-ago";
-import Link from "next/link";
+import Image from "next/image";
 interface Props {
     key: Post["id"];
     post: Post & { user: User; comments: (Comment & { user: User })[] };
@@ -20,13 +20,14 @@ const PostList: FunctionComponent<Props> = ({
     timeAgo,
 }) => {
     return (
-        // <Link href={`/post/${id}`}>
         <div className='bg-white border-y'>
             {image ? (
-                <img
+                <Image
                     className='object fill w-full border rounded-t-2xl '
                     src={image}
-                    alt='imgpost'
+                    alt='Imagepost'
+                    width='100%'
+                    layout='fill'
                 />
             ) : null}
             <Contentsection
@@ -45,7 +46,6 @@ const PostList: FunctionComponent<Props> = ({
                 currentUser={currentUser}
             />
         </div>
-        // </Link>
     );
 };
 
