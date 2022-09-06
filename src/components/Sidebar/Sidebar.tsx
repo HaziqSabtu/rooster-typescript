@@ -1,7 +1,5 @@
 import { getSession, signOut } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { boolean } from "zod";
 import { User } from "next-auth";
 
 const Sidebar = () => {

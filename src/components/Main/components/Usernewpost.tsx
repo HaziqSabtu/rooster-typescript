@@ -1,6 +1,5 @@
 import React, {
     FunctionComponent,
-    MouseEventHandler,
     useCallback,
     useEffect,
     useRef,

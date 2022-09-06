@@ -1,5 +1,4 @@
 import React, {
-    CSSProperties,
     FunctionComponent,
     useCallback,
     useEffect,

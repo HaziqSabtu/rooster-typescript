@@ -2,16 +2,10 @@ import React, { FunctionComponent } from "react";
 import { Post, User } from "@prisma/client";
 import TimeAgo from "javascript-time-ago";
 import Time from "../Time/Time";
-import DeletePost from "../Post/DeletePost";
-import { TripleDots } from "../../assets/icons";
 import { DropdownPost } from "../Dropdown/Dropdown";
 import { ModalPostDelete } from "../Modal/DeleteModal";
-import { trpc } from "../../utils/trpc";
 import { User as currentUser } from "next-auth";
 import { PImagePosts } from "../../assets/placeholder";
-import { useDispatch, useSelector } from "react-redux";
-import { increment, selectCount } from "../../slices/counterSlice";
-import { selectDeleteModal } from "../../slices/sliceModalDelete";
 
 interface Props {
     postedBy: User;

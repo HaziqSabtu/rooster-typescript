@@ -4,9 +4,6 @@ import Contentsection from "../Content/Contentsection";
 import CommentSection from "../Comment/CommentSection";
 import { User as currentUser } from "next-auth";
 import TimeAgo from "javascript-time-ago";
-import Link from "next/link";
-
-// import { Post } from "prisma_types";
 interface Props {
     key: Post["id"];
     post: Post & { user: User; comments: (Comment & { user: User })[] };

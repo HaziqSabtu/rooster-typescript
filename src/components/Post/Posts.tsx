@@ -6,8 +6,6 @@ import { User } from "next-auth";
 import TimeAgo from "javascript-time-ago";
 import de from "javascript-time-ago/locale/de";
 import en from "javascript-time-ago/locale/en";
-import { Helmet } from "react-helmet";
-
 interface Props {
     count: number;
     setCount: React.Dispatch<React.SetStateAction<number>>;

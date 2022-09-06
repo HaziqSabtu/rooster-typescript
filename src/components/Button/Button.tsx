@@ -1,4 +1,3 @@
-import { signIn } from "next-auth/react";
 import React, { FunctionComponent } from "react";
 
 interface Props {

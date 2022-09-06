@@ -1,4 +1,3 @@
-import { Comment } from "@prisma/client";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RedAlert } from "../../assets/icons";

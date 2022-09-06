@@ -4,8 +4,6 @@ import Navbar from "../Navbar/Navbar";
 import Posts from "../Post/Posts";
 import Sidebar from "../Sidebar/Sidebar";
 import Usernewpost from "./components/Usernewpost";
-import { Helmet } from "react-helmet";
-import Head from "next/head";
 import { HeadHome } from "../Head";
 
 interface Props {
