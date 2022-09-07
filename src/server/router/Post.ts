@@ -32,21 +32,31 @@ export const PostRouter = createProtectedRouter()
         resolve: async ({ ctx, input }) => {
             return await ctx.prisma.post.create({ data: input });
         },
-
-        // return {'httpStatus': 201,
-        //     'message': 'Post created',
-        // }
     })
     .mutation("delete", {
         input: z.object({
             postIDs: z.string(),
         }),
         resolve: async ({ ctx, input }) => {
-            throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
+            // get post return post or null
+            const post = await ctx.prisma.post.findFirst({
+                where: { id: input.postIDs },
+            });
 
-            // return await ctx.prisma.post.delete({
-            //     where: { id: input.postIDs },
-            // });
+            // if post is not found return 404
+            if (!post) {
+                throw new trpc.TRPCError({ code: "NOT_FOUND" });
+            }
+
+            // if request user is not the post owner return 403
+            if (ctx.session.user.id !== post.userIDs) {
+                throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
+            }
+
+            // delete post
+            return await ctx.prisma.post.delete({
+                where: { id: input.postIDs },
+            });
         },
     });
 

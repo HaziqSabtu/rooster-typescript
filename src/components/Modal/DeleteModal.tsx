@@ -29,8 +29,10 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
             })
             .catch((err) => {
                 if (err.message === "UNAUTHORIZED") {
+                    router.push("/error/e401");
+                } else if (err.message === "NOT_FOUND") {
                     router.push("/error/e404");
-                }
+                } else router.push("/error/e500");
             });
     };
 
