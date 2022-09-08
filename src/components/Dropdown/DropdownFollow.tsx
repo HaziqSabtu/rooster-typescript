@@ -1,8 +1,8 @@
 import { User } from "@prisma/client";
 import { User as currentUser } from "next-auth";
+import { useRouter } from "next/router";
 import React, { FunctionComponent, useCallback } from "react";
 import { FollowIcon } from "../../assets/icons";
-import { handleError } from "../../services/error";
 import { getAddFollowerInput } from "../../services/user";
 import { trpc } from "../../utils/trpc";
 
@@ -20,6 +20,17 @@ const DropdownFollow: FunctionComponent<Props> = ({
     currentUserId,
 }) => {
     const { mutateAsync } = trpc.useMutation(["user.addFollower"]);
+    const router = useRouter();
+
+    const handleError = (error: string) => {
+        if (error === "UNAUTHORIZED") {
+            router.push("/error/e401");
+        } else if (error === "FORBIDDEN") {
+            router.push("/error/e403");
+        } else if (error === "NOT_FOUND") {
+            router.push("/error/e404");
+        } else router.push("/error/e500");
+    };
 
     const handleClick = useCallback(async () => {
         await mutateAsync(getAddFollowerInput(postedById, currentUserId))
@@ -27,6 +38,7 @@ const DropdownFollow: FunctionComponent<Props> = ({
                 console.log(res);
             })
             .catch((err) => {
+                console.log(err.message);
                 handleError(err.message);
             });
     }, [mutateAsync, getAddFollowerInput]);

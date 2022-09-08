@@ -31,6 +31,8 @@ const PostDetail: FunctionComponent = () => {
     const handleError = (error: string) => {
         if (error === "UNAUTHORIZED") {
             router.push("/error/e401");
+        } else if (error === "FORBIDDEN") {
+            router.push("/error/e403");
         } else if (error === "NOT_FOUND") {
             router.push("/error/e404");
         } else router.push("/error/e500");

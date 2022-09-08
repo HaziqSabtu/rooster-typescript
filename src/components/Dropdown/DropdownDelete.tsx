@@ -54,7 +54,7 @@ export const DropdownDeleteComment: FunctionComponent<DeleteCommentProps> = ({
     return (
         <label
             htmlFor='modal-delete-comment'
-            className='modal-button'
+            className='modal-button modal-button p-3 hover:bg-red-500 hover:text-black'
             onClick={handleClick}
         >
             <a className='cursor-pointer'>
