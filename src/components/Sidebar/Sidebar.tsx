@@ -29,26 +29,26 @@ const Sidebar = () => {
                         height={250}
                         alt='userInfo'
                     />
-                    <div className='pt-2 border-t mt-5 w-full text-center text-2xl font-bold text-color-p'>
+                    <div className='pt-2 border-t mt-5 w-full text-color-t text-center text-2xl font-bold text-color-p'>
                         @{name}
                     </div>
                 </div>
             }
             <div className='w-full h-screen antialiased flex flex-col hover:cursor-pointer'>
                 <a
-                    className='hover:bg-gray-300 primary-color border-y p-3 w-full text-xl text-left text-color-p font-semibold'
+                    className='hover:bg-inherit primary-color text-color-t border-y p-3 w-full text-xl text-left text-color-p font-semibold'
                     href='setting'
                 >
-                    <i className='fa fa-cog text-color-p text-2xl pr-1 pt-1 float-right'></i>
+                    <i className='fa fa-cog text-color-t text-2xl pr-1 pt-1 float-right'></i>
                     Settings
                 </a>
                 <a
-                    className='hover:bg-gray-300 primary-color border-b p-3 w-full text-xl text-left text-color-p font-semibold'
+                    className='hover:bg-inherit primary-color text-color-t border-b p-3 w-full text-xl text-left text-color-p font-semibold'
                     onClick={() => {
                         signOut();
                     }}
                 >
-                    <i className='fa fa-cog text-color-p text-2xl pr-1 pt-1 float-right'></i>
+                    <h1 className='text-white text-2xl pr-1 pt-1 float-right'></h1>
                     Log out
                 </a>
             </div>

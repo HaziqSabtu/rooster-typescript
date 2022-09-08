@@ -16,11 +16,20 @@ export const PostRouter = createProtectedRouter()
             postId: z.string(),
         }),
         resolve: async ({ ctx, input }) => {
-            console.log("input", input);
-            return await ctx.prisma.post.findFirstOrThrow({
+            // query for post
+            const post = await ctx.prisma.post.findFirstOrThrow({
+                // where: { id: "630de39f3bf0cd0387f5569d" },
                 where: { id: input.postId },
                 include: { user: true, comments: { include: { user: true } } },
             });
+
+            //  if post is not available, throw error 404
+            if (!post) {
+                throw new trpc.TRPCError({ code: "NOT_FOUND" });
+            }
+
+            // return post
+            return post;
         },
     })
     .mutation("create", {
@@ -30,6 +39,9 @@ export const PostRouter = createProtectedRouter()
             userIDs: z.string(),
         }),
         resolve: async ({ ctx, input }) => {
+            if (input.userIDs !== ctx.session.user.id)
+                throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
+
             return await ctx.prisma.post.create({ data: input });
         },
     })

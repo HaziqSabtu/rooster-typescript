@@ -48,6 +48,10 @@ body {
     color: white;
 }
 
+.text-color-t {
+    color: #9e9aee;
+}
+
 .disabled-color {
     color: #e7f6f2;
 }

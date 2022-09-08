@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import { User as currentUser } from "next-auth";
 import React, { FunctionComponent, useCallback } from "react";
 import { FollowIcon } from "../../assets/icons";
+import { handleError } from "../../services/error";
 import { getAddFollowerInput } from "../../services/user";
 import { trpc } from "../../utils/trpc";
 
@@ -9,26 +10,24 @@ interface Props {
     size: number;
     text: string;
     postedById: User["id"];
-    currentUser: currentUser["id"];
+    currentUserId: currentUser["id"];
 }
 
 const DropdownFollow: FunctionComponent<Props> = ({
     size,
     text,
     postedById,
-    currentUser,
+    currentUserId,
 }) => {
     const { mutateAsync } = trpc.useMutation(["user.addFollower"]);
 
     const handleClick = useCallback(async () => {
-        console.log("handleClick");
-        console.log(getAddFollowerInput(postedById, currentUser));
-        await mutateAsync(getAddFollowerInput(postedById, currentUser))
+        await mutateAsync(getAddFollowerInput(postedById, currentUserId))
             .then((res) => {
                 console.log(res);
             })
-            .catch((e) => {
-                console.log(e);
+            .catch((err) => {
+                handleError(err.message);
             });
     }, [mutateAsync, getAddFollowerInput]);
 

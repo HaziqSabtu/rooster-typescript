@@ -16,23 +16,22 @@ import {
 import { InputComment } from "../InputText/Inputtext";
 import { sleep } from "../../services/utils";
 import { getCommentCreateInput } from "../../services/comment";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../slices/sliceCurrentUser";
 
 interface Props {
     postId: string;
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    currentUser: User;
 }
-const CommentForm: FunctionComponent<Props> = ({
-    postId,
-    setCount,
-    currentUser,
-}) => {
+const CommentForm: FunctionComponent<Props> = ({ postId, setCount }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [userInput, setUserInput] = useState({ comment: "" });
     const [isEmpty, setIsEmpty] = useState(true);
     const [warning, setWarning] = useState(false);
     const [isCommented, setIsCommented] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const currentUser = useSelector(selectCurrentUser);
 
     const styleButton = {
         width: "80px",
@@ -76,7 +75,7 @@ const CommentForm: FunctionComponent<Props> = ({
         setIsLoading((state) => !state);
         await sleep(5000);
         await mutateAsync(
-            getCommentCreateInput(userInput.comment, postId, currentUser.id)
+            getCommentCreateInput(userInput.comment, postId, currentUser!.id)
         );
         setCount((c) => c + 1);
         setIsLoading((state) => !state);

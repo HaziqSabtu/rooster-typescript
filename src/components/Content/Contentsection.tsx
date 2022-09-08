@@ -8,15 +8,16 @@ import { User as currentUser } from "next-auth";
 import { PImagePosts } from "../../assets/placeholder";
 import Link from "next/link";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../slices/sliceCurrentUser";
 
 interface Props {
     postedBy: User;
     content: Post["content"];
-    timeago: TimeAgo;
     createdAt: Post["createdAt"];
+    timeago: TimeAgo;
     setCount: React.Dispatch<React.SetStateAction<number>>;
     postId: Post["id"];
-    currentUser: currentUser;
 }
 
 const Contentsection: FunctionComponent<Props> = ({
@@ -25,8 +26,14 @@ const Contentsection: FunctionComponent<Props> = ({
     createdAt,
     setCount,
     postId,
-    currentUser: { id: currentUserId, name: currentUserName, followedByIDs },
+    timeago,
 }) => {
+    const currentUser = useSelector(selectCurrentUser);
+    const {
+        id: currentUserId,
+        name: currentUserName,
+        followedByIDs,
+    } = currentUser || {};
     return (
         <div className='primary-color p-5 text-xl text-color-p font-semibold'>
             <div className='flex flex-row justify-between items-center'>
@@ -50,13 +57,13 @@ const Contentsection: FunctionComponent<Props> = ({
                 </div>
                 <DropdownPost
                     postedById={id}
-                    currentUser={currentUserId}
+                    currentUserId={currentUserId as string}
                     followedByIDs={followedByIDs}
                     postId={postId}
                 />
                 <ModalPostDelete setCount={setCount} />
             </div>
-            <Link href={`/post/${postId}`}>
+            <Link href={{ pathname: `/post/${postId}` }}>
                 <h1 className='text-xl break-all text-color-s cursor-pointer'>
                     {content}
                 </h1>

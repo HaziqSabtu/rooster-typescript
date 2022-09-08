@@ -9,14 +9,12 @@ interface Props {
     key: Post["id"];
     post: Post & { user: User; comments: (Comment & { user: User })[] };
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    currentUser: currentUser;
     timeAgo: TimeAgo;
 }
 
 const PostList: FunctionComponent<Props> = ({
     post: { image, content, id: postId, user, comments, createdAt },
     setCount,
-    currentUser,
     timeAgo,
 }) => {
     return (
@@ -37,13 +35,11 @@ const PostList: FunctionComponent<Props> = ({
                 createdAt={createdAt}
                 setCount={setCount}
                 postId={postId}
-                currentUser={currentUser}
             />
             <CommentSection
                 comments={comments}
                 postId={postId}
                 setCount={setCount}
-                currentUser={currentUser}
             />
         </div>
     );

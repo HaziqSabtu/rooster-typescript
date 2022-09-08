@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RedAlert } from "../../assets/icons";
+import { handleError } from "../../services/error";
 import { selectCommentId, setCommentId } from "../../slices/sliceDeleteComment";
 import { selectPostId, setPostId } from "../../slices/sliceDeletePost";
 import { trpc } from "../../utils/trpc";
@@ -28,11 +29,7 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
                 setCount((c) => c + 1);
             })
             .catch((err) => {
-                if (err.message === "UNAUTHORIZED") {
-                    router.push("/error/e401");
-                } else if (err.message === "NOT_FOUND") {
-                    router.push("/error/e404");
-                } else router.push("/error/e500");
+                handleError(err.message);
             });
     };
 
@@ -83,10 +80,14 @@ export const ModalCommentDelete: FunctionComponent<ModalCommentDeleteProps> = ({
     const handleClick = async () => {
         await mutateAsync({
             commentIDs: commentId,
-        }).then(() => {
-            dispatch(setCommentId(""));
-            setCount((c) => c + 1);
-        });
+        })
+            .then(() => {
+                dispatch(setCommentId(""));
+                setCount((c) => c + 1);
+            })
+            .catch((err) => {
+                handleError(err.message);
+            });
     };
 
     return (
