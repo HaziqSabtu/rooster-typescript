@@ -11,7 +11,6 @@ import CommentSection from "../../components/Comment/CommentSection";
 import Contentsection from "../../components/Content/Contentsection";
 import Loading from "../../components/Loading/Loading";
 import Navbar from "../../components/Navbar/Navbar";
-import { handleError } from "../../services/error";
 import { selectCurrentUser } from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 

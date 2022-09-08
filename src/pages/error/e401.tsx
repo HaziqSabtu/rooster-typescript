@@ -5,7 +5,7 @@ import { ErrorRooster } from "../../assets/icons";
 
 interface Props {}
 
-const e401: FunctionComponent<Props> = ({}) => {
+const Error401: FunctionComponent<Props> = ({}) => {
     const router = useRouter();
 
     return (
@@ -27,4 +27,4 @@ const e401: FunctionComponent<Props> = ({}) => {
     );
 };
 
-export default e401;
+export default Error401;

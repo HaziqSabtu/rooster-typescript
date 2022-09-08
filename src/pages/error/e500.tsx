@@ -5,7 +5,7 @@ import { ErrorRooster } from "../../assets/icons";
 
 interface Props {}
 
-const e500: FunctionComponent<Props> = ({}) => {
+const Error500: FunctionComponent<Props> = ({}) => {
     const router = useRouter();
 
     return (
@@ -25,4 +25,4 @@ const e500: FunctionComponent<Props> = ({}) => {
     );
 };
 
-export default e500;
+export default Error500;

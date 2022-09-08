@@ -22,7 +22,7 @@ import { PImagePropfile } from "../../../assets/placeholder";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../slices/sliceCurrentUser";
-import { handleError } from "../../../services/error";
+import { useRouter } from "next/router";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -48,6 +48,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     };
 
     const { mutateAsync } = trpc.useMutation(["post.create"]);
+    const router = useRouter();
 
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -57,6 +58,16 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
                 text: event.target.value,
             };
         });
+    };
+
+    const handleError = (error: string) => {
+        if (error === "UNAUTHORIZED") {
+            router.push("/error/e401");
+        } else if (error === "FORBIDDEN") {
+            router.push("/error/e403");
+        } else if (error === "NOT_FOUND") {
+            router.push("/error/e404");
+        } else router.push("/error/e500");
     };
 
     useEffect(() => {

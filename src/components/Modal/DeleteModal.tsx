@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RedAlert } from "../../assets/icons";
-import { handleError } from "../../services/error";
 import { selectCommentId, setCommentId } from "../../slices/sliceDeleteComment";
 import { selectPostId, setPostId } from "../../slices/sliceDeletePost";
 import { trpc } from "../../utils/trpc";
@@ -19,7 +18,15 @@ export const ModalPostDelete: FunctionComponent<ModalPostDeleteProps> = ({
     const dispatch = useDispatch();
     const router = useRouter();
     const { mutateAsync } = trpc.useMutation(["post.delete"]);
-
+    const handleError = (error: string) => {
+        if (error === "UNAUTHORIZED") {
+            router.push("/error/e401");
+        } else if (error === "FORBIDDEN") {
+            router.push("/error/e403");
+        } else if (error === "NOT_FOUND") {
+            router.push("/error/e404");
+        } else router.push("/error/e500");
+    };
     const handleClick = async () => {
         await mutateAsync({
             postIDs: postId,
@@ -74,8 +81,18 @@ export const ModalCommentDelete: FunctionComponent<ModalCommentDeleteProps> = ({
 }) => {
     const { mutateAsync } = trpc.useMutation(["comment.delete"]);
     const commentId = useSelector(selectCommentId);
-
+    const router = useRouter();
     const dispatch = useDispatch();
+
+    const handleError = (error: string) => {
+        if (error === "UNAUTHORIZED") {
+            router.push("/error/e401");
+        } else if (error === "FORBIDDEN") {
+            router.push("/error/e403");
+        } else if (error === "NOT_FOUND") {
+            router.push("/error/e404");
+        } else router.push("/error/e500");
+    };
 
     const handleClick = async () => {
         await mutateAsync({
