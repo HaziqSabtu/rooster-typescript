@@ -40,7 +40,9 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                     </li>
                 ) : null}
 
-                {!followedByIDs?.includes(postedById) ? (
+                {currentUserId === postedById ? null : !followedByIDs?.includes(
+                      postedById
+                  ) ? (
                     <li>
                         <DropdownFollow
                             size={12}
