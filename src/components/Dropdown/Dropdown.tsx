@@ -8,14 +8,14 @@ import DropdownUnFollow from "./DropdownUnFollow";
 
 interface DropdownPostProps {
     postedById: User["id"];
-    currentUser: currentUser["id"];
+    currentUserId: currentUser["id"];
     postId: Post["id"];
     followedByIDs: User["followedByIDs"];
 }
 
 export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
     postedById,
-    currentUser,
+    currentUserId,
     postId,
     followedByIDs,
 }) => {
@@ -23,7 +23,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
         <div className='dropdown dropdown-end h-10'>
             <label
                 tabIndex={0}
-                className='m-1 cursor-pointer'
+                className='m-1 cursor-pointer btn btn-sm btn-ghost'
                 onClick={() => console.log(postId)}
             >
                 <div className=''>
@@ -34,19 +34,21 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                 tabIndex={0}
                 className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
             >
-                {postedById === currentUser ? (
+                {postedById === currentUserId ? (
                     <li>
                         <DropdownDeletePost size={15} postId={postId} />
                     </li>
                 ) : null}
 
-                {!followedByIDs.includes(postedById) ? (
+                {currentUserId === postedById ? null : !followedByIDs?.includes(
+                      postedById
+                  ) ? (
                     <li>
                         <DropdownFollow
                             size={12}
                             text={"Follow User"}
                             postedById={postedById}
-                            currentUser={currentUser}
+                            currentUserId={currentUserId}
                         />
                     </li>
                 ) : (
@@ -55,7 +57,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                             size={12}
                             text={"Remove User"}
                             postedById={postedById}
-                            currentUser={currentUser}
+                            currentUserId={currentUserId}
                         />
                     </li>
                 )}
@@ -66,21 +68,24 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
 
 interface DropdownCommentProps {
     postedById: User["id"];
-    currentUser: currentUser["id"];
+    currentUserId: currentUser["id"];
     followedByIDs: User["followedByIDs"];
     commentId: string;
 }
 
 export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
     postedById,
-    currentUser,
+    currentUserId,
     followedByIDs,
     commentId,
 }) => {
     return (
         <div className='dropdown dropdown-end h-10'>
-            <label tabIndex={0} className='m-1 cursor-pointer'>
-                <TripleDots size={20} />
+            <label
+                tabIndex={0}
+                className='m-1 cursor-pointer btn btn-sm btn-ghost'
+            >
+                <TripleDots size={15} />
             </label>
             <ul
                 tabIndex={0}
@@ -89,13 +94,13 @@ export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
                 <li>
                     <DropdownDeleteComment size={12} commentId={commentId} />
                 </li>
-                {!followedByIDs.includes(postedById) ? (
+                {!followedByIDs?.includes(postedById) ? (
                     <li>
                         <DropdownFollow
                             size={12}
                             text={"Follow User"}
                             postedById={postedById}
-                            currentUser={currentUser}
+                            currentUserId={currentUserId}
                         />
                     </li>
                 ) : (
@@ -104,7 +109,7 @@ export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
                             size={12}
                             text={"Remove User"}
                             postedById={postedById}
-                            currentUser={currentUser}
+                            currentUserId={currentUserId}
                         />
                     </li>
                 )}

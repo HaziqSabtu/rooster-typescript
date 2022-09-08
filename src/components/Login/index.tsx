@@ -1,6 +1,4 @@
-import { signIn } from "next-auth/react";
 import React, { FunctionComponent } from "react";
-import Logo, { LogoLarge } from "../../assets/logo/Logo";
 import { HeadSignIn } from "../Head";
 import LoginDiscord from "./LoginDiscord";
 import LoginGitHub from "./LoginGitHub";

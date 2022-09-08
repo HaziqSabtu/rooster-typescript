@@ -1,6 +1,5 @@
 import React, {
     FunctionComponent,
-    MouseEventHandler,
     useCallback,
     useEffect,
     useRef,
@@ -20,17 +19,20 @@ import { User } from "next-auth";
 import { getPostCreateInput } from "../../../services/post";
 import { sleep } from "../../../services/utils";
 import { PImagePropfile } from "../../../assets/placeholder";
+import Image from "next/image";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../../slices/sliceCurrentUser";
+import { useRouter } from "next/router";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    user: User;
 }
 
 interface UserText {
     text: string;
 }
 
-const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
+const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const [userText, setUserText] = useState<UserText>({ text: "" });
     const [assetData, setAssetData] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -38,6 +40,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     const [isEmpty, setIsEmpty] = useState<boolean>(true);
     const [warning, setWarning] = useState<boolean>(false);
     const inputRef = useRef<HTMLTextAreaElement>(null);
+    const currentUser = useSelector(selectCurrentUser);
     const image = "";
 
     const styleButton = {
@@ -45,6 +48,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     };
 
     const { mutateAsync } = trpc.useMutation(["post.create"]);
+    const router = useRouter();
 
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -54,6 +58,16 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
                 text: event.target.value,
             };
         });
+    };
+
+    const handleError = (error: string) => {
+        if (error === "UNAUTHORIZED") {
+            router.push("/error/e401");
+        } else if (error === "FORBIDDEN") {
+            router.push("/error/e403");
+        } else if (error === "NOT_FOUND") {
+            router.push("/error/e404");
+        } else router.push("/error/e500");
     };
 
     useEffect(() => {
@@ -76,33 +90,38 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount, user }) => {
     const handleSubmit = useCallback(async () => {
         setIsLoading((state) => !state);
         await sleep(5000);
-        await mutateAsync(getPostCreateInput(userText.text, image, user.id))
+        await mutateAsync(
+            getPostCreateInput(userText.text, image, currentUser!.id)
+        )
             .then(() => {
                 setCount((c) => c + 1);
                 setIsLoading((state) => !state);
                 setIsPosted(true);
                 setUserText({ text: "" });
             })
-            .catch((e) => {
-                console.log(e);
+            .catch((err) => {
+                handleError(err.message);
             });
-    }, [mutateAsync, userText, user, image]);
+    }, [mutateAsync, userText, currentUser, image]);
 
     return (
         <div>
             <div className='primary-color w-full p-5 border-b-2 flex flex-col'>
                 <div className='flex flex-row mb-3 items-center '>
-                    {user ? (
-                        user.image ? (
+                    {currentUser ? (
+                        currentUser.image ? (
                             <img
                                 className='rounded-full w-11 animate-[bounce_3s_ease-in-out_infinite]'
-                                src={user.image as string}
-                                alt='userimg'
-                            ></img>
+                                src={currentUser.image as string}
+                                alt='userImage'
+                                width={44}
+                                height={44}
+                                // layout='fill'
+                            />
                         ) : (
                             <PImagePropfile
                                 size={44}
-                                letter={user?.name?.charAt(0) as string}
+                                letter={currentUser?.name?.charAt(0) as string}
                             />
                         )
                     ) : (

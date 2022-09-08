@@ -15,6 +15,7 @@
         "@next/next/no-html-link-for-pages": "off",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/prefer-as-const": "off",
-        "jsx-a11y/alt-text": "off"
+        "jsx-a11y/alt-text": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
     }
 }

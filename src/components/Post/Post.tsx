@@ -4,32 +4,28 @@ import Contentsection from "../Content/Contentsection";
 import CommentSection from "../Comment/CommentSection";
 import { User as currentUser } from "next-auth";
 import TimeAgo from "javascript-time-ago";
-import Link from "next/link";
-
-// import { Post } from "prisma_types";
+import Image from "next/image";
 interface Props {
     key: Post["id"];
     post: Post & { user: User; comments: (Comment & { user: User })[] };
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    currentUser: currentUser;
     timeAgo: TimeAgo;
 }
 
 const PostList: FunctionComponent<Props> = ({
-    post: { image, content, id, user, comments, createdAt },
+    post: { image, content, id: postId, user, comments, createdAt },
     setCount,
-    currentUser,
     timeAgo,
 }) => {
-    console.log(currentUser);
     return (
-        // <Link href={`/post/${id}`}>
         <div className='bg-white border-y'>
             {image ? (
-                <img
+                <Image
                     className='object fill w-full border rounded-t-2xl '
                     src={image}
-                    alt='imgpost'
+                    alt='Imagepost'
+                    width='100%'
+                    layout='fill'
                 />
             ) : null}
             <Contentsection
@@ -38,14 +34,12 @@ const PostList: FunctionComponent<Props> = ({
                 timeago={timeAgo}
                 createdAt={createdAt}
                 setCount={setCount}
-                postId={id}
-                currentUser={currentUser}
+                postId={postId}
             />
             <CommentSection
                 comments={comments}
-                postId={id}
+                postId={postId}
                 setCount={setCount}
-                currentUser={currentUser}
             />
         </div>
     );

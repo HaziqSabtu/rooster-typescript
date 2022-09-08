@@ -8,14 +8,12 @@ interface Props {
     comments: (Comment & { user: User })[];
     postId: string;
     setCount: React.Dispatch<React.SetStateAction<number>>;
-    currentUser: currentUser;
 }
 
 const CommentSection: FunctionComponent<Props> = ({
     comments,
     postId,
     setCount,
-    currentUser,
 }) => {
     const generateComment = comments?.map((comment) => {
         return (
@@ -23,7 +21,6 @@ const CommentSection: FunctionComponent<Props> = ({
                 key={comment.id}
                 comment={comment}
                 setCount={setCount}
-                currentUser={currentUser}
                 postId={postId}
             />
         );
@@ -32,11 +29,7 @@ const CommentSection: FunctionComponent<Props> = ({
     return (
         <div>
             {generateComment}
-            <CommentForm
-                postId={postId}
-                setCount={setCount}
-                currentUser={currentUser}
-            />
+            <CommentForm postId={postId} setCount={setCount} />
         </div>
     );
 };

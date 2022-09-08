@@ -1,6 +1,6 @@
 import { createProtectedRouter } from "./protected-router";
 import { z } from "zod";
-import { trpc } from "../../utils/trpc";
+import * as trpc from "@trpc/server";
 import { User } from "@prisma/client";
 // Example router with queries that can only be hit if the user requesting is signed in
 export const UserRouter = createProtectedRouter()
@@ -27,6 +27,10 @@ export const UserRouter = createProtectedRouter()
             userIDs: z.string(),
         }),
         resolve: async ({ ctx, input }) => {
+            // if user trying to follow itself return error
+            if (input.followerIDs === ctx.session.user.id) {
+                throw new trpc.TRPCError({ code: "FORBIDDEN" });
+            }
             const user = await ctx.prisma.user.findUniqueOrThrow({
                 where: {
                     id: ctx.session.user.id,
@@ -35,16 +39,19 @@ export const UserRouter = createProtectedRouter()
                     followedByIDs: true,
                 },
             });
-            return !user.followedByIDs.includes(input.followerIDs)
-                ? await ctx.prisma.user.update({
-                      where: { id: input.userIDs },
-                      data: {
-                          followedByIDs: {
-                              set: [...user.followedByIDs, input.followerIDs],
-                          },
-                      },
-                  })
-                : null;
+
+            // if user already following return error
+            if (user.followedByIDs.includes(input.followerIDs)) {
+                throw new trpc.TRPCError({ code: "BAD_REQUEST" });
+            }
+            return await ctx.prisma.user.update({
+                where: { id: input.userIDs },
+                data: {
+                    followedByIDs: {
+                        set: [...user.followedByIDs, input.followerIDs],
+                    },
+                },
+            });
         },
     })
     .mutation("removeFollower", {
@@ -53,26 +60,30 @@ export const UserRouter = createProtectedRouter()
             userIDs: z.string(),
         }),
         resolve: async ({ ctx, input }) => {
-            const { followedByIDs } =
-                (await ctx.prisma.user.findFirst({
-                    where: {
-                        id: ctx.session.user.id,
-                        followedByIDs: { has: input.followerIDs },
-                    },
-                })) || {};
+            // if user trying to unfollow itself return error
+            if (input.followerIDs === ctx.session.user.id) {
+                throw new trpc.TRPCError({ code: "FORBIDDEN" });
+            }
+            const user = await ctx.prisma.user.findUniqueOrThrow({
+                where: {
+                    id: ctx.session.user.id,
+                },
+            });
 
-            return followedByIDs
-                ? await ctx.prisma.user.update({
-                      where: { id: ctx.session.user.id },
-                      data: {
-                          followedByIDs: {
-                              set: followedByIDs.filter(
-                                  (id) => id !== input.followerIDs
-                              ),
-                          },
-                      },
-                  })
-                : null;
+            // if user already NOT following return error
+            if (!user.followedByIDs.includes(input.followerIDs)) {
+                throw new trpc.TRPCError({ code: "BAD_REQUEST" });
+            }
+            return await ctx.prisma.user.update({
+                where: { id: ctx.session.user.id },
+                data: {
+                    followedByIDs: {
+                        set: user.followedByIDs.filter(
+                            (id: string) => id !== input.followerIDs
+                        ),
+                    },
+                },
+            });
         },
     });
 export type PostRouter = typeof UserRouter;

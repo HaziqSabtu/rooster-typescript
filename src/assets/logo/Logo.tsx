@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { FunctionComponent } from "react";
 import logo from "./logo.png";
 import logoLarge from "./logo_l.png";
@@ -9,7 +10,7 @@ interface Props {
 const Logo: FunctionComponent<Props> = ({ width, height }) => {
     return (
         <div className=' pl-0'>
-            <img src={logo.src} width={width} alt='logo' />
+            <img src={logo.src} width={width} height={height} alt='logo' />
         </div>
     );
 };
@@ -19,7 +20,7 @@ export default Logo;
 export const LogoLarge: FunctionComponent<Props> = ({ width, height }) => {
     return (
         <div className=' pl-0'>
-            <img src={logoLarge.src} width={width} alt='logo' />
+            <img src={logoLarge.src} width={width} height={height} alt='logo' />
         </div>
     );
 };
