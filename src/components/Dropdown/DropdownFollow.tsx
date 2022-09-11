@@ -2,8 +2,10 @@ import { User } from "@prisma/client";
 import { User as currentUser } from "next-auth";
 import { useRouter } from "next/router";
 import React, { FunctionComponent, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { FollowIcon } from "../../assets/icons";
 import { getAddFollowerInput } from "../../services/user";
+import { addFollowing } from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 
 interface Props {
@@ -20,6 +22,7 @@ const DropdownFollow: FunctionComponent<Props> = ({
     currentUserId,
 }) => {
     const { mutateAsync } = trpc.useMutation(["user.addFollower"]);
+    const dispatch = useDispatch();
     const router = useRouter();
 
     const handleError = (error: string) => {
@@ -36,6 +39,7 @@ const DropdownFollow: FunctionComponent<Props> = ({
         await mutateAsync(getAddFollowerInput(postedById, currentUserId))
             .then((res) => {
                 console.log(res);
+                dispatch(addFollowing(postedById));
             })
             .catch((err) => {
                 console.log(err.message);
@@ -60,5 +64,4 @@ const DropdownFollow: FunctionComponent<Props> = ({
         </>
     );
 };
-
 export default DropdownFollow;
