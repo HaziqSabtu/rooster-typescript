@@ -4,16 +4,20 @@ import TimeAgo from "javascript-time-ago";
 import de from "javascript-time-ago/locale/de.json";
 import en from "javascript-time-ago/locale/en.json";
 import { User as currentUser } from "next-auth";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FunctionComponent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "../../components/Comment/CommentSection";
 import Contentsection from "../../components/Content/Contentsection";
 import { HeadPages } from "../../components/Head";
 import Loading from "../../components/Loading/Loading";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { selectCurrentUser } from "../../slices/sliceCurrentUser";
+import {
+    selectCurrentUser,
+    setCurrentUser,
+} from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 
 type IPost = Post & { user: User; comments: Comment & { user: User } };
@@ -23,7 +27,18 @@ const PostDetail: FunctionComponent = () => {
     const postId = query.postId ? query.postId[0] : "";
     const [count, setCount] = useState(0);
     const currentUser = useSelector(selectCurrentUser);
+    const dispatch = useDispatch();
+
+    // if (!currentUser) {
+    //     const { data: session, status } = useSession();
+    //     if (status === "authenticated") {
+    //         dispatch(setCurrentUser(session?.user as User));
+    //     } else {
+    //         return <div>LOADING</div>;
+    //     }
+    // }
     const router = useRouter();
+    console.log(currentUser);
 
     TimeAgo.setDefaultLocale(de.locale);
     TimeAgo.addLocale(en);
