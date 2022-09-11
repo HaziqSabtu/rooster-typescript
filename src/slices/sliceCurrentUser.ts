@@ -21,10 +21,23 @@ export const CurrentUserSlice = createSlice({
         setCurrentUser: (state, action: PayloadAction<User>) => {
             state.user = action.payload;
         },
+        addFollowing: (state, action: PayloadAction<string>) => {
+            if (state.user) {
+                state.user.followingIDs.push(action.payload);
+            }
+        },
+        removeFollowing: (state, action: PayloadAction<string>) => {
+            if (state.user) {
+                state.user.followingIDs.filter(
+                    (followingId: string) => followingId != action.payload
+                );
+            }
+        },
     },
 });
 
-export const { setCurrentUser } = CurrentUserSlice.actions;
+export const { setCurrentUser, addFollowing, removeFollowing } =
+    CurrentUserSlice.actions;
 
 // // Other code such as selectors can use the imported `RootState` type
 export const selectCurrentUser = (state: RootState) => state.currentUser.user;

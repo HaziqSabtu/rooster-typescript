@@ -2,8 +2,10 @@ import { User } from "@prisma/client";
 import { User as currentUser } from "next-auth";
 import { useRouter } from "next/router";
 import React, { FunctionComponent, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { FollowIcon } from "../../assets/icons";
 import { getAddFollowerInput } from "../../services/user";
+import { removeFollowing } from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 
 interface Props {
@@ -20,6 +22,7 @@ const DropdownUnFollow: FunctionComponent<Props> = ({
     currentUserId,
 }) => {
     const { mutateAsync } = trpc.useMutation(["user.removeFollower"]);
+    const dispatch = useDispatch();
     const router = useRouter();
 
     const handleError = (error: string) => {
@@ -38,6 +41,7 @@ const DropdownUnFollow: FunctionComponent<Props> = ({
         await mutateAsync(getAddFollowerInput(postedById, currentUserId))
             .then((res) => {
                 console.log(res);
+                dispatch(removeFollowing(postedById));
             })
             .catch((err) => {
                 handleError(err.message);

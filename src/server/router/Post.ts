@@ -11,6 +11,19 @@ export const PostRouter = createProtectedRouter()
             });
         },
     })
+    .query("findManyById", {
+        input: z.object({ followingIDs: z.array(z.string()) }),
+        resolve: async ({ ctx, input }) => {
+            if (input.followingIDs?.length === 0) {
+                return [];
+            }
+            return await ctx.prisma.post.findMany({
+                where: { userIDs: { in: input.followingIDs } },
+                include: { user: true, comments: { include: { user: true } } },
+                orderBy: { createdAt: "desc" },
+            });
+        },
+    })
     .query("findPostById", {
         input: z.object({
             postId: z.string(),

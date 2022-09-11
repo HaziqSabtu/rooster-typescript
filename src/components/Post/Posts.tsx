@@ -5,14 +5,26 @@ import PostList from "./Post";
 import TimeAgo from "javascript-time-ago";
 import de from "javascript-time-ago/locale/de";
 import en from "javascript-time-ago/locale/en";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../slices/sliceCurrentUser";
 interface Props {
     count: number;
     setCount: React.Dispatch<React.SetStateAction<number>>;
+    filter?: boolean;
 }
 
-const Posts: FunctionComponent<Props> = ({ count, setCount }) => {
+const Posts: FunctionComponent<Props> = ({ count, setCount, filter }) => {
+    const currentUser = useSelector(selectCurrentUser);
     const [loading, setLoading] = useState(false);
-    const { data: list, refetch } = trpc.useQuery(["post.findAll"]);
+    const { data: list, refetch } = !filter
+        ? trpc.useQuery(["post.findAll"])
+        : trpc.useQuery([
+              "post.findManyById",
+              { followingIDs: currentUser?.followingIDs },
+          ]);
+
+    console.log(list);
+    console.log(currentUser?.followingIDs);
 
     TimeAgo.setDefaultLocale(de.locale);
     TimeAgo.addLocale(en);
