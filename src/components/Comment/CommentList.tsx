@@ -30,7 +30,7 @@ const CommentList: FunctionComponent<Props> = ({
     const {
         id: currentUserId,
         name: currentUserName,
-        followedByIDs,
+        followingIDs,
     } = currentUser || {};
 
     return (
@@ -58,7 +58,7 @@ const CommentList: FunctionComponent<Props> = ({
                     postedById={postedById}
                     currentUserId={currentUserId as string}
                     commentId={commentId}
-                    followedByIDs={followedByIDs}
+                    followingIDs={followingIDs}
                 />
                 <ModalCommentDelete setCount={setCount} />
             </div>

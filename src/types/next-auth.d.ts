@@ -9,7 +9,7 @@ declare module "next-auth" {
         user?: {
             id: string;
             followedByIDs: Post["followedByIDs"];
-            followerIDs: Post["followerIDs"];
+            followingIDs: Post["followingIDs"];
         } & DefaultSession["user"];
     }
 
@@ -19,6 +19,7 @@ declare module "next-auth" {
         image?: string | undefined | null;
         name?: string | undefined | null;
         followedByIDs: Post["followedByIDs"];
+        followingIDs: Post["followingIDs"];
     }
 }
 

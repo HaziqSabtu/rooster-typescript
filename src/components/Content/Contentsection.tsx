@@ -29,10 +29,11 @@ const Contentsection: FunctionComponent<Props> = ({
     timeago,
 }) => {
     const currentUser = useSelector(selectCurrentUser);
+    console.log("currentUser", currentUser);
     const {
         id: currentUserId,
         name: currentUserName,
-        followedByIDs,
+        followingIDs,
     } = currentUser || {};
     return (
         <div className='primary-color p-5 text-xl text-color-p font-semibold'>
@@ -58,7 +59,7 @@ const Contentsection: FunctionComponent<Props> = ({
                 <DropdownPost
                     postedById={id}
                     currentUserId={currentUserId as string}
-                    followedByIDs={followedByIDs}
+                    followingIDs={followingIDs}
                     postId={postId}
                 />
                 <ModalPostDelete setCount={setCount} />
