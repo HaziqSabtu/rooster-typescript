@@ -10,14 +10,14 @@ interface DropdownPostProps {
     postedById: User["id"];
     currentUserId: currentUser["id"];
     postId: Post["id"];
-    followedByIDs: User["followedByIDs"];
+    followingIDs: User["followingIDs"];
 }
 
 export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
     postedById,
     currentUserId,
     postId,
-    followedByIDs,
+    followingIDs,
 }) => {
     return (
         <div className='dropdown dropdown-end h-10'>
@@ -40,7 +40,7 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
                     </li>
                 ) : null}
 
-                {currentUserId === postedById ? null : !followedByIDs?.includes(
+                {currentUserId === postedById ? null : !followingIDs?.includes(
                       postedById
                   ) ? (
                     <li>
@@ -69,14 +69,14 @@ export const DropdownPost: FunctionComponent<DropdownPostProps> = ({
 interface DropdownCommentProps {
     postedById: User["id"];
     currentUserId: currentUser["id"];
-    followedByIDs: User["followedByIDs"];
+    followingIDs: User["followingIDs"];
     commentId: string;
 }
 
 export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
     postedById,
     currentUserId,
-    followedByIDs,
+    followingIDs,
     commentId,
 }) => {
     return (
@@ -94,7 +94,9 @@ export const DropdownComment: FunctionComponent<DropdownCommentProps> = ({
                 <li>
                     <DropdownDeleteComment size={12} commentId={commentId} />
                 </li>
-                {!followedByIDs?.includes(postedById) ? (
+                {currentUserId === postedById ? null : !followingIDs?.includes(
+                      postedById
+                  ) ? (
                     <li>
                         <DropdownFollow
                             size={12}

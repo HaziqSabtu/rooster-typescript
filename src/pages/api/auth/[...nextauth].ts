@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
             if (session.user) {
                 session.user.id = user.id;
                 session.user.followedByIDs = user.followedByIDs;
-                session.user.followerIDs = user.followerIDs;
+                session.user.followingIDs = user.followingIDs;
             }
             return session;
         },

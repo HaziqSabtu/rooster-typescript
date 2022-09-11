@@ -9,8 +9,10 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CommentSection from "../../components/Comment/CommentSection";
 import Contentsection from "../../components/Content/Contentsection";
+import { HeadPages } from "../../components/Head";
 import Loading from "../../components/Loading/Loading";
 import Navbar from "../../components/Navbar/Navbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
 import { selectCurrentUser } from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 
@@ -54,29 +56,45 @@ const PostDetail: FunctionComponent = () => {
 
     const { comments, content, createdAt, user: postedBy } = data;
 
-    return isReady ? (
-        data ? (
-            <div>
-                <Navbar />
-                <Contentsection
-                    postedBy={postedBy}
-                    content={content}
-                    createdAt={createdAt}
-                    setCount={setCount}
-                    postId={postId as string}
-                    timeago={timeAgo}
-                />
-                <CommentSection
-                    comments={comments}
-                    postId={postId as string}
-                    setCount={setCount}
-                />
+    return (
+        <div>
+            <HeadPages />
+            <div className='h-screen overflow-hidden	'>
+                <div className='sticky top-0 z-50'>
+                    <Navbar />
+                </div>
+                <div className='w-full flex flex-row flex-wrap '>
+                    <div className='w-full primary-color h-screen flex flex-row flex-wrap justify-center '>
+                        <Sidebar />
+                        <div className='xl:w-2/5 md:w-3/4 lg:w-4/5 py-5 md:px-12 lg:24 h-full w-full overflow-y-intial antialiased overflow-x-hidden'>
+                            {isReady ? (
+                                data ? (
+                                    <div>
+                                        <Contentsection
+                                            postedBy={postedBy}
+                                            content={content}
+                                            createdAt={createdAt}
+                                            setCount={setCount}
+                                            postId={postId as string}
+                                            timeago={timeAgo}
+                                        />
+                                        <CommentSection
+                                            comments={comments}
+                                            postId={postId as string}
+                                            setCount={setCount}
+                                        />
+                                    </div>
+                                ) : (
+                                    <h1>Not Found</h1>
+                                )
+                            ) : (
+                                <h1>Loading</h1>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
-        ) : (
-            <h1>Not Found</h1>
-        )
-    ) : (
-        <h1>Loading</h1>
+        </div>
     );
 };
 

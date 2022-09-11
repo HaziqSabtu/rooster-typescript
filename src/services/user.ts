@@ -2,11 +2,11 @@ import { Comment, Post, User } from "@prisma/client";
 import { User as currentUser } from "next-auth";
 
 export const getAddFollowerInput = (
-    followerId: User["id"],
+    followingId: User["id"],
     userId: currentUser["id"]
 ) => {
     return {
-        followerIDs: followerId,
+        followingIDs: followingId,
         userIDs: userId,
     };
 };
