@@ -38,21 +38,21 @@ const Sidebar = () => {
             }
             <div className='w-full h-screen antialiased flex flex-col hover:cursor-pointer'>
                 <a
-                    className='hover:bg-inherit primary-color text-color-t border-y p-3 w-full text-xl text-left text-color-p font-semibold'
+                    className='hover:bg-inherit primary-color text-color-t p-3 w-full text-xl text-left text-color-p font-semibold'
                     onClick={() => router.push("/foryoupage")}
                 >
                     <i className='fa fa-cog text-color-t text-2xl pr-1 pt-1 float-right'></i>
                     For You
                 </a>
                 <a
-                    className='hover:bg-inherit primary-color text-color-t border-b p-3 w-full text-xl text-left text-color-p font-semibold'
+                    className='hover:bg-inherit primary-color text-color-t p-3 w-full text-xl text-left text-color-p font-semibold'
                     href='setting'
                 >
                     <i className='fa fa-cog text-color-t text-2xl pr-1 pt-1 float-right'></i>
                     Settings
                 </a>
                 <a
-                    className='hover:bg-inherit primary-color text-color-t border-b p-3 w-full text-xl text-left text-color-p font-semibold'
+                    className='hover:bg-inherit primary-color text-color-t p-3 w-full text-xl text-left text-color-p font-semibold'
                     onClick={() => {
                         signOut();
                     }}

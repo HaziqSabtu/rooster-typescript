@@ -5,6 +5,7 @@ import Posts from "../Post/Posts";
 import Sidebar from "../Sidebar/Sidebar";
 import Usernewpost from "./components/Usernewpost";
 import { HeadHome } from "../Head";
+import LayoutMain from "../Layout/LayoutMain";
 
 interface Props {}
 
@@ -13,20 +14,10 @@ const Main: FunctionComponent<Props> = () => {
     return (
         <div>
             <HeadHome />
-            <div className='h-screen overflow-hidden	'>
-                <div className='sticky top-0 z-50'>
-                    <Navbar />
-                </div>
-                <div className='w-full flex flex-row flex-wrap '>
-                    <div className='w-full primary-color h-screen flex flex-row flex-wrap justify-center '>
-                        <Sidebar />
-                        <div className='xl:w-2/5 md:w-3/4 lg:w-4/5 py-5 md:px-12 lg:24 h-full w-full overflow-y-intial antialiased overflow-x-hidden'>
-                            <Usernewpost setCount={setCount} />
-                            <Posts count={count} setCount={setCount} />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <LayoutMain>
+                <Usernewpost setCount={setCount} />
+                <Posts count={count} setCount={setCount} />
+            </LayoutMain>
         </div>
     );
 };

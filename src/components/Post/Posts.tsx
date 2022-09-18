@@ -7,6 +7,7 @@ import de from "javascript-time-ago/locale/de";
 import en from "javascript-time-ago/locale/en";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../slices/sliceCurrentUser";
+import LoaderPost, { LoaderPostGenerator } from "../Loader/LoaderPost";
 interface Props {
     count: number;
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -22,9 +23,6 @@ const Posts: FunctionComponent<Props> = ({ count, setCount, filter }) => {
               "post.findManyById",
               { followingIDs: currentUser?.followingIDs },
           ]);
-
-    console.log(list);
-    console.log(currentUser?.followingIDs);
 
     TimeAgo.setDefaultLocale(de.locale);
     TimeAgo.addLocale(en);
@@ -51,7 +49,7 @@ const Posts: FunctionComponent<Props> = ({ count, setCount, filter }) => {
 
     return (
         <div className=' flex flex-col'>
-            {loading ? "Loading" : <>{generatePost}</>}
+            {loading ? <LoaderPostGenerator /> : <>{generatePost}</>}
         </div>
     );
 };

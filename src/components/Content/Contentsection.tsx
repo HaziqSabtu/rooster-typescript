@@ -53,7 +53,10 @@ const Contentsection: FunctionComponent<Props> = ({
                             letter={currentUserName?.charAt(0) as string}
                         />
                     )}
-                    <h3 className='ml-2 mr-5 text-color-s'>@{postedBy.name}</h3>
+                    <h3 className='ml-2 mr-5 text-color-s'>
+                        <span className=''>@ </span>
+                        {postedBy.name}
+                    </h3>
                     <Time createdAt={createdAt} />
                 </div>
                 <DropdownPost
@@ -65,7 +68,7 @@ const Contentsection: FunctionComponent<Props> = ({
                 <ModalPostDelete setCount={setCount} />
             </div>
             <Link href={{ pathname: `/post/${postId}` }}>
-                <h1 className='text-xl break-all text-color-s cursor-pointer'>
+                <h1 className='text-xl break-all text-color-s cursor-pointer posttext'>
                     {content}
                 </h1>
             </Link>
