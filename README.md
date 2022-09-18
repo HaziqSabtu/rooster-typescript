@@ -18,6 +18,7 @@ Try now: [Rooster-t3](https://rooster-wheat.vercel.app/)
 | Tailwind CSS      | Rapid Styling                |
 | Mongo Atlas | Enabling Cloud Database      |
 | tRPC        | End-to-end typesafe APIs     |
+| Redux       | Centralized State Management |
 
 ## Demo
 

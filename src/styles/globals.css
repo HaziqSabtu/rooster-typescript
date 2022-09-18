@@ -4,17 +4,13 @@
 
 @font-face {
     font-family: "FiraCode";
-    src: url("../assets/fonts/FiraCode-Bold.ttf");
-    src: url("../assets/fonts/FiraCode-Light.ttf");
-    src: url("../assets/fonts/FiraCode-Medium.ttf");
-    src: url("../assets/fonts/FiraCode-Regular.ttf");
-    src: url("../assets/fonts/FiraCode-SemiBold.ttf");
+    src: url("../assets/fonts/RobotoFlex/RobotoFlex.ttf");
     font-weight: 400;
     font-style: normal;
 }
 
 body {
-    font-family: "FiraCode", sans-serif;
+    font-family: "Roboto Flex", sans-serif;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -62,4 +58,9 @@ body {
 
 ::-webkit-scrollbar {
     width: 10px;
+}
+
+.posttext {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 100;
 }
