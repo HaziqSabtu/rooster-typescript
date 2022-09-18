@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { User } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { ForYouIcon, LogoutIcon, SettingIcon } from "../../assets/icons";
 
 const Sidebar = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -31,8 +32,8 @@ const Sidebar = () => {
                         height={250}
                         alt='userInfo'
                     />
-                    <div className='pt-2 border-t mt-5 w-full text-color-t text-center text-2xl font-bold text-color-p'>
-                        @{name}
+                    <div className='pt-2 border-t mt-5 w-full text-center text-2xl font-bold text-color-p'>
+                        <h1 className='text-white'>@{name}</h1>
                     </div>
                 </div>
             }
@@ -41,15 +42,19 @@ const Sidebar = () => {
                     className='hover:bg-inherit primary-color text-color-t p-3 w-full text-xl text-left text-color-p font-semibold'
                     onClick={() => router.push("/foryoupage")}
                 >
-                    <i className='fa fa-cog text-color-t text-2xl pr-1 pt-1 float-right'></i>
-                    For You
+                    <div className='flex items-center'>
+                        <ForYouIcon size={25} />
+                        <h1 className='ml-2 text-white'>For You</h1>
+                    </div>
                 </a>
                 <a
                     className='hover:bg-inherit primary-color text-color-t p-3 w-full text-xl text-left text-color-p font-semibold'
                     href='setting'
                 >
-                    <i className='fa fa-cog text-color-t text-2xl pr-1 pt-1 float-right'></i>
-                    Settings
+                    <div className='flex items-center'>
+                        <SettingIcon size={25} />
+                        <h1 className='ml-2 text-white'>Setting</h1>
+                    </div>
                 </a>
                 <a
                     className='hover:bg-inherit primary-color text-color-t p-3 w-full text-xl text-left text-color-p font-semibold'
@@ -57,8 +62,10 @@ const Sidebar = () => {
                         signOut();
                     }}
                 >
-                    <h1 className='text-white text-2xl pr-1 pt-1 float-right'></h1>
-                    Log out
+                    <div className='flex items-center'>
+                        <LogoutIcon size={25} />
+                        <h1 className='ml-2 text-white'>Log out</h1>
+                    </div>
                 </a>
             </div>
         </div>

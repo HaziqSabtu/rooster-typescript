@@ -7,6 +7,9 @@ import github from "./components/github.png";
 import google from "./components/google.png";
 import discord from "./components/discord.png";
 import errorRooster from "./components/error-rooster.png";
+import foryou from "./components/foryou.png";
+import setting from "./components/setting.png";
+import logout from "./components/logout.png";
 import Image from "next/image";
 
 interface Props {
@@ -42,4 +45,16 @@ export const DiscordIcon: FunctionComponent<Props> = ({ size }) => {
 
 export const ErrorRooster: FunctionComponent<Props> = ({ size }) => {
     return <Image src={errorRooster.src} width={size} height={size} />;
+};
+
+export const ForYouIcon: FunctionComponent<Props> = ({ size }) => {
+    return <Image src={foryou.src} width={size} height={size} />;
+};
+
+export const SettingIcon: FunctionComponent<Props> = ({ size }) => {
+    return <Image src={setting.src} width={size} height={size} />;
+};
+
+export const LogoutIcon: FunctionComponent<Props> = ({ size }) => {
+    return <Image src={logout.src} width={size} height={size} />;
 };
