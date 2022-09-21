@@ -15,7 +15,7 @@ export const NewPost: FunctionComponent<Props> = ({
         <textarea
             className='bg-inherit outline-none w-full rounded-lg p-3'
             rows={4}
-            placeholder='Write Something Here'
+            placeholder="What's on your mind?"
             onChange={handleChange}
             name='text'
             value={value}
@@ -33,7 +33,7 @@ export const WarningNewPost: FunctionComponent<Props> = ({
         <textarea
             className='bg-gray-200 outline-none w-full rounded-lg shadow border p-3 border-rose-500 placeholder-red-500'
             rows={4}
-            placeholder='Write Something Here'
+            placeholder="What's on your mind?"
             onChange={handleChange}
             name='text'
             value={value}

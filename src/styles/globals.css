@@ -5,8 +5,8 @@
 @font-face {
     font-family: "Roboto Flex";
     src: url("../assets/fonts/RobotoFlex/RobotoFlex.ttf");
-    font-weight: 400;
     font-style: normal;
+    font-weight: 400;
 }
 
 @font-face {
@@ -75,4 +75,14 @@ body {
 .title {
     font-family: "Alba", sans-serif;
     font-weight: 100;
+}
+
+.comment-content {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 200;
+}
+
+.content {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 1000;
 }

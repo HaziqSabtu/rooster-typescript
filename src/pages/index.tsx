@@ -23,12 +23,12 @@ const Home: NextPage = () => {
     });
 
     const processAuth = () => {
-        console.log("session", session);
         dispatch(setCurrentUser(session?.user as User));
         setIsLoading(false);
+        router.push("/home");
     };
 
-    return <div>{isLoading ? <Loading /> : <Main />}</div>;
+    return <div>{isLoading ? <Loading /> : null}</div>;
 };
 
 export default Home;

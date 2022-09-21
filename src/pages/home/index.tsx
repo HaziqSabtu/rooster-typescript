@@ -23,7 +23,6 @@ const Home: NextPage = () => {
     });
 
     const processAuth = () => {
-        console.log("session", session);
         dispatch(setCurrentUser(session?.user as User));
         setIsLoading(false);
     };

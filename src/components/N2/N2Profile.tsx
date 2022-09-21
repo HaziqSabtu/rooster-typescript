@@ -8,7 +8,7 @@ const N2Profile: FunctionComponent<Props> = ({}) => {
     const currentUser = useSelector(selectCurrentUser);
     const { name, image } = currentUser || {};
     return (
-        <a href='#' className='flex-shrink-0 w-full group block'>
+        <a href='#' className='flex-shrink-0 w-full group block primary-color'>
             <div className='flex items-center'>
                 <div>
                     {image ? (
@@ -20,10 +20,10 @@ const N2Profile: FunctionComponent<Props> = ({}) => {
                     ) : null}
                 </div>
                 <div className='ml-3'>
-                    <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>
+                    <p className='text-sm font-medium text-gray-200 group-hover:text-gray-100'>
                         {name}
                     </p>
-                    <p className='text-xs font-medium text-gray-500 group-hover:text-gray-700'>
+                    <p className='text-xs font-medium text-gray-400 group-hover:text-gray-500'>
                         View profile
                     </p>
                 </div>

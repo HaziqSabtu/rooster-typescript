@@ -53,8 +53,7 @@ const Contentsection: FunctionComponent<Props> = ({
                             letter={currentUserName?.charAt(0) as string}
                         />
                     )}
-                    <h3 className='ml-2 mr-5 text-color-s'>
-                        <span className=''>@ </span>
+                    <h3 className='ml-2 mr-5 text-color-s tracking-wider'>
                         {postedBy.name}
                     </h3>
                     <Time createdAt={createdAt} />

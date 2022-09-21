@@ -1,14 +1,16 @@
 import { Dialog, Transition } from "@headlessui/react";
 import {
+    ArrowRightOnRectangleIcon,
     Bars3Icon,
     CalendarIcon,
+    Cog6ToothIcon,
+    FaceSmileIcon,
     HomeIcon,
     MagnifyingGlassIcon,
-    MapIcon,
-    SpeakerWaveIcon,
     UserGroupIcon,
-    XCircleIcon,
+    XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
 import React, { Fragment, FunctionComponent } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../slices/sliceCurrentUser";
@@ -16,32 +18,56 @@ import N2List from "./N2List";
 import N2Logo from "./N2Logo";
 import N2Profile from "./N2Profile";
 
-const navigation = [
-    { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-    { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-    { name: "Teams", href: "#", icon: UserGroupIcon, current: false },
-    { name: "Directory", href: "#", icon: MagnifyingGlassIcon, current: false },
-    { name: "Office Map", href: "#", icon: MapIcon, current: false },
+const navItem = [
+    { name: "Home", href: "/home", icon: HomeIcon, current: false },
+    {
+        name: "For you",
+        href: "/foryoupage",
+        icon: FaceSmileIcon,
+        current: false,
+    },
+    {
+        name: "Search",
+        href: "/search",
+        icon: MagnifyingGlassIcon,
+        current: false,
+    },
+    { name: "Setting", href: "/setting", icon: Cog6ToothIcon, current: false },
+    {
+        name: "Log out",
+        href: "#",
+        icon: ArrowRightOnRectangleIcon,
+        current: false,
+    },
 ];
+
+function processPath(path: string) {
+    return navItem.map((item) => {
+        item.href === path ? (item.current = true) : (item.current = false);
+        return item;
+    });
+}
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
 }
 
 const N2: FunctionComponent = ({}) => {
+    const router = useRouter();
+
     return (
         <div className='flex flex-col w-64'>
             <div className='flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-gray-100'>
-                <div className='flex-1 flex flex-col pt-5 pb-4 overflow-y-auto'>
+                <div className='flex-1 flex flex-col pt-5 pb-4 overflow-y-auto primary-color'>
                     <N2Logo includeText={true} />
                     <nav className='mt-5 flex-1' aria-label='Sidebar'>
                         <N2List
                             classNames={classNames}
-                            navigation={navigation}
+                            navigation={processPath(router.pathname)}
                         />
                     </nav>
                 </div>
-                <div className='flex-shrink-0 flex border-t border-gray-200 p-4'>
+                <div className='flex-shrink-0 flex border-gray-200 p-4 primary-color'>
                     <N2Profile />
                 </div>
             </div>
@@ -62,6 +88,8 @@ export const N2Small: FunctionComponent<IN2Small> = ({
 }) => {
     const currentUser = useSelector(selectCurrentUser);
     const { name, image } = currentUser || {};
+    const [navState, setNavState] = React.useState(navItem);
+    const router = useRouter();
     return (
         <Transition.Root show={sidebarOpen} as={Fragment}>
             <Dialog
@@ -108,46 +136,25 @@ export const N2Small: FunctionComponent<IN2Small> = ({
                                     <span className='sr-only'>
                                         Close sidebar
                                     </span>
-                                    <XCircleIcon
+                                    <XMarkIcon
                                         className='h-6 w-6 text-white'
                                         aria-hidden='true'
                                     />
                                 </button>
                             </div>
                         </Transition.Child>
-                        <div className='flex-1 h-0 pt-5 pb-4 overflow-y-auto'>
+                        <div className='flex-1 h-0 pt-5 pb-4 overflow-y-auto primary-color'>
                             <div className='flex-shrink-0 flex items-center px-4'>
                                 <N2Logo includeText={true} />
                             </div>
                             <nav aria-label='Sidebar' className='mt-5'>
-                                <div className='px-2 space-y-1'>
-                                    {navigation.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className={classNames(
-                                                item.current
-                                                    ? "bg-gray-100 text-gray-900"
-                                                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                                                "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                                            )}
-                                        >
-                                            <item.icon
-                                                className={classNames(
-                                                    item.current
-                                                        ? "text-gray-500"
-                                                        : "text-gray-400 group-hover:text-gray-500",
-                                                    "mr-4 h-6 w-6"
-                                                )}
-                                                aria-hidden='true'
-                                            />
-                                            {item.name}
-                                        </a>
-                                    ))}
-                                </div>
+                                <N2List
+                                    classNames={classNames}
+                                    navigation={processPath(router.pathname)}
+                                />
                             </nav>
                         </div>
-                        <div className='flex-shrink-0 flex border-t border-gray-200 p-4'>
+                        <div className='flex-shrink-0 flex border-gray-200 p-4 primary-color'>
                             <N2Profile />
                         </div>
                     </div>
@@ -157,5 +164,34 @@ export const N2Small: FunctionComponent<IN2Small> = ({
                 </div>
             </Dialog>
         </Transition.Root>
+    );
+};
+
+interface IN2NavBar {
+    setSidebarOpen: (arg0: boolean) => void;
+}
+export const N2NavBar: FunctionComponent<IN2NavBar> = ({ setSidebarOpen }) => {
+    return (
+        <div className='lg:hidden '>
+            <div className='flex items-center justify-between primary-color px-4 py-1.5 '>
+                <div>
+                    <N2Logo />
+                </div>
+                <div>
+                    <button
+                        type='button'
+                        className='-mr-3 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900'
+                        onClick={() => setSidebarOpen(true)}
+                    >
+                        <span className='sr-only'>Open sidebar</span>
+                        <Bars3Icon
+                            className='h-6 w-6'
+                            aria-hidden='true'
+                            color='#656399'
+                        />
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 };
