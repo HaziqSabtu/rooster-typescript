@@ -4,7 +4,7 @@ import { selectCurrentUser } from "../../slices/sliceCurrentUser";
 
 interface Props {}
 
-const N2Profile: FunctionComponent<Props> = ({}) => {
+const NavProfile: FunctionComponent<Props> = ({}) => {
     const currentUser = useSelector(selectCurrentUser);
     const { name, image } = currentUser || {};
     return (
@@ -32,4 +32,4 @@ const N2Profile: FunctionComponent<Props> = ({}) => {
     );
 };
 
-export default N2Profile;
+export default NavProfile;

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, HTMLAttributes } from "react";
 
 interface INavigate {
     name: string;
@@ -8,14 +8,14 @@ interface INavigate {
 }
 
 interface Props {
-    navigation: Array<INavigate>;
-    classNames: any;
+    navItem: Array<INavigate>;
+    classNames: (arg0: string, arg1: string) => string;
 }
 
-const N2List: FunctionComponent<Props> = ({ navigation, classNames }) => {
+const NavList: FunctionComponent<Props> = ({ navItem, classNames }) => {
     return (
         <div className='px-2 space-y-1 primary-color'>
-            {navigation.map((item) => (
+            {navItem.map((item) => (
                 <a
                     key={item.name}
                     href={item.href}
@@ -42,4 +42,4 @@ const N2List: FunctionComponent<Props> = ({ navigation, classNames }) => {
     );
 };
 
-export default N2List;
+export default NavList;

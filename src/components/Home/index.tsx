@@ -6,7 +6,7 @@ import LayoutMain from "../Layout/LayoutMain";
 import Usernewpost from "../Main/components/Usernewpost";
 import Posts from "../Post/Posts";
 
-export default function Home() {
+export default function Homee() {
     const [count, setCount] = useState<number>(0);
     return (
         <div>

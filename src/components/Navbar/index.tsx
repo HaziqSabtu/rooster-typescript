@@ -2,21 +2,17 @@ import { Dialog, Transition } from "@headlessui/react";
 import {
     ArrowRightOnRectangleIcon,
     Bars3Icon,
-    CalendarIcon,
     Cog6ToothIcon,
     FaceSmileIcon,
     HomeIcon,
     MagnifyingGlassIcon,
-    UserGroupIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import React, { Fragment, FunctionComponent } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../slices/sliceCurrentUser";
-import N2List from "./N2List";
-import N2Logo from "./N2Logo";
-import N2Profile from "./N2Profile";
+import NavList from "./NavList";
+import NavLogo from "./NavLogo";
+import NavProfile from "./NavProfile";
 
 const navItem = [
     { name: "Home", href: "/home", icon: HomeIcon, current: false },
@@ -48,47 +44,41 @@ function processPath(path: string) {
     });
 }
 
-function classNames(...classes: any) {
+function classNames(...classes: [string]) {
     return classes.filter(Boolean).join(" ");
 }
 
-const N2: FunctionComponent = ({}) => {
+export const SideBarMain: FunctionComponent = ({}) => {
     const router = useRouter();
-
     return (
         <div className='flex flex-col w-64'>
             <div className='flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-gray-100'>
                 <div className='flex-1 flex flex-col pt-5 pb-4 overflow-y-auto primary-color'>
-                    <N2Logo includeText={true} />
+                    <NavLogo includeText={true} />
                     <nav className='mt-5 flex-1' aria-label='Sidebar'>
-                        <N2List
+                        <NavList
                             classNames={classNames}
-                            navigation={processPath(router.pathname)}
+                            navItem={processPath(router.pathname)}
                         />
                     </nav>
                 </div>
                 <div className='flex-shrink-0 flex border-gray-200 p-4 primary-color'>
-                    <N2Profile />
+                    <NavProfile />
                 </div>
             </div>
         </div>
     );
 };
 
-export default N2;
-
-interface IN2Small {
+interface ISideBarSmall {
     setSidebarOpen: (arg0: boolean) => void;
     sidebarOpen: boolean;
 }
 
-export const N2Small: FunctionComponent<IN2Small> = ({
+export const SideBarSmall: FunctionComponent<ISideBarSmall> = ({
     setSidebarOpen,
     sidebarOpen,
 }) => {
-    const currentUser = useSelector(selectCurrentUser);
-    const { name, image } = currentUser || {};
-    const [navState, setNavState] = React.useState(navItem);
     const router = useRouter();
     return (
         <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -145,17 +135,17 @@ export const N2Small: FunctionComponent<IN2Small> = ({
                         </Transition.Child>
                         <div className='flex-1 h-0 pt-5 pb-4 overflow-y-auto primary-color'>
                             <div className='flex-shrink-0 flex items-center px-4'>
-                                <N2Logo includeText={true} />
+                                <NavLogo includeText={true} />
                             </div>
                             <nav aria-label='Sidebar' className='mt-5'>
-                                <N2List
+                                <NavList
                                     classNames={classNames}
-                                    navigation={processPath(router.pathname)}
+                                    navItem={processPath(router.pathname)}
                                 />
                             </nav>
                         </div>
                         <div className='flex-shrink-0 flex border-gray-200 p-4 primary-color'>
-                            <N2Profile />
+                            <NavProfile />
                         </div>
                     </div>
                 </Transition.Child>
@@ -167,15 +157,17 @@ export const N2Small: FunctionComponent<IN2Small> = ({
     );
 };
 
-interface IN2NavBar {
+interface INavBarSmall {
     setSidebarOpen: (arg0: boolean) => void;
 }
-export const N2NavBar: FunctionComponent<IN2NavBar> = ({ setSidebarOpen }) => {
+export const NavBarSmall: FunctionComponent<INavBarSmall> = ({
+    setSidebarOpen,
+}) => {
     return (
         <div className='lg:hidden '>
             <div className='flex items-center justify-between primary-color px-4 py-1.5 '>
                 <div>
-                    <N2Logo />
+                    <NavLogo />
                 </div>
                 <div>
                     <button

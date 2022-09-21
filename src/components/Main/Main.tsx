@@ -1,8 +1,5 @@
-import { User } from "next-auth";
 import React, { FunctionComponent, useEffect } from "react";
-import Navbar from "../Navbar/Navbar";
 import Posts from "../Post/Posts";
-import Sidebar from "../Sidebar/Sidebar";
 import Usernewpost from "./components/Usernewpost";
 import { HeadHome } from "../Head";
 import LayoutMain from "../Layout/LayoutMain";
