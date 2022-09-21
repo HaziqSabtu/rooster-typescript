@@ -1,13 +1,20 @@
 import React, { FunctionComponent } from "react";
 import Logo from "../../assets/logo/Logo";
 
-const NavLogo: FunctionComponent = () => {
+interface Props {
+    includeText?: boolean;
+}
+
+const NavLogo: FunctionComponent<Props> = ({ includeText }) => {
     return (
-        <div className='flex items-center flex-shrink-0 text-white mr-6'>
-            <Logo width={45} height={45} />
-            <a href='/' className='font-semibold text-xl tracking-tight ml-2'>
-                <span className='text-3xl'>R</span>
-                <span>ooster</span>
+        <div className='flex items-center flex-shrink-0 px-0 primary-color'>
+            <a href='/home' className='flex'>
+                <Logo width={32} height={32} />
+                {includeText ? (
+                    <h1 className='ml-1 text-3xl font-bold text-gray-400 title tracking-normal'>
+                        rooster
+                    </h1>
+                ) : null}
             </a>
         </div>
     );

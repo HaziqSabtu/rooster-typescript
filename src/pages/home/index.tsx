@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Main from "../components/Main/Main";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Loading from "../components/Loading/Loading";
 import { User } from "next-auth";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../slices/sliceCurrentUser";
+import Homee from "../../components/Home";
+import { setCurrentUser } from "../../slices/sliceCurrentUser";
+import Loading from "../../components/Loading/Loading";
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -25,10 +25,9 @@ const Home: NextPage = () => {
     const processAuth = () => {
         dispatch(setCurrentUser(session?.user as User));
         setIsLoading(false);
-        router.push("/home");
     };
 
-    return <div>{isLoading ? <Loading /> : null}</div>;
+    return <div>{isLoading ? <Loading /> : <Homee />}</div>;
 };
 
 export default Home;

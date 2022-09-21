@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useEffect } from "react";
-import Posts from "../Post/Posts";
-import Usernewpost from "./components/Usernewpost";
+/* This example requires Tailwind CSS v2.0+ */
+import { useState } from "react";
+
 import { HeadHome } from "../Head";
 import LayoutMain from "../Layout/LayoutMain";
+import Usernewpost from "../Main/components/Usernewpost";
+import Posts from "../Post/Posts";
 
-interface Props {}
-
-const Main: FunctionComponent<Props> = () => {
-    const [count, setCount] = React.useState<number>(0);
+export default function Homee() {
+    const [count, setCount] = useState<number>(0);
     return (
         <div>
             <HeadHome />
@@ -17,6 +17,4 @@ const Main: FunctionComponent<Props> = () => {
             </LayoutMain>
         </div>
     );
-};
-
-export default Main;
+}

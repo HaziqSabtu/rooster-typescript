@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "FiraCode";
+    font-family: "Roboto Flex";
     src: url("../assets/fonts/RobotoFlex/RobotoFlex.ttf");
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Alba";
+    src: url("../assets/fonts/Alba/ALBA.TTF");
     font-weight: 400;
     font-style: normal;
 }
@@ -63,4 +70,19 @@ body {
 .posttext {
     font-family: "Roboto Flex", sans-serif;
     font-weight: 100;
+}
+
+.title {
+    font-family: "Alba", sans-serif;
+    font-weight: 100;
+}
+
+.comment-content {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 200;
+}
+
+.content {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 1000;
 }

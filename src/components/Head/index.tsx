@@ -31,6 +31,20 @@ export const HeadSignIn: FunctionComponent = ({}) => {
     );
 };
 
+export const HeadSearch: FunctionComponent = ({}) => {
+    return (
+        <Head>
+            <title>Rooster / Search</title>
+            <meta
+                name='viewport'
+                content='initial-scale=1.0, width=device-width'
+                key='title'
+            />
+            <link rel='shortcut icon' href='/logo.ico' />
+        </Head>
+    );
+};
+
 export const HeadPages: FunctionComponent = ({}) => {
     return (
         <Head>

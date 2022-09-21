@@ -18,7 +18,11 @@ export const PostRouter = createProtectedRouter()
                 return [];
             }
             return await ctx.prisma.post.findMany({
-                where: { userIDs: { in: input.followingIDs } },
+                where: {
+                    userIDs: {
+                        in: [...input.followingIDs, ctx.session.user.id],
+                    },
+                },
                 include: { user: true, comments: { include: { user: true } } },
                 orderBy: { createdAt: "desc" },
             });

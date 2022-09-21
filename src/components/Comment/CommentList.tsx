@@ -51,8 +51,8 @@ const CommentList: FunctionComponent<Props> = ({
                             letter={currentUserName?.charAt(0) as string}
                         />
                     )}
-                    <h3 className='text-xs ml-2 mr-5 text-color-s'>
-                        <span className=''>@ </span>
+                    <h3 className='text-xs ml-2 mr-5 text-color-s tracking-widest'>
+                        <span className=''></span>
                         {name}
                     </h3>
                     <Time createdAt={createdAt} />
@@ -66,7 +66,7 @@ const CommentList: FunctionComponent<Props> = ({
                 <ModalCommentDelete setCount={setCount} />
             </div>
             <Link href={`/post/${postId}`}>
-                <h1 className='text-sm text-color-s cursor-pointer posttext'>
+                <h1 className='text-sm text-color-s cursor-pointer posttext comment-content'>
                     {content}
                 </h1>
             </Link>
