@@ -36,6 +36,10 @@ body {
     background-color: #2c3639;
 }
 
+.fourth-color {
+    background-color: #656399;
+}
+
 .border-color-p {
     border-color: #a5c9ca;
 }
@@ -53,6 +57,10 @@ body {
 
 .text-color-t {
     color: #9e9aee;
+}
+
+.text-color-g {
+    color: #c8c8c8;
 }
 
 .disabled-color {

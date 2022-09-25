@@ -7,6 +7,7 @@ import Loading from "../components/Loading/Loading";
 import { User } from "next-auth";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../slices/sliceCurrentUser";
+import LandingPage from "../components/LandingPage";
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -25,10 +26,10 @@ const Home: NextPage = () => {
     const processAuth = () => {
         dispatch(setCurrentUser(session?.user as User));
         setIsLoading(false);
-        router.push("/home");
+        // router.push("/home");
     };
 
-    return <div>{isLoading ? <Loading /> : null}</div>;
+    return <div>{isLoading ? <Loading /> : <LandingPage />}</div>;
 };
 
 export default Home;
