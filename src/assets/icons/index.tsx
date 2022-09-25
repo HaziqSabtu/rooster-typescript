@@ -10,6 +10,14 @@ import errorRooster from "./components/error-rooster.png";
 import foryou from "./components/foryou.png";
 import setting from "./components/setting.png";
 import logout from "./components/logout.png";
+import react from "./components/react-logo.png";
+import typescript from "./components/typescript-logo.png";
+import nextjs from "./components/nextjs-logo.png";
+import prisma from "./components/prisma-logo.png";
+import tailwindcss from "./components/tailwind-logo.png";
+import mongo from "./components/mongo-logo.png";
+import tRPC from "./components/trpc-logo.png";
+import redux from "./components/redux-logo.png";
 import Image from "next/image";
 
 interface Props {
@@ -57,4 +65,43 @@ export const SettingIcon: FunctionComponent<Props> = ({ size }) => {
 
 export const LogoutIcon: FunctionComponent<Props> = ({ size }) => {
     return <Image src={logout.src} width={size} height={size} />;
+};
+
+export const ReactLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={react.src} width={size} height={size} />;
+};
+
+export const TypescriptLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={typescript.src} width={size} height={size} />;
+};
+
+export const NextjsLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={nextjs.src} width={size} height={size} />;
+};
+
+export const TRPCLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={tRPC.src} width={size} height={size} />;
+};
+
+export const MongoLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={mongo.src} width={size} height={size} />;
+};
+
+export const ReduxLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={redux.src} width={size} height={size} />;
+};
+
+export const PrismaLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={prisma.src} width={size} height={size} />;
+};
+export const TailwindLogo: FunctionComponent = () => {
+    const size = 50;
+    return <Image src={tailwindcss.src} width={size} height={size} />;
 };

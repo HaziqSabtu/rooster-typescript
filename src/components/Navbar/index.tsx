@@ -187,3 +187,23 @@ export const NavBarSmall: FunctionComponent<INavBarSmall> = ({
         </div>
     );
 };
+
+export const NavBarLP: FunctionComponent = ({}) => {
+    return (
+        <div className=' '>
+            <div className='flex items-center justify-between primary-color px-4 py-1.5 '>
+                <div>
+                    <NavLogo includeText={true} />
+                </div>
+                <div>
+                    <a
+                        href='#'
+                        className='ml-8 whitespace-nowrap inline-flex items-center justify-center fourth-color bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white'
+                    >
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
+};
