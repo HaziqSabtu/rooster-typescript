@@ -7,7 +7,7 @@ const LoginGitHub: FunctionComponent = ({}) => {
         <div className='flex flex-row items-center mt-3'>
             <button
                 className='btn btn-wide'
-                onClick={() => signIn("github", { callbackUrl: "/" })}
+                onClick={() => signIn("github", { callbackUrl: "/home" })}
             >
                 <GitHubIcon size={30} />
                 <span className='text-white'>Login with GitHub</span>
