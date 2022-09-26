@@ -11,6 +11,7 @@ import {
     TypescriptLogo,
 } from "../../assets/icons";
 import { LogoLarge } from "../../assets/logo/Logo";
+import { HeadWelcome } from "../Head";
 import { NavBarLP } from "../Navbar";
 
 const madeWith = [
@@ -33,6 +34,7 @@ interface Props {}
 const LandingPage: FunctionComponent<Props> = ({}) => {
     return (
         <div>
+            <HeadWelcome />
             <NavBarLP />
             <main>
                 <div className='relative'>

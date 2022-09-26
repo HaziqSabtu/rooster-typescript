@@ -73,6 +73,20 @@ export const HeadSetting: FunctionComponent = ({}) => {
     );
 };
 
+export const HeadWelcome: FunctionComponent = ({}) => {
+    return (
+        <Head>
+            <title>Welcome to Rooster</title>
+            <meta
+                name='viewport'
+                content='initial-scale=1.0, width=device-width'
+                key='title'
+            />
+            <link rel='shortcut icon' href='/logo.ico' />
+        </Head>
+    );
+};
+
 export const HeadFYP: FunctionComponent = ({}) => {
     return (
         <Head>
