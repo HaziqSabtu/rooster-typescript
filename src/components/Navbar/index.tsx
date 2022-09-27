@@ -31,7 +31,7 @@ const navItem = [
     { name: "Setting", href: "/setting", icon: Cog6ToothIcon, current: false },
     {
         name: "Log out",
-        href: "#",
+        href: "/setting",
         icon: ArrowRightOnRectangleIcon,
         current: false,
     },
