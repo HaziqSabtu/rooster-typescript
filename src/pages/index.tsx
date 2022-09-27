@@ -20,7 +20,7 @@ const Home: NextPage = () => {
             ? setIsLoading(true)
             : status === "authenticated"
             ? processAuth()
-            : router.push("/auth/signin");
+            : setIsLoading(false);
     });
 
     const processAuth = () => {
