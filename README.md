@@ -24,6 +24,6 @@ Try now: [Rooster-t3](https://rooster-wheat.vercel.app/)
 
 ![Alt text](/screenshots/device.jpg)
 
-The website is now Live ! (but still Work in Progress): [Rooster-t3](https://rooster-wheat.vercel.app/)
+The App is now Live ! (but still Work in Progress): [Rooster-t3](https://rooster-wheat.vercel.app/)
 
 Previously deployed : [Rooster-V2](https://rooster-react.netlify.app/)
