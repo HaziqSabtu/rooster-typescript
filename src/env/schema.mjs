@@ -16,6 +16,10 @@ export const serverSchema = z.object({
     GOOGLE_SECRET: z.string(),
     DISCORD_ID: z.string(),
     DISCORD_SECRET: z.string(),
+    HYGRAPH_TOKEN: z.string(),
+    HYGRAPH_POST_ENDPOINT: z.string(),
+    HYGRAPH_ASSET_ENDPOINT: z.string(),
+    HYGRAPH_MANAGEMENT_ENDPOINT: z.string(),
 });
 
 /**
