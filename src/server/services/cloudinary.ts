@@ -1,9 +1,10 @@
 import cloudinary from "cloudinary";
+import { env } from "../../env/server.mjs";
 
 cloudinary.v2.config({
-    cloud_name: "do7i2qsru",
-    api_key: "245769356929299",
-    api_secret: "f3QeRX92U-QnJWKbb2i5GsH4QMA",
+    cloud_name: env.CLOUDINARY_NAME,
+    api_key: env.CLOUDINARY_KEY,
+    api_secret: env.CLOUDINARY_SECRET,
 });
 
 export const cloudinaryUpload = (file: string) =>
