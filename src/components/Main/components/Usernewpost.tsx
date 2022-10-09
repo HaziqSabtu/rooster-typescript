@@ -41,7 +41,6 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const [warning, setWarning] = useState<boolean>(false);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const currentUser = useSelector(selectCurrentUser);
-    const image = "";
 
     const styleButton = {
         width: "176px",
@@ -90,8 +89,11 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const handleSubmit = useCallback(async () => {
         setIsLoading((state) => !state);
         await sleep(5000);
+        console.log(
+            getPostCreateInput(userText.text, assetData, currentUser!.id)
+        );
         await mutateAsync(
-            getPostCreateInput(userText.text, image, currentUser!.id)
+            getPostCreateInput(userText.text, assetData, currentUser!.id)
         )
             .then(() => {
                 setCount((c) => c + 1);
@@ -102,7 +104,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
             .catch((err) => {
                 handleError(err.message);
             });
-    }, [mutateAsync, userText, currentUser, image]);
+    }, [mutateAsync, userText, currentUser, assetData]);
 
     return (
         <div>

@@ -1,11 +1,17 @@
 //https://flowbite.com/docs/components/buttons/
 //https://thewebdev.info/2021/11/07/how-to-read-and-upload-a-file-in-react-using-custom-button/
 
+import { readFileSync } from "fs";
 import React, { FunctionComponent } from "react";
 import { useState, useRef } from "react";
+import { Readable } from "stream";
 
 interface Props {
     setAssetData: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+interface ImageData {
+    url: string;
 }
 
 const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
@@ -20,10 +26,11 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
         uploadImage(event);
     };
 
-    const uploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             const imageFile = event.target.files[0];
             console.log(imageFile);
+            console.log(event.target.files[0]);
 
             if (
                 imageFile?.type === "image/png" ||
@@ -36,7 +43,21 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                 setIstypeCorrect(false);
                 setLoading(false);
             }
+
+            const form = new FormData();
+            form.set("file", imageFile as Blob);
+
+            fetch("/api/upload/image", { method: "POST", body: form })
+                .then((res) => res.json())
+                .then((data) => onSuccess(data));
         }
+    };
+
+    const onSuccess = ({ url }: ImageData) => {
+        setAssetData(url);
+        console.log(url);
+        setIsUploaded(true);
+        setLoading(false);
     };
 
     const cancelUpload = () => {

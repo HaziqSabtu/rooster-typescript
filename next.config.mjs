@@ -20,6 +20,7 @@ export default defineNextConfig({
             "cdn.discordapp.com",
             "img.welt.de",
             "lh3.googleusercontent.com",
+            "res.cloudinary.com",
         ],
     },
 });

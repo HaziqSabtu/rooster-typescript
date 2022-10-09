@@ -21,11 +21,11 @@ const PostList: FunctionComponent<Props> = ({
         <div className='bg-white border-y'>
             {image ? (
                 <Image
-                    className='object fill w-full border rounded-t-2xl '
+                    className='object w-full border rounded-t-2xl background-inherit'
                     src={image}
                     alt='Imagepost'
                     width='100%'
-                    layout='fill'
+                    height='100%'
                 />
             ) : null}
             <Contentsection
