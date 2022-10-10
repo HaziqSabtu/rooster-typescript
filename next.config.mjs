@@ -21,6 +21,7 @@ export default defineNextConfig({
             "img.welt.de",
             "lh3.googleusercontent.com",
             "res.cloudinary.com",
+            "avatars.githubusercontent.com",
         ],
     },
 });
