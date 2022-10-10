@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import CommentSection from "../../components/Comment/CommentSection";
 import Contentsection from "../../components/Content/Contentsection";
 import { HeadPages } from "../../components/Head";
+import { generateImage } from "../../components/Image";
 import LayoutMain from "../../components/Layout/LayoutMain";
 import Loading from "../../components/Loading/Loading";
+import { generateVideo } from "../../components/Video";
 import { selectCurrentUser } from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 
@@ -62,7 +64,7 @@ const PostDetail: FunctionComponent = () => {
         return <Loading />;
     }
 
-    const { comments, content, createdAt, user: postedBy } = data;
+    const { comments, content, createdAt, user: postedBy, image, video } = data;
 
     return (
         <div>
@@ -71,6 +73,8 @@ const PostDetail: FunctionComponent = () => {
                 {isReady ? (
                     data ? (
                         <div>
+                            {image ? generateImage(image) : null}
+                            {video ? generateVideo(video) : null}
                             <Contentsection
                                 postedBy={postedBy}
                                 content={content}
@@ -78,6 +82,9 @@ const PostDetail: FunctionComponent = () => {
                                 setCount={setCount}
                                 postId={postId as string}
                                 timeago={timeAgo}
+                                hasMedia={
+                                    image.length != 0 || video ? true : false
+                                }
                             />
                             <CommentSection
                                 comments={comments}

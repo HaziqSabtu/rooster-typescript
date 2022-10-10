@@ -18,7 +18,7 @@ interface Props {
     timeago: TimeAgo;
     setCount: React.Dispatch<React.SetStateAction<number>>;
     postId: Post["id"];
-    hasImage?: boolean;
+    hasMedia?: boolean;
 }
 
 function joinClassNames(...classes: string[]) {
@@ -32,7 +32,7 @@ const Contentsection: FunctionComponent<Props> = ({
     setCount,
     postId,
     timeago,
-    hasImage,
+    hasMedia,
 }) => {
     const currentUser = useSelector(selectCurrentUser);
     const {
@@ -43,7 +43,7 @@ const Contentsection: FunctionComponent<Props> = ({
     return (
         <div
             className={joinClassNames(
-                hasImage ? "mt-5" : "",
+                hasMedia ? "mt-5" : "",
                 "primary-color text-xl text-color-p font-semibold"
             )}
         >

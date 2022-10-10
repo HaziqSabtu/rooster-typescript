@@ -66,17 +66,19 @@ const ImageModal: FunctionComponent<Props> = () => {
                             <Dialog.Panel className='w-screen h-screen transform overflow-hidden text-left align-middle shadow-xl transition-all '>
                                 <div className='flex justify-between items-center max-w-screen h-screen p-5'>
                                     <a
-                                        className='h-10 w-10 absolute top-10 right-10'
+                                        className='h-10 w-10 absolute top-10 right-10 hover:bg-slate-900 rounded-full flex items-center z-50'
                                         onClick={closeModal}
                                     >
                                         <XMarkIcon />
                                     </a>
-                                    <a
-                                        className='mx-5 h-10 w-10'
-                                        onClick={decrementImg}
-                                    >
-                                        <ChevronLeftIcon />
-                                    </a>
+                                    {imageArray.length > 1 && (
+                                        <a
+                                            className='mx-5 h-10 w-10 hover:bg-slate-900 rounded-lg flex items-center'
+                                            onClick={decrementImg}
+                                        >
+                                            <ChevronLeftIcon />
+                                        </a>
+                                    )}
                                     <div className='relative w-full h-full'>
                                         <Image
                                             className=''
@@ -86,12 +88,14 @@ const ImageModal: FunctionComponent<Props> = () => {
                                             objectFit={"contain"}
                                         ></Image>
                                     </div>
-                                    <a
-                                        className='mx-5 h-10 w-10'
-                                        onClick={incrementImg}
-                                    >
-                                        <ChevronRightIcon />
-                                    </a>
+                                    {imageArray.length > 1 && (
+                                        <a
+                                            className='mx-5 h-10 w-10 hover:bg-slate-900 rounded-lg flex items-center'
+                                            onClick={incrementImg}
+                                        >
+                                            <ChevronRightIcon />
+                                        </a>
+                                    )}
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
