@@ -26,7 +26,7 @@ const Home: NextPage = () => {
     const processAuth = () => {
         dispatch(setCurrentUser(session?.user as User));
         setIsLoading(false);
-        // router.push("/home");
+        router.push("/home");
     };
 
     return <div>{isLoading ? <Loading /> : <LandingPage />}</div>;
