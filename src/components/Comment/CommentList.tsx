@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Comment, User } from "@prisma/client";
 import Time from "../Time/Time";
 import { DropdownComment } from "../Dropdown/Dropdown";
@@ -33,9 +33,23 @@ const CommentList: FunctionComponent<Props> = ({
         followingIDs,
     } = currentUser || {};
 
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseOver = () => {
+        setIsHovering(true);
+    };
+
+    const handleMouseOut = () => {
+        setIsHovering(false);
+    };
+
     return (
-        <div className='primary-color  p-4 text-lg text-color-p font-semibold'>
-            <div className='flex flex-row justify-between items-center'>
+        <div
+            className='primary-color  p-4 text-lg text-color-p font-semibold'
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+        >
+            <div className='flex flex-row justify-between items-center h-10'>
                 <div className='flex items-center'>
                     {image ? (
                         <Image
@@ -57,12 +71,14 @@ const CommentList: FunctionComponent<Props> = ({
                     </h3>
                     <Time createdAt={createdAt} />
                 </div>
-                <DropdownComment
-                    postedById={postedById}
-                    currentUserId={currentUserId as string}
-                    commentId={commentId}
-                    followingIDs={followingIDs}
-                />
+                {isHovering && (
+                    <DropdownComment
+                        postedById={postedById}
+                        currentUserId={currentUserId as string}
+                        commentId={commentId}
+                        followingIDs={followingIDs}
+                    />
+                )}
                 <ModalCommentDelete setCount={setCount} />
             </div>
             <Link href={`/post/${postId}`}>
