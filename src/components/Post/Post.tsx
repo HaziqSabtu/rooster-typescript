@@ -1,10 +1,17 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Comment, Post, User } from "@prisma/client";
 import Contentsection from "../Content/Contentsection";
 import CommentSection from "../Comment/CommentSection";
 import { User as currentUser } from "next-auth";
 import TimeAgo from "javascript-time-ago";
 import Image from "next/image";
+import ImageModal from "../Modal/ImageModal";
+import { useDispatch } from "react-redux";
+import {
+    setImageArray,
+    setImageIndex,
+    setOpenModal,
+} from "../../slices/sliceModalImage";
 interface Props {
     key: Post["id"];
     post: Post & { user: User; comments: (Comment & { user: User })[] };
@@ -17,14 +24,23 @@ const generateImage = (image: string[]) => {
         src: string;
     }
     const ImageComponent: FunctionComponent<Image> = ({ src }) => {
+        const dispatch = useDispatch();
         return (
-            <Image
-                className='rounded-lg'
-                src={src}
-                alt='Imagepost'
-                layout='fill'
-                objectFit='cover'
-            />
+            <a
+                onClick={() => {
+                    dispatch(setOpenModal());
+                    dispatch(setImageArray(image));
+                    dispatch(setImageIndex(image.indexOf(src)));
+                }}
+            >
+                <Image
+                    className='rounded-lg'
+                    src={src}
+                    alt='Imagepost'
+                    layout='fill'
+                    objectFit='cover'
+                />
+            </a>
         );
     };
     if (image.length === 1) {
@@ -120,6 +136,8 @@ const PostList: FunctionComponent<Props> = ({
                 postId={postId}
                 hasImage={image.length != 0 ? true : false}
             />
+
+            <ImageModal />
             <CommentSection
                 comments={comments}
                 postId={postId}

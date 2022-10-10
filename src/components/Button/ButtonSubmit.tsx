@@ -20,7 +20,7 @@ export const NormalButton: FunctionComponent<Props> = ({
         <button
             type='button'
             onClick={handleSubmit}
-            className='w-44 text-sm transition ease-in-out delay-300 float-right secondary-color hover:-translate-y-0.5 hover:scale-110 hover:tertiary-color text-white p-2 rounded-lg'
+            className='w-44 text-sm transition ease-in-out delay-300 float-right fourth-color hover:-translate-y-0.5 hover:scale-110 hover:tertiary-color text-white p-2 rounded-lg'
             style={style}
         >
             {text}
@@ -56,7 +56,7 @@ export const SubmittedButton: FunctionComponent<Props> = ({
             type='button'
             disabled={true}
             onClick={handleSubmit}
-            className='w-44 text-sm float-right disabled-color text-white p-0 rounded-lg'
+            className='w-44 text-sm float-right text-white p-0 rounded-lg bg-green-500'
             style={style}
         >
             {text}
