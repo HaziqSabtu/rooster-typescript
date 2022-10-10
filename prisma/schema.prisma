@@ -85,8 +85,9 @@ model Comment {
 
 model Post {
     id            String             @id @default(auto()) @map("_id") @db.ObjectId
-    content       String?
-    image         String?
+    content       String
+    image         String[]
+    video         String?
     comments      Comment[]
     createdAt     DateTime           @default(now())
     updatedAt     DateTime           @updatedAt

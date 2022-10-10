@@ -41,8 +41,10 @@ const uploadImage = async (req: NextReqWithFile, res: NextApiResponse) => {
         return res.json({
             url: url,
         });
-    } catch (error: any) {
-        return res.status(422).json({ message: error.message });
+    } catch (error) {
+        if (error instanceof Error) {
+            return res.status(422).json({ message: error.message });
+        }
     }
 };
 

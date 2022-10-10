@@ -7,7 +7,7 @@ import { useState, useRef } from "react";
 import { Readable } from "stream";
 
 interface Props {
-    setAssetData: React.Dispatch<React.SetStateAction<string | null>>;
+    setAssetData: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 interface ImageData {
@@ -54,7 +54,7 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
     };
 
     const onSuccess = ({ url }: ImageData) => {
-        setAssetData(url);
+        setAssetData((old) => [...old, url]);
         console.log(url);
         setIsUploaded(true);
         setLoading(false);
@@ -62,7 +62,7 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
 
     const cancelUpload = () => {
         console.log("is null");
-        setAssetData(null);
+        setAssetData([]);
         setIsUploaded(false);
         setIstypeCorrect(true);
     };
@@ -100,7 +100,7 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                     <p className='ml-2'>Upload Image</p>
                 </button>
             )}
-            {!isUploaded && loading && istypeCorrect && (
+            {loading && istypeCorrect && (
                 <button
                     disabled
                     type='button'
@@ -128,11 +128,11 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                     Loading...
                 </button>
             )}
-            {isUploaded && istypeCorrect && (
+            {isUploaded && istypeCorrect && !loading && (
                 <button
                     type='button'
-                    onClick={cancelUpload}
-                    className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200'
+                    onClick={() => fileRef.current?.click()}
+                    className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center'
                 >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'

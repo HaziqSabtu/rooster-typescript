@@ -34,7 +34,7 @@ interface UserText {
 
 const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const [userText, setUserText] = useState<UserText>({ text: "" });
-    const [assetData, setAssetData] = useState<string | null>(null);
+    const [assetData, setAssetData] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isPosted, setIsPosted] = useState<boolean>(false);
     const [isEmpty, setIsEmpty] = useState<boolean>(true);
@@ -100,6 +100,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
                 setIsLoading((state) => !state);
                 setIsPosted(true);
                 setUserText({ text: "" });
+                setAssetData([]);
             })
             .catch((err) => {
                 handleError(err.message);

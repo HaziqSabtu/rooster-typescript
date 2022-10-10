@@ -7,8 +7,6 @@ import { SessionProvider } from "next-auth/react";
 import "../styles/globals.css";
 import { store } from "../store";
 import { Provider as ReactProvider } from "react-redux";
-import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "./api/graphql/[graphql]";
 
 const MyApp: AppType = ({
     Component,
@@ -17,9 +15,7 @@ const MyApp: AppType = ({
     return (
         <SessionProvider session={session}>
             <ReactProvider store={store}>
-                <ApolloProvider client={apolloClient}>
-                    <Component {...pageProps} />
-                </ApolloProvider>
+                <Component {...pageProps} />
             </ReactProvider>
         </SessionProvider>
     );

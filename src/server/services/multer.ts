@@ -1,4 +1,5 @@
 // https://www.npmjs.com/package/multer
+// middleware modifying request header -> add file to header
 import multer from "multer";
 
 const ALLOWED_FORMAT = ["image/jpeg", "image/png", "image/jpg"];

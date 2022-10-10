@@ -51,8 +51,9 @@ export const PostRouter = createProtectedRouter()
     })
     .mutation("create", {
         input: z.object({
-            content: z.string().nullish(),
-            image: z.string().nullish(),
+            content: z.string(),
+            image: z.string().array(),
+            video: z.string().nullish(),
             userIDs: z.string(),
         }),
         resolve: async ({ ctx, input }) => {
