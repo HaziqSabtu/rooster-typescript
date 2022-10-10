@@ -3,6 +3,7 @@ import { CurrentUserSlice } from "./slices/sliceCurrentUser";
 import { DeleteCommentSlice } from "./slices/sliceDeleteComment";
 import { DeletePostSlice } from "./slices/sliceDeletePost";
 import { DeleteModalSlice } from "./slices/sliceModalDelete";
+import { ImageModalSlice } from "./slices/sliceModalImage";
 
 // ...
 
@@ -12,6 +13,7 @@ export const store = configureStore({
         deleteModal: DeleteModalSlice.reducer,
         deletePost: DeletePostSlice.reducer,
         deleteComment: DeleteCommentSlice.reducer,
+        imageModal: ImageModalSlice.reducer,
     },
 });
 

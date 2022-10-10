@@ -13,7 +13,7 @@ export const NewPost: FunctionComponent<Props> = ({
 }) => {
     return (
         <textarea
-            className='bg-inherit outline-none w-full rounded-lg p-3'
+            className='bg-inherit outline-none w-full rounded-lg p-3 text-white'
             rows={4}
             placeholder="What's on your mind?"
             onChange={handleChange}
