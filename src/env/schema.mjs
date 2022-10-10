@@ -16,6 +16,9 @@ export const serverSchema = z.object({
     GOOGLE_SECRET: z.string(),
     DISCORD_ID: z.string(),
     DISCORD_SECRET: z.string(),
+    CLOUDINARY_NAME: z.string(),
+    CLOUDINARY_KEY: z.string(),
+    CLOUDINARY_SECRET: z.string(),
 });
 
 /**

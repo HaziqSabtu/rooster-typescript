@@ -2,8 +2,17 @@ import React, { FunctionComponent } from "react";
 
 interface Props {}
 
-const index: FunctionComponent<Props> = ({}) => {
-    return <div>temp</div>;
+const Temp: FunctionComponent<Props> = ({}) => {
+    return (
+        <div>
+            <button
+                className='btn btn-primary'
+                onClick={() => console.log("temp")}
+            >
+                fetch
+            </button>
+        </div>
+    );
 };
 
-export default index;
+export default Temp;

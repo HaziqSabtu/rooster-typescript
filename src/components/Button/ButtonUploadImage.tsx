@@ -1,11 +1,17 @@
 //https://flowbite.com/docs/components/buttons/
 //https://thewebdev.info/2021/11/07/how-to-read-and-upload-a-file-in-react-using-custom-button/
 
+import { readFileSync } from "fs";
 import React, { FunctionComponent } from "react";
 import { useState, useRef } from "react";
+import { Readable } from "stream";
 
 interface Props {
-    setAssetData: React.Dispatch<React.SetStateAction<string | null>>;
+    setAssetData: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+interface ImageData {
+    url: string;
 }
 
 const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
@@ -20,10 +26,11 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
         uploadImage(event);
     };
 
-    const uploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             const imageFile = event.target.files[0];
             console.log(imageFile);
+            console.log(event.target.files[0]);
 
             if (
                 imageFile?.type === "image/png" ||
@@ -36,12 +43,26 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                 setIstypeCorrect(false);
                 setLoading(false);
             }
+
+            const form = new FormData();
+            form.set("file", imageFile as Blob);
+
+            fetch("/api/upload/image", { method: "POST", body: form })
+                .then((res) => res.json())
+                .then((data) => onSuccess(data));
         }
+    };
+
+    const onSuccess = ({ url }: ImageData) => {
+        setAssetData((old) => [...old, url]);
+        console.log(url);
+        setIsUploaded(true);
+        setLoading(false);
     };
 
     const cancelUpload = () => {
         console.log("is null");
-        setAssetData(null);
+        setAssetData([]);
         setIsUploaded(false);
         setIstypeCorrect(true);
     };
@@ -79,7 +100,7 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                     <p className='ml-2'>Upload Image</p>
                 </button>
             )}
-            {!isUploaded && loading && istypeCorrect && (
+            {loading && istypeCorrect && (
                 <button
                     disabled
                     type='button'
@@ -107,11 +128,11 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                     Loading...
                 </button>
             )}
-            {isUploaded && istypeCorrect && (
+            {isUploaded && istypeCorrect && !loading && (
                 <button
                     type='button'
-                    onClick={cancelUpload}
-                    className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200'
+                    onClick={() => fileRef.current?.click()}
+                    className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center'
                 >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'

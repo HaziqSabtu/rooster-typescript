@@ -18,6 +18,11 @@ interface Props {
     timeago: TimeAgo;
     setCount: React.Dispatch<React.SetStateAction<number>>;
     postId: Post["id"];
+    hasImage?: boolean;
+}
+
+function joinClassNames(...classes: string[]) {
+    return classes.filter(Boolean).join(" ");
 }
 
 const Contentsection: FunctionComponent<Props> = ({
@@ -27,16 +32,21 @@ const Contentsection: FunctionComponent<Props> = ({
     setCount,
     postId,
     timeago,
+    hasImage,
 }) => {
     const currentUser = useSelector(selectCurrentUser);
-    console.log("currentUser", currentUser);
     const {
         id: currentUserId,
         name: currentUserName,
         followingIDs,
     } = currentUser || {};
     return (
-        <div className='primary-color p-5 text-xl text-color-p font-semibold'>
+        <div
+            className={joinClassNames(
+                hasImage ? "mt-5" : "",
+                "primary-color text-xl text-color-p font-semibold"
+            )}
+        >
             <div className='flex flex-row justify-between items-center'>
                 <div className='flex'>
                     {image ? (
