@@ -56,7 +56,7 @@ export const SubmittedButton: FunctionComponent<Props> = ({
             type='button'
             disabled={true}
             onClick={handleSubmit}
-            className='w-44 text-sm float-right text-white p-0 rounded-lg bg-green-500'
+            className='w-44 text-sm float-right text-white p-0 rounded-lg '
             style={style}
         >
             {text}

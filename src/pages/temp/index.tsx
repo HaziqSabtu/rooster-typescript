@@ -1,18 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 
 interface Props {}
 
 const Temp: FunctionComponent<Props> = ({}) => {
-    return (
-        <div>
-            <button
-                className='btn btn-primary'
-                onClick={() => console.log("temp")}
-            >
-                fetch
-            </button>
-        </div>
-    );
+    return <div className='player-wrapper'></div>;
 };
 
 export default Temp;

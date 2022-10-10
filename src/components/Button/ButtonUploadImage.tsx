@@ -1,10 +1,9 @@
 //https://flowbite.com/docs/components/buttons/
 //https://thewebdev.info/2021/11/07/how-to-read-and-upload-a-file-in-react-using-custom-button/
 
-import { readFileSync } from "fs";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 import React, { FunctionComponent } from "react";
 import { useState, useRef } from "react";
-import { Readable } from "stream";
 
 interface Props {
     setAssetData: React.Dispatch<React.SetStateAction<string[]>>;
@@ -82,22 +81,8 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                     onClick={() => fileRef.current?.click()}
                     className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center'
                 >
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='20'
-                        height='20'
-                        viewBox='0 0 24 24'
-                        fill='none'
-                        stroke='#000000'
-                        strokeWidth='2'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                    >
-                        <rect x='3' y='3' width='18' height='18' rx='2' />
-                        <circle cx='8.5' cy='8.5' r='1.5' />
-                        <path d='M20.4 14.5L16 10 4 20' />
-                    </svg>
-                    <p className='ml-2'>Upload Image</p>
+                    <PhotoIcon className='w-6 h-6' />
+                    <p className='ml-2'></p>
                 </button>
             )}
             {loading && istypeCorrect && (
@@ -134,21 +119,7 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                     onClick={() => fileRef.current?.click()}
                     className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center'
                 >
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='20'
-                        height='20'
-                        viewBox='0 0 24 24'
-                        fill='none'
-                        stroke='#000000'
-                        strokeWidth='2'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                    >
-                        <rect x='3' y='3' width='18' height='18' rx='2' />
-                        <circle cx='8.5' cy='8.5' r='1.5' />
-                        <path d='M20.4 14.5L16 10 4 20' />
-                    </svg>
+                    <PhotoIcon className='w-6 h-6' />
                     <p className='ml-2'>Uploaded</p>
                 </button>
             )}
@@ -158,21 +129,7 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                     onClick={cancelUpload}
                     className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200'
                 >
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='20'
-                        height='20'
-                        viewBox='0 0 24 24'
-                        fill='none'
-                        stroke='#000000'
-                        strokeWidth='2'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                    >
-                        <rect x='3' y='3' width='18' height='18' rx='2' />
-                        <circle cx='8.5' cy='8.5' r='1.5' />
-                        <path d='M20.4 14.5L16 10 4 20' />
-                    </svg>
+                    <PhotoIcon className='w-6 h-6' />
                     <p className='ml-2'>Wrong Image Format</p>
                 </button>
             )}
