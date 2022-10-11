@@ -21,6 +21,7 @@ const ImageComponent: FunctionComponent<Image> = ({ src, image }) => {
                 dispatch(setImageArray(image));
                 dispatch(setImageIndex(image.indexOf(src)));
             }}
+            className='cursor-pointer'
         >
             <Image
                 className='rounded-lg'

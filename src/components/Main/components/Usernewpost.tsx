@@ -23,6 +23,7 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../slices/sliceCurrentUser";
 import { useRouter } from "next/router";
+import ImageProfile from "../../Image/ImageProfile";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -110,16 +111,14 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     return (
         <div>
             <div className='primary-color w-full p-5 border-b-2 flex flex-col'>
-                <div className='flex flex-row mb-3 items-center '>
+                <div className='flex flex-row mb-3 items-center'>
                     {currentUser ? (
                         currentUser.image ? (
-                            <img
-                                className='rounded-full w-11 animate-[bounce_3s_ease-in-out_infinite]'
+                            <ImageProfile
                                 src={currentUser.image as string}
-                                alt='userImage'
-                                width={44}
-                                height={44}
-                                // layout='fill'
+                                size={6}
+                                alt={"newPost"}
+                                className='animate-[bounce_3s_ease-in-out_infinite]'
                             />
                         ) : (
                             <PImagePropfile

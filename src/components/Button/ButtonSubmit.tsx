@@ -4,11 +4,14 @@ import React, {
     FunctionComponent,
     MouseEventHandler,
 } from "react";
+import { joinClassNames } from "../../services/common";
 
 interface Props {
     handleSubmit?: MouseEventHandler<HTMLButtonElement>;
     text?: string;
     style?: CSSProperties;
+    wide?: boolean;
+    isDisabled?: boolean;
 }
 
 export const NormalButton: FunctionComponent<Props> = ({
@@ -24,6 +27,40 @@ export const NormalButton: FunctionComponent<Props> = ({
             style={style}
         >
             {text}
+        </button>
+    );
+};
+
+export const NormalButton2: FunctionComponent<Props> = ({
+    handleSubmit,
+    text,
+    style,
+    wide,
+    isDisabled,
+}) => {
+    return (
+        <button
+            type='button'
+            disabled={isDisabled}
+            onClick={
+                !isDisabled
+                    ? handleSubmit
+                    : () => {
+                          console.log("disabled");
+                      }
+            }
+            className={joinClassNames(
+                "h-12 border border-gray-200 rounded-lg font-medium  text-sm px-5 py-2.5",
+                !isDisabled
+                    ? "text-gray-100 fourth-color hover:bg-gray-100  focus:ring-4 focus:outline-none focus:ring-gray-100 "
+                    : "bg-inherit text-gray-400",
+                wide ? "w-full" : ""
+            )}
+            // style={style}
+        >
+            <div className='flex justify-center'>
+                <p>{text}</p>
+            </div>
         </button>
     );
 };

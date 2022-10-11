@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../slices/sliceCurrentUser";
+import ImageProfile from "../Image/ImageProfile";
 
 interface Props {
     postedBy: User;
@@ -50,13 +51,7 @@ const Contentsection: FunctionComponent<Props> = ({
             <div className='flex flex-row justify-between items-center'>
                 <div className='flex'>
                     {image ? (
-                        <Image
-                            className='rounded-full'
-                            src={image}
-                            alt='postedBy'
-                            width={32}
-                            height={32}
-                        />
+                        <ImageProfile src={image} alt={"postedBy"} size={8} />
                     ) : (
                         <PImagePosts
                             size={32}

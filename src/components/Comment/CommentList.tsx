@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../slices/sliceCurrentUser";
+import ImageProfile from "../Image/ImageProfile";
 
 interface Props {
     comment: Comment & { user: User };
@@ -52,12 +53,10 @@ const CommentList: FunctionComponent<Props> = ({
             <div className='flex flex-row justify-between items-center h-10'>
                 <div className='flex items-center'>
                     {image ? (
-                        <Image
-                            className='rounded-full'
+                        <ImageProfile
                             src={image}
-                            width={20}
-                            height={20}
-                            alt='postedBy'
+                            size={5}
+                            alt={"commentedBy"}
                         />
                     ) : (
                         <PImagePosts
