@@ -28,7 +28,7 @@ const ImageProfile: FunctionComponent<Props> = ({
                 src={src}
                 className='rounded-full '
                 layout='fill'
-                objectFit='contain'
+                objectFit='cover'
                 alt={alt ? alt : "placeholder"}
             />
         </div>
