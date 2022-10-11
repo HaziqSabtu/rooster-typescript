@@ -3,10 +3,18 @@ import {
     QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
 import { User } from "next-auth";
-import React, { FunctionComponent, useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, {
+    FunctionComponent,
+    useCallback,
+    useEffect,
+    useState,
+} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getUpdateUserImageInput } from "../../services/user";
-import { updateUserImage } from "../../slices/sliceCurrentUser";
+import {
+    selectCurrentUser,
+    updateUserImage,
+} from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 import { NormalButton2 } from "../Button/ButtonSubmit";
 import UploadImageButton from "../Button/ButtonUploadImage";
@@ -45,10 +53,12 @@ const SettingContentPP: FunctionComponent<Props> = ({
     return (
         <LayoutTabPanel title={title} desc={desc}>
             <div className='mt-5 flex items-center justify-center'>
-                <ImageProfile src={userData?.image as string} size={16} />
+                {userData ? (
+                    <ImageProfile src={userData.image as string} size={16} />
+                ) : null}
                 <ArrowLongRightIcon className='h-8 w-8 mx-5' />
                 {assetData.length > 0 ? (
-                    <ImageProfile src={assetData[0] as string} size={16} />
+                    <ImageProfile src={assetData[0] as string} size={15} />
                 ) : (
                     <QuestionMarkCircleIcon className='h-18 w-20' />
                 )}

@@ -18,8 +18,9 @@ const ImageProfile: FunctionComponent<Props> = ({
     return (
         <div
             className={joinClassNames(
-                "relative",
+                "relative ",
                 `w-${size} h-${size}`,
+                // `h-16 w-16`,
                 className ? className : ""
             )}
         >
@@ -27,7 +28,7 @@ const ImageProfile: FunctionComponent<Props> = ({
                 src={src}
                 className='rounded-full '
                 layout='fill'
-                objectFit='cover'
+                objectFit='contain'
                 alt={alt ? alt : "placeholder"}
             />
         </div>
