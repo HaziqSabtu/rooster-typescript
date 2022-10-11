@@ -11,6 +11,18 @@ export const getAddFollowerInput = (
     };
 };
 
+export const getUpdateUserNameInput = (name: User["name"]) => {
+    return {
+        name: name as string,
+    };
+};
+
+export const getUpdateUserImageInput = (image: User["image"]) => {
+    return {
+        image: image as string,
+    };
+};
+
 // export const getCommentCreateInput = (
 //     content: Comment["content"],
 //     postId: Post["id"],

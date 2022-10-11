@@ -4,16 +4,21 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import React, { FunctionComponent } from "react";
 import { useState, useRef } from "react";
+import { joinClassNames } from "../../services/common";
 
 interface Props {
     setAssetData: React.Dispatch<React.SetStateAction<string[]>>;
+    wide?: boolean;
 }
 
 interface ImageData {
     url: string;
 }
 
-const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
+const UploadImageButton: FunctionComponent<Props> = ({
+    setAssetData,
+    wide,
+}) => {
     const [loading, setLoading] = useState(false);
     const [istypeCorrect, setIstypeCorrect] = useState(true);
     const [isUploaded, setIsUploaded] = useState(false);
@@ -79,10 +84,13 @@ const UploadImageButton: FunctionComponent<Props> = ({ setAssetData }) => {
                 <button
                     type='button'
                     onClick={() => fileRef.current?.click()}
-                    className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center'
+                    className={joinClassNames(
+                        "text-gray-900 h-12 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center",
+                        wide ? "w-full" : ""
+                    )}
                 >
                     <PhotoIcon className='w-6 h-6' />
-                    <p className='ml-2'></p>
+                    <p className='ml-2'>Upload Image</p>
                 </button>
             )}
             {loading && istypeCorrect && (

@@ -21,6 +21,34 @@ export const UserRouter = createProtectedRouter()
             return user;
         },
     })
+    // update user name
+    .mutation("updateUserName", {
+        input: z.object({
+            name: z.string(),
+        }),
+        resolve: async ({ ctx, input }) => {
+            return await ctx.prisma.user.update({
+                where: { id: ctx.session.user.id },
+                data: {
+                    name: input.name,
+                },
+            });
+        },
+    })
+    // update user Image
+    .mutation("updateUserImage", {
+        input: z.object({
+            image: z.string(),
+        }),
+        resolve: async ({ ctx, input }) => {
+            return await ctx.prisma.user.update({
+                where: { id: ctx.session.user.id },
+                data: {
+                    image: input.image,
+                },
+            });
+        },
+    })
     // Add Follower and Following
     .mutation("addFollower", {
         input: z.object({
