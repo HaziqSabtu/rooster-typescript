@@ -1,26 +1,17 @@
-import {
-    ArrowLongRightIcon,
-    QuestionMarkCircleIcon,
-} from "@heroicons/react/24/outline";
 import { User } from "next-auth";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-    getUpdateUserImageInput,
-    getUpdateUserNameInput,
-} from "../../services/user";
-import { updateUserImage, updateUserName } from "../../slices/sliceCurrentUser";
+import { getUpdateUserNameInput } from "../../services/user";
+import { updateUserName } from "../../slices/sliceCurrentUser";
 import { trpc } from "../../utils/trpc";
 import { NormalButton2 } from "../Button/ButtonSubmit";
-import UploadImageButton from "../Button/ButtonUploadImage";
-import ImageProfile from "../Image/ImageProfile";
 import InputtextSetting from "../InputText/InputtextSetting";
 import LayoutTabPanel from "../Layout/LayoutTabPanel";
 
 interface Props {
     title: string;
     desc: string;
-    userData: User;
+    userData: User | null;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

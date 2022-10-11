@@ -17,6 +17,7 @@ export default function SettingPage() {
     const [userData, setUserData] = useState(currentUser);
 
     useEffect(() => {
+        console.log("userData", userData);
         if (currentUser) {
             setUserData(currentUser);
         }
