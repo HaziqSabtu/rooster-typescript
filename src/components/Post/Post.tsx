@@ -27,7 +27,7 @@ const PostList: FunctionComponent<Props> = ({
     timeAgo,
 }) => {
     return (
-        <div className='bg-inherit border-y p-5 pb-0'>
+        <div className='bg-inherit border-y p-5'>
             {image ? generateImage(image) : null}
             {video ? generateVideo(video) : null}
             <Contentsection

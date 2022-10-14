@@ -24,6 +24,9 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../slices/sliceCurrentUser";
 import { useRouter } from "next/router";
 import ImageProfile from "../../Image/ImageProfile";
+import MainButton from "../../Button/ButtonMain";
+import { FilmIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import ButtonImage from "../../Button/ButtonImage";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -37,8 +40,8 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const [userText, setUserText] = useState<UserText>({ text: "" });
     const [assetData, setAssetData] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isPosted, setIsPosted] = useState<boolean>(false);
-    const [isEmpty, setIsEmpty] = useState<boolean>(true);
+    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [warning, setWarning] = useState<boolean>(false);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const currentUser = useSelector(selectCurrentUser);
@@ -73,14 +76,14 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     useEffect(() => {
         if (inputRef.current?.value) {
             if (inputRef.current?.value.length === 0) {
-                setIsEmpty(true);
+                setIsDisabled(true);
             } else {
-                setIsEmpty(false);
+                setIsDisabled(false);
                 setWarning(false);
-                setIsPosted(false);
+                setIsSubmitted(false);
             }
         } else {
-            setIsEmpty(true);
+            setIsDisabled(true);
         }
     }, [inputRef.current?.value]);
 
@@ -99,7 +102,7 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
             .then(() => {
                 setCount((c) => c + 1);
                 setIsLoading((state) => !state);
-                setIsPosted(true);
+                setIsSubmitted(true);
                 setUserText({ text: "" });
                 setAssetData([]);
             })
@@ -145,27 +148,21 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
                     />
                 )}
 
-                <div className='w-full flex flex-row justify-between flex-end items-stretch pt-3'>
-                    <UploadImageButton setAssetData={setAssetData} />
-                    {isPosted ? (
-                        <SubmittedButton
-                            text={"Submitted"}
-                            style={styleButton}
-                        />
-                    ) : isEmpty ? (
-                        "" // <DisableButton text={"Submit"} style={styleButton} />
-                    ) : isLoading ? (
-                        <LoadingButton
-                            text={"Submiting ..."}
-                            style={styleButton}
-                        />
-                    ) : (
-                        <NormalButton
-                            handleSubmit={handleSubmit}
-                            text={"Submit"}
-                            style={styleButton}
-                        />
-                    )}
+                <div className='w-full flex flex-row justify-between flex-end items-center pt-3'>
+                    {/* <UploadImageButton setAssetData={setAssetData} /> */}
+                    <div className='flex ml-2 gap-3'>
+                        <ButtonImage children={<PhotoIcon />} />
+                        <ButtonImage children={<FilmIcon />} />
+                    </div>
+
+                    <MainButton
+                        isLoading={isLoading}
+                        isDisabled={isDisabled}
+                        isSubmitted={isSubmitted}
+                        text={["Submit", "Submitted", "Submitting"]}
+                        isWide={false}
+                        handleSubmit={handleSubmit}
+                    />
                 </div>
             </div>
         </div>

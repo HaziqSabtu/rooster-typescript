@@ -40,6 +40,14 @@ body {
     background-color: #656399;
 }
 
+.button-color-one {
+    background-color: #656399;
+}
+
+.button-color-hover {
+    background-color: #c75672;
+}
+
 .border-color-p {
     border-color: #a5c9ca;
 }
