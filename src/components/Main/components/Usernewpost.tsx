@@ -27,6 +27,9 @@ import ImageProfile from "../../Image/ImageProfile";
 import MainButton from "../../Button/ButtonMain";
 import { FilmIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import ButtonImage from "../../Button/ButtonImage";
+// import ButtonWithPopOver from "../../Layout/LayoutPopOver";
+import AddImage from "./AddImage";
+import AddVideo from "./AddVideo";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -151,8 +154,8 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
                 <div className='w-full flex flex-row justify-between flex-end items-center pt-3'>
                     {/* <UploadImageButton setAssetData={setAssetData} /> */}
                     <div className='flex ml-2 gap-3'>
-                        <ButtonImage children={<PhotoIcon />} />
-                        <ButtonImage children={<FilmIcon />} />
+                        <AddImage setAssetData={setAssetData} />
+                        <AddVideo setAssetData={setAssetData} />
                     </div>
 
                     <MainButton
