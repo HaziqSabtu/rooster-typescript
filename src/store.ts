@@ -4,6 +4,7 @@ import { DeleteCommentSlice } from "./slices/sliceDeleteComment";
 import { DeletePostSlice } from "./slices/sliceDeletePost";
 import { DeleteModalSlice } from "./slices/sliceModalDelete";
 import { ImageModalSlice } from "./slices/sliceModalImage";
+import { NewPostSlice } from "./slices/sliceNewPost";
 
 // ...
 
@@ -14,6 +15,7 @@ export const store = configureStore({
         deletePost: DeletePostSlice.reducer,
         deleteComment: DeleteCommentSlice.reducer,
         imageModal: ImageModalSlice.reducer,
+        newPostModal: NewPostSlice.reducer,
     },
 });
 
