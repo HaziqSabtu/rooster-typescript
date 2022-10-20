@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     removeOneImage,
     selectCurrentPost,
+    setImage,
 } from "../../../slices/sliceNewPost";
 
 interface Props {}
@@ -28,7 +29,11 @@ const AddImage: FunctionComponent<Props> = ({}) => {
                     <ImageCard url={url} key={url} />
                 ))}
             </div>
-            <UploadImageButton />
+            <UploadImageButton
+                limit={4}
+                image={image}
+                dispatchAction={setImage}
+            />
         </LayoutPopOver>
     );
 };

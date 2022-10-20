@@ -5,25 +5,34 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 import React, { FunctionComponent, useCallback } from "react";
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AnyAction } from "redux";
 import { joinClassNames } from "../../services/common";
 import { checkFileType } from "../../services/image";
 import { selectCurrentPost, setImage } from "../../slices/sliceNewPost";
 import { trpc } from "../../utils/trpc";
 import { AddImageButton } from "./ButtonMain";
 
-interface Props {}
+interface Props {
+    limit: number;
+    image: string[];
+    dispatchAction: (url: string) => AnyAction;
+}
 
 interface ImageData {
     url: string;
 }
 
-const UploadImageButton: FunctionComponent<Props> = ({}) => {
+const UploadImageButton: FunctionComponent<Props> = ({
+    limit,
+    image,
+    dispatchAction,
+}) => {
     const [loading, setLoading] = useState(false);
     const [istypeCorrect, setIstypeCorrect] = useState(true);
 
     const fileRef = useRef<HTMLInputElement | null>(null);
 
-    const { image } = useSelector(selectCurrentPost);
+    // const { image } = useSelector(selectCurrentPost);
     const dispatch = useDispatch();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +61,7 @@ const UploadImageButton: FunctionComponent<Props> = ({}) => {
     };
 
     const onSuccess = ({ url }: ImageData) => {
-        dispatch(setImage(url));
+        dispatch(dispatchAction(url));
         setLoading(false);
     };
 
@@ -68,7 +77,7 @@ const UploadImageButton: FunctionComponent<Props> = ({}) => {
             <AddImageButton
                 isLoading={loading}
                 isSubmitted={image.length !== 0 ? true : false}
-                isDisabled={image?.length === 4 ? true : false}
+                isDisabled={image?.length === limit ? true : false}
                 handleSubmit={() => fileRef.current?.click()}
             />
         </>

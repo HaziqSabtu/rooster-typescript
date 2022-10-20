@@ -33,7 +33,9 @@ const Temp: FunctionComponent<Props> = ({}) => {
                 isDisabled={isDisabled}
                 isSubmitted={isSubmitted}
                 isWide={false}
-                handleSubmit={() => {}}
+                handleSubmit={() => {
+                    console.log("nana");
+                }}
                 text={text}
             />
             <button className='btn btn-primary' onClick={handleSubmitted}>

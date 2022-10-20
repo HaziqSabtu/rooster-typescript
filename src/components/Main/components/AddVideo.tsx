@@ -56,9 +56,9 @@ const AddVideo: FunctionComponent<Props> = ({}) => {
 '
                     >
                         <a onClick={handleXMark}>
-                            <ButtonImage
-                                children={<XMarkIcon className='' />}
-                            />
+                            <ButtonImage>
+                                <XMarkIcon className='' />
+                            </ButtonImage>
                         </a>
                     </div>
                 </div>

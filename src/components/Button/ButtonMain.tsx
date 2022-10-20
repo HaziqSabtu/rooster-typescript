@@ -1,5 +1,4 @@
 import { FilmIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import { Main } from "next/document";
 import React, { FunctionComponent } from "react";
 import { ClipLoader } from "react-spinners";
 import { joinClassNames } from "../../services/common";
@@ -10,7 +9,7 @@ interface Props {
     isSubmitted: boolean;
     isWide: boolean;
     handleSubmit: () => void;
-    text: String[];
+    text: string[];
     icon?: React.ReactElement;
 }
 
