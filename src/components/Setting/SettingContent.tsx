@@ -15,6 +15,7 @@ import {
     selectCurrentUser,
     updateUserImage,
 } from "../../slices/sliceCurrentUser";
+import { selectCurrentSetting, setImage } from "../../slices/sliceSetting";
 import { trpc } from "../../utils/trpc";
 import { NormalButton2 } from "../Button/ButtonSubmit";
 import UploadImageButton from "../Button/ButtonUploadImage";
@@ -32,23 +33,22 @@ const SettingContentPP: FunctionComponent<Props> = ({
     desc,
     userData,
 }) => {
-    const [assetData, setAssetData] = useState<string[]>([]);
-
     const { mutateAsync } = trpc.useMutation(["user.updateUserImage"]);
+    const { image } = useSelector(selectCurrentSetting);
     const dispatch = useDispatch();
 
     const handleSubmit = useCallback(async () => {
-        if (assetData.length > 0) {
-            await mutateAsync(getUpdateUserImageInput(assetData[0] as string))
+        if (image.length > 0) {
+            await mutateAsync(getUpdateUserImageInput(image[0] as string))
                 .then((res) => {
                     console.log(res);
-                    dispatch(updateUserImage(assetData[0] as string));
+                    dispatch(updateUserImage(image[0] as string));
                 })
                 .catch((err: Error) => {
                     console.log(err.message);
                 });
         }
-    }, [mutateAsync, getUpdateUserImageInput, assetData]);
+    }, [mutateAsync, getUpdateUserImageInput, image]);
 
     return (
         <LayoutTabPanel title={title} desc={desc}>
@@ -57,8 +57,8 @@ const SettingContentPP: FunctionComponent<Props> = ({
                     <ImageProfile src={userData.image as string} size={16} />
                 ) : null}
                 <ArrowLongRightIcon className='h-8 w-8 mx-5' />
-                {assetData.length > 0 ? (
-                    <ImageProfile src={assetData[0] as string} size={15} />
+                {image.length > 0 ? (
+                    <ImageProfile src={image[0] as string} size={16} />
                 ) : (
                     <QuestionMarkCircleIcon className='h-18 w-20' />
                 )}
@@ -67,8 +67,9 @@ const SettingContentPP: FunctionComponent<Props> = ({
                 <div className='w-44'>
                     <div className='mt-2'>
                         <UploadImageButton
-                            setAssetData={setAssetData}
-                            wide={true}
+                            limit={1}
+                            image={image}
+                            dispatchAction={setImage}
                         />
                     </div>
                     <div className='mt-2'>
@@ -76,7 +77,7 @@ const SettingContentPP: FunctionComponent<Props> = ({
                             text='Change Image'
                             handleSubmit={handleSubmit}
                             wide={true}
-                            isDisabled={assetData.length === 0 ? true : false}
+                            isDisabled={image.length === 0 ? true : false}
                         />
                     </div>
                 </div>

@@ -10,11 +10,13 @@ export const getPostDeleteInput = (postId: Post["id"]) => {
 export const getPostCreateInput = (
     text: Post["content"],
     image: Post["image"],
+    video: Post["video"],
     userIDs: User["id"]
 ) => {
     return {
         content: text,
         image: image,
+        video: video,
         userIDs: userIDs,
     };
 };

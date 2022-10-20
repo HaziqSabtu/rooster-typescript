@@ -177,9 +177,9 @@ export const NavBarSmall: FunctionComponent<INavBarSmall> = ({
                     >
                         <span className='sr-only'>Open sidebar</span>
                         <Bars3Icon
-                            className='h-6 w-6'
+                            className='h-6 w-6 text-violet-600'
                             aria-hidden='true'
-                            color='#656399'
+                            // color='#656399'
                         />
                     </button>
                 </div>

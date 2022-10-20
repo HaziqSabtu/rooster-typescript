@@ -11,7 +11,7 @@ const NavLogo: FunctionComponent<Props> = ({ includeText }) => {
             <a href='/home' className='flex'>
                 <Logo width={32} height={32} />
                 {includeText ? (
-                    <h1 className='ml-1 text-3xl font-bold text-gray-400 title tracking-normal'>
+                    <h1 className='ml-1 text-3xl font-bold text-violet-600 title tracking-normal'>
                         rooster
                     </h1>
                 ) : null}

@@ -60,6 +60,9 @@ export const PostRouter = createProtectedRouter()
             if (input.userIDs !== ctx.session.user.id)
                 throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
 
+            if (input.image.length !== 0 && input.video)
+                throw new trpc.TRPCError({ code: "FORBIDDEN" });
+
             return await ctx.prisma.post.create({ data: input });
         },
     })

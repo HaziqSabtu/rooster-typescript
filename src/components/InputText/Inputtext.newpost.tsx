@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 
 interface Props {
     handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    value: string;
+    value: string | null;
     inputRef: React.RefObject<HTMLTextAreaElement>;
 }
 
@@ -18,7 +18,7 @@ export const NewPost: FunctionComponent<Props> = ({
             placeholder="What's on your mind?"
             onChange={handleChange}
             name='text'
-            value={value}
+            value={value ? value : ""}
             ref={inputRef}
         ></textarea>
     );
@@ -36,7 +36,7 @@ export const WarningNewPost: FunctionComponent<Props> = ({
             placeholder="What's on your mind?"
             onChange={handleChange}
             name='text'
-            value={value}
+            value={value ? value : ""}
             ref={inputRef}
         ></textarea>
     );

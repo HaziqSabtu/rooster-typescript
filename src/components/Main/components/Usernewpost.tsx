@@ -20,10 +20,21 @@ import { getPostCreateInput } from "../../../services/post";
 import { sleep } from "../../../services/utils";
 import { PImagePropfile } from "../../../assets/placeholder";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../slices/sliceCurrentUser";
 import { useRouter } from "next/router";
 import ImageProfile from "../../Image/ImageProfile";
+import MainButton from "../../Button/ButtonMain";
+import { FilmIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import ButtonImage from "../../Button/ButtonImage";
+// import ButtonWithPopOver from "../../Layout/LayoutPopOver";
+import AddImage from "./AddImage";
+import AddVideo from "./AddVideo";
+import {
+    selectCurrentPost,
+    setContent,
+    setPostInitialState,
+} from "../../../slices/sliceNewPost";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -37,27 +48,21 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const [userText, setUserText] = useState<UserText>({ text: "" });
     const [assetData, setAssetData] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isPosted, setIsPosted] = useState<boolean>(false);
-    const [isEmpty, setIsEmpty] = useState<boolean>(true);
+    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [warning, setWarning] = useState<boolean>(false);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const currentUser = useSelector(selectCurrentUser);
 
-    const styleButton = {
-        width: "176px",
-    };
-
     const { mutateAsync } = trpc.useMutation(["post.create"]);
     const router = useRouter();
 
+    const { content, image, video } = useSelector(selectCurrentPost);
+    const dispatch = useDispatch();
+
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setUserText((oldVal) => {
-            return {
-                ...oldVal,
-                text: event.target.value,
-            };
-        });
+        dispatch(setContent(event.target.value));
     };
 
     const handleError = (error: string) => {
@@ -73,14 +78,14 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     useEffect(() => {
         if (inputRef.current?.value) {
             if (inputRef.current?.value.length === 0) {
-                setIsEmpty(true);
+                setIsDisabled(true);
             } else {
-                setIsEmpty(false);
+                setIsDisabled(false);
                 setWarning(false);
-                setIsPosted(false);
+                setIsSubmitted(false);
             }
         } else {
-            setIsEmpty(true);
+            setIsDisabled(true);
         }
     }, [inputRef.current?.value]);
 
@@ -88,25 +93,23 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     // useCallback with processData as Dependancy
     // https://dmitripavlutin.com/dont-overuse-react-usecallback/
     const handleSubmit = useCallback(async () => {
+        if (!content) return;
         setIsLoading((state) => !state);
-        await sleep(5000);
-        console.log(
-            getPostCreateInput(userText.text, assetData, currentUser!.id)
-        );
+        await sleep(2000);
+
         await mutateAsync(
-            getPostCreateInput(userText.text, assetData, currentUser!.id)
+            getPostCreateInput(content, image, video, currentUser!.id)
         )
             .then(() => {
                 setCount((c) => c + 1);
                 setIsLoading((state) => !state);
-                setIsPosted(true);
-                setUserText({ text: "" });
-                setAssetData([]);
+                setIsSubmitted(true);
+                dispatch(setPostInitialState());
             })
             .catch((err) => {
                 handleError(err.message);
             });
-    }, [mutateAsync, userText, currentUser, assetData]);
+    }, [mutateAsync, currentUser, content, video, image]);
 
     return (
         <div>
@@ -134,38 +137,31 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
                 {!warning ? (
                     <NewPost
                         handleChange={handleChange}
-                        value={userText.text}
+                        value={content}
                         inputRef={inputRef}
                     />
                 ) : (
                     <WarningNewPost
                         handleChange={handleChange}
-                        value={userText.text}
+                        value={content}
                         inputRef={inputRef}
                     />
                 )}
 
-                <div className='w-full flex flex-row justify-between flex-end items-stretch pt-3'>
-                    <UploadImageButton setAssetData={setAssetData} />
-                    {isPosted ? (
-                        <SubmittedButton
-                            text={"Submitted"}
-                            style={styleButton}
-                        />
-                    ) : isEmpty ? (
-                        "" // <DisableButton text={"Submit"} style={styleButton} />
-                    ) : isLoading ? (
-                        <LoadingButton
-                            text={"Submiting ..."}
-                            style={styleButton}
-                        />
-                    ) : (
-                        <NormalButton
-                            handleSubmit={handleSubmit}
-                            text={"Submit"}
-                            style={styleButton}
-                        />
-                    )}
+                <div className='w-full flex flex-row justify-between flex-end items-center pt-3'>
+                    <div className='flex ml-2 gap-3'>
+                        <AddImage />
+                        <AddVideo />
+                    </div>
+
+                    <MainButton
+                        isLoading={isLoading}
+                        isDisabled={isDisabled}
+                        isSubmitted={isSubmitted}
+                        text={["Submit", "Submitted", "Submitting"]}
+                        isWide={false}
+                        handleSubmit={handleSubmit}
+                    />
                 </div>
             </div>
         </div>
