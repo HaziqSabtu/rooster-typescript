@@ -20,7 +20,7 @@ import { getPostCreateInput } from "../../../services/post";
 import { sleep } from "../../../services/utils";
 import { PImagePropfile } from "../../../assets/placeholder";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../slices/sliceCurrentUser";
 import { useRouter } from "next/router";
 import ImageProfile from "../../Image/ImageProfile";
@@ -30,6 +30,11 @@ import ButtonImage from "../../Button/ButtonImage";
 // import ButtonWithPopOver from "../../Layout/LayoutPopOver";
 import AddImage from "./AddImage";
 import AddVideo from "./AddVideo";
+import {
+    selectCurrentPost,
+    setContent,
+    setPostInitialState,
+} from "../../../slices/sliceNewPost";
 
 interface Props {
     setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -49,21 +54,15 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const currentUser = useSelector(selectCurrentUser);
 
-    const styleButton = {
-        width: "176px",
-    };
-
     const { mutateAsync } = trpc.useMutation(["post.create"]);
     const router = useRouter();
 
+    const { content, image, video } = useSelector(selectCurrentPost);
+    const dispatch = useDispatch();
+
     // log user input
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setUserText((oldVal) => {
-            return {
-                ...oldVal,
-                text: event.target.value,
-            };
-        });
+        dispatch(setContent(event.target.value));
     };
 
     const handleError = (error: string) => {
@@ -94,25 +93,23 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
     // useCallback with processData as Dependancy
     // https://dmitripavlutin.com/dont-overuse-react-usecallback/
     const handleSubmit = useCallback(async () => {
+        if (!content) return;
         setIsLoading((state) => !state);
-        await sleep(5000);
-        console.log(
-            getPostCreateInput(userText.text, assetData, currentUser!.id)
-        );
+        await sleep(2000);
+
         await mutateAsync(
-            getPostCreateInput(userText.text, assetData, currentUser!.id)
+            getPostCreateInput(content, image, video, currentUser!.id)
         )
             .then(() => {
                 setCount((c) => c + 1);
                 setIsLoading((state) => !state);
                 setIsSubmitted(true);
-                setUserText({ text: "" });
-                setAssetData([]);
+                dispatch(setPostInitialState());
             })
             .catch((err) => {
                 handleError(err.message);
             });
-    }, [mutateAsync, userText, currentUser, assetData]);
+    }, [mutateAsync, currentUser, content, video, image]);
 
     return (
         <div>
@@ -140,22 +137,21 @@ const Usernewpost: FunctionComponent<Props> = ({ setCount }) => {
                 {!warning ? (
                     <NewPost
                         handleChange={handleChange}
-                        value={userText.text}
+                        value={content}
                         inputRef={inputRef}
                     />
                 ) : (
                     <WarningNewPost
                         handleChange={handleChange}
-                        value={userText.text}
+                        value={content}
                         inputRef={inputRef}
                     />
                 )}
 
                 <div className='w-full flex flex-row justify-between flex-end items-center pt-3'>
-                    {/* <UploadImageButton setAssetData={setAssetData} /> */}
                     <div className='flex ml-2 gap-3'>
-                        <AddImage setAssetData={setAssetData} />
-                        <AddVideo setAssetData={setAssetData} />
+                        <AddImage />
+                        <AddVideo />
                     </div>
 
                     <MainButton

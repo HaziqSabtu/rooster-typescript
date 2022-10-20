@@ -1,20 +1,18 @@
-import { FilmIcon, PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { FilmIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { FunctionComponent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { matchYoutubeUrl } from "../../../services/video";
 import { selectCurrentPost, setVideo } from "../../../slices/sliceNewPost";
 import ButtonImage from "../../Button/ButtonImage";
 import { AddVideoButton } from "../../Button/ButtonMain";
-import UploadImageButton from "../../Button/ButtonUploadImage";
 import InputtextSetting from "../../InputText/InputtextSetting";
 import { LayoutPopOver } from "../../Layout/LayoutPopOver";
 
-interface Props {
-    setAssetData: React.Dispatch<React.SetStateAction<string[]>>;
-}
+interface Props {}
 
-const AddVideo: FunctionComponent<Props> = ({ setAssetData }) => {
+const AddVideo: FunctionComponent<Props> = ({}) => {
     const [videoLink, setVideoLink] = useState("");
-    const { video } = useSelector(selectCurrentPost);
+    const { video, image } = useSelector(selectCurrentPost);
     const dispatch = useDispatch();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +20,11 @@ const AddVideo: FunctionComponent<Props> = ({ setAssetData }) => {
     };
 
     const handleSubmit = () => {
-        dispatch(setVideo(videoLink));
+        if (matchYoutubeUrl(videoLink)) {
+            dispatch(setVideo(videoLink));
+        } else {
+            console.log("wrong");
+        }
     };
 
     const handleXMark = () => {
@@ -33,7 +35,13 @@ const AddVideo: FunctionComponent<Props> = ({ setAssetData }) => {
     const title = "Add Video";
     const desc = "Link Youtube Video to your post (max. 1)";
     return (
-        <LayoutPopOver icon={<FilmIcon />} title={title} desc={desc}>
+        <LayoutPopOver
+            icon={<FilmIcon />}
+            title={title}
+            desc={desc}
+            isDisabled={image.length !== 0 ? true : false}
+            isCircle={video ? true : false}
+        >
             <div className=' flex flex-col gap-4 mt-4'>
                 <div className='relative'>
                     <InputtextSetting

@@ -1,4 +1,4 @@
-import { FilmIcon } from "@heroicons/react/24/outline";
+import { FilmIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { Main } from "next/document";
 import React, { FunctionComponent } from "react";
 import { ClipLoader } from "react-spinners";
@@ -103,6 +103,26 @@ export const AddVideoButton: FunctionComponent<ButtonProps> = ({
             handleSubmit={handleSubmit}
             text={text}
             icon={<FilmIcon className='h-6 w-6' />}
+        />
+    );
+};
+
+export const AddImageButton: FunctionComponent<ButtonProps> = ({
+    isLoading,
+    isDisabled,
+    isSubmitted,
+    handleSubmit,
+}) => {
+    const text = ["Add Image", "Image Added", "Adding Image"];
+    return (
+        <MainButton
+            isLoading={isLoading}
+            isDisabled={isDisabled}
+            isSubmitted={isSubmitted}
+            isWide={true}
+            handleSubmit={handleSubmit}
+            text={text}
+            icon={<PhotoIcon className='h-6 w-6' />}
         />
     );
 };

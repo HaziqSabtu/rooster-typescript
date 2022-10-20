@@ -14,6 +14,8 @@ interface Props {
     icon: React.ReactNode;
     title: string;
     desc: string;
+    isDisabled?: boolean;
+    isCircle?: boolean;
 }
 
 export const LayoutPopOver: FunctionComponent<Props> = ({
@@ -21,14 +23,30 @@ export const LayoutPopOver: FunctionComponent<Props> = ({
     icon,
     title,
     desc,
+    isDisabled,
+    isCircle,
 }) => {
     const [referenceElement, setReferenceElement] = useState();
     const [popperElement, setPopperElement] = useState();
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
         placement: "bottom-start",
+        modifiers: [
+            {
+                name: "offset",
+                options: {
+                    offset: [0, 10],
+                },
+            },
+            {
+                name: "computeStyles",
+                options: {
+                    adaptive: false, // true by default
+                },
+            },
+        ],
     });
     return (
-        <div className='w-full max-w-sm px-4'>
+        <div className='w-full max-w-sm '>
             <Popover className='relative'>
                 <Popover.Button
                     ref={
@@ -36,8 +54,12 @@ export const LayoutPopOver: FunctionComponent<Props> = ({
                             | LegacyRef<HTMLButtonElement>
                             | undefined
                     }
+                    disabled={isDisabled}
                 >
-                    <ButtonImage>{icon}</ButtonImage>
+                    <ButtonImage isDisabled={isDisabled}>{icon}</ButtonImage>
+                    {isCircle && (
+                        <div className='rounded-full absolute bg-violet-500 w-2 h-2 top-1.5 right-1'></div>
+                    )}
                 </Popover.Button>
                 <Transition
                     as={Fragment}
@@ -49,7 +71,7 @@ export const LayoutPopOver: FunctionComponent<Props> = ({
                     leaveTo='opacity-0 translate-y-1'
                 >
                     <Popover.Panel
-                        className='primary-color z-10 mt-3  shadow p-5 rounded-lg shadow-violet-600 min-w-max'
+                        className='primary-color z-10 shadow p-5 rounded-lg shadow-violet-600 min-w-max'
                         ref={
                             setPopperElement as unknown as
                                 | LegacyRef<HTMLDivElement>
