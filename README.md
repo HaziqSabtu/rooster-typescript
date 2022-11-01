@@ -2,23 +2,25 @@
 
 ![Alt text](/screenshots/Rooster%20Header.jpg)
 
+UPGRADING TO NEXT 13.0.0 soon...
+
 One Platform for All. To share your Ideas, Speak your mind and make new Friends!
 
 Try now: [Rooster-t3](https://rooster-wheat.vercel.app/)
 
 ## Tech Stack
 
-| Technology  | Description                  |
-| ----------- | ---------------------------- |
-| TypeScript  | Static Typing and TypeSafety |
-| React       | Javascript Framework         |
-| NextAuth    | Server Side Rendering (SSR)  |
-| Nextjs      | Server Side Rendering (SSR)  |
-| Prisma      | Type-safe query builder      |
-| Tailwind CSS      | Rapid Styling                |
-| Mongo Atlas | Enabling Cloud Database      |
-| tRPC        | End-to-end typesafe APIs     |
-| Redux       | Centralized State Management |
+| Technology   | Description                  |
+| ------------ | ---------------------------- |
+| TypeScript   | Static Typing and TypeSafety |
+| React        | Javascript Framework         |
+| NextAuth     | Server Side Rendering (SSR)  |
+| Nextjs       | Server Side Rendering (SSR)  |
+| Prisma       | Type-safe query builder      |
+| Tailwind CSS | Rapid Styling                |
+| Mongo Atlas  | Enabling Cloud Database      |
+| tRPC         | End-to-end typesafe APIs     |
+| Redux        | Centralized State Management |
 
 ## Demo
 
