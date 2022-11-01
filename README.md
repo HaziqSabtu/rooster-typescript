@@ -14,12 +14,12 @@ Try now: [Rooster-t3](https://rooster-wheat.vercel.app/)
 | ------------ | ---------------------------- |
 | TypeScript   | Static Typing and TypeSafety |
 | React        | Javascript Framework         |
-| NextAuth     | Server Side Rendering (SSR)  |
+| NextAuth     | Google + Discord Auth        |
 | Nextjs       | Server Side Rendering (SSR)  |
-| Prisma       | Type-safe query builder      |
+| Prisma       | Type-safe ORM                |
 | Tailwind CSS | Rapid Styling                |
 | Mongo Atlas  | Enabling Cloud Database      |
-| tRPC         | End-to-end typesafe APIs     |
+| tRPC         | End-to-end Type-safe APIs    |
 | Redux        | Centralized State Management |
 
 ## Demo
